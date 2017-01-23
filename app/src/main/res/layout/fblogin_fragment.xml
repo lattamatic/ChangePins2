@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+    <!-- ViewPager -->
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="horizontal"
+        android:background="@android:color/white"
+        xmlns:android="http://schemas.android.com/apk/res/android" >
+
+        <android.support.v4.view.ViewPager
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/registerPager"
+            android:layout_width="match_parent"
+            android:layout_below="@+id/tvAction"
+            android:layout_height="300dp"
+            android:layout_margin="20dp"
+            android:layout_centerHorizontal="true">
+        </android.support.v4.view.ViewPager>
+
+        <com.facebook.login.widget.LoginButton
+            android:visibility="invisible"
+            android:clickable="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/login_button"
+            android:layout_marginTop="40dp"
+            android:layout_below="@+id/registerPager"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/login_fb" />
+
+        <TextView
+            android:id="@+id/tvSignup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SIGN UP"
+            android:padding="5dp"
+            android:textSize="20dp"
+            android:background="@drawable/border_all_sides_black"
+            android:layout_below="@+id/login_button"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"/>
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Participate"
+            android:textStyle="bold"
+            android:layout_alignParentTop="true"
+            android:layout_margin="10dp"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/tvAction"/>
+
+        <include layout="@layout/footer"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+           android:layout_below="@+id/registerPager"
+            android:layout_centerHorizontal="true"
+            android:background="#efefef"/>
+        <TextView
+            android:id="@+id/tvSkip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SKIP"
+            android:layout_marginRight="25dp"
+            android:layout_below="@+id/login_button"
+            android:layout_marginTop="20dp"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
+</FrameLayout>

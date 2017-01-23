@@ -1,0 +1,38 @@
+apply plugin: 'com.android.application'
+
+
+android {
+    signingConfigs {
+        config {
+            keyAlias 'MyKeyAndroid'
+            keyPassword 'sandeep'
+            storeFile file('/home/sandeep/Android/change_pin.jks')
+            storePassword 'sandeep'
+        }
+    }
+    compileSdkVersion 21
+    buildToolsVersion "23.0.1"
+    defaultConfig {
+        applicationId "sandeep.city"
+        minSdkVersion 16
+        targetSdkVersion 21
+    }
+    buildTypes {
+
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+apply plugin: 'com.google.gms.google-services'
+
+dependencies {
+    compile 'com.android.support:support-v4:21.0.3'
+    compile 'com.android.support:appcompat-v7:21.0.3'
+    compile 'com.facebook.android:facebook-android-sdk:4.1.0'
+    compile 'com.android.support:design:22.2.0'
+    compile 'com.google.android.gms:play-services-location:8.1.0'
+    compile 'com.google.android.gms:play-services-analytics:8.1.0'
+}

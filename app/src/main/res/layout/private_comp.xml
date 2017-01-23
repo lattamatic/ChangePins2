@@ -1,0 +1,120 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:padding="10dp">
+    <TextView
+        android:id="@+id/privcomp_center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"/>
+
+    <LinearLayout
+        android:id="@+id/ivElectricity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/privcomp_center"
+        android:layout_toLeftOf="@+id/privcomp_center"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_marginRight="35dp"
+        android:layout_marginBottom="55dp">
+
+        <ImageView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/electricity" />
+
+        <TextView
+            android:id="@+id/tvElectricity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Electricity"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ivWaterSupply"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/privcomp_center"
+        android:layout_above="@+id/privcomp_center"
+        android:orientation="vertical"
+        android:layout_marginLeft="35dp"
+        android:layout_marginBottom="55dp"
+        android:gravity="center">
+
+        <ImageView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/water" />
+        <TextView
+            android:id="@+id/tvWaterSupply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Water Supply"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ivSanitation"
+        android:layout_below="@+id/privcomp_center"
+        android:layout_toLeftOf="@+id/privcomp_center"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="35dp"
+        android:gravity="center"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/housing" />
+        <TextView
+            android:id="@+id/tvSanitation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Housing"
+            android:textStyle="bold" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/privcomp_center"
+        android:layout_toRightOf="@+id/privcomp_center"
+        android:id="@+id/ivMedical"
+        android:gravity="center"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="35dp">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/education" />
+        <TextView
+            android:id="@+id/tvMedical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Education"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/bPrivate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ivMedical"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/others_background"
+        android:layout_marginTop="36dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="Others"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold" />
+
+</RelativeLayout>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="10">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="14">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+
+            <ImageView
+                android:id="@+id/ivImages"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="5dp"
+                android:src="@drawable/eunoia3" />
+
+            <TextView
+                android:id="@+id/tvEunoiaDesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/ivImages"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:text="The Domlur Bus Stop getting  spotfixed! It's a shame that residents of Bengaluru tolerate the defacement and vandalism of its well-made bus-stops. Hopefully, things will change now - with this superb work by concerned residents of the area" />
+
+
+        </RelativeLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="10dp"
+        android:layout_weight="2"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/ivShareFB"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/facebook" />
+
+        <ImageView
+            android:id="@+id/ivShareWhatsapp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/whatsapp" />
+
+        <ImageView
+            android:id="@+id/ivShareTwitter"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/twitter" />
+
+        <ImageView
+            android:id="@+id/ivShare"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="7dp"
+            android:src="@drawable/dots_more" />
+    </LinearLayout>
+</LinearLayout>

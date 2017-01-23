@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="100dp"
+android:orientation="vertical"
+android:gravity="left">
+
+
+
+<ImageView
+
+    android:layout_width="80dp"
+    android:layout_height="45dp"
+    android:id="@+id/profilepic"
+    android:layout_marginLeft="0dp"
+    android:layout_marginRight="0dp"
+    android:layout_alignParentTop="true"
+    android:clickable="false"
+    android:layout_marginTop="20dp"
+    android:src="@drawable/profile_pic"
+
+    android:gravity="left" />
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:id="@+id/profilepic_name"
+    android:layout_marginLeft="10dp"
+    android:clickable="false"
+    android:text="Leopold Butters Stotch"
+    android:textSize="16dp"
+    android:paddingTop="5dp"
+    android:layout_marginBottom="5dp"
+    android:layout_toRightOf="@+id/profilepic"
+    android:layout_alignTop="@+id/profilepic"
+    android:textColor="#000"/>
+
+</RelativeLayout>

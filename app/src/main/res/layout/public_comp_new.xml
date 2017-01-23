@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:layout_marginTop="30dp">
+
+        <TableRow
+            android:layout_marginTop="30dp">
+            <ImageView
+                android:id="@+id/ivTransport"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/transport"/>
+            <ImageView
+                android:id="@+id/ivUtils"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/utils"/>
+            <ImageView
+                android:id="@+id/ivWasteManagement"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/wastes"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_marginBottom="30dp">
+            <TextView
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Transport"
+                android:textStyle="bold"/>
+            <TextView
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Utilities"
+                android:textStyle="bold"/>
+            <TextView
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Waste\nManagement"
+                android:textStyle="bold"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_marginTop="50dp">
+            <ImageView
+                android:id="@+id/ivSafety"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/safety"/>
+            <ImageView
+                android:id="@+id/ivPublicSpaces"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/public_spaces"/>
+            <ImageView
+                android:id="@+id/ivServices"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/services"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_marginTop="5dp">
+            <TextView
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Safety"
+                android:textStyle="bold"/>
+            <TextView
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Public Spaces"
+                android:textStyle="bold"/>
+            <TextView
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Services"
+                android:textStyle="bold"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_marginTop="50dp">
+            <TextView
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textStyle="bold"/>
+            <Button
+                android:layout_weight="1"
+                android:id="@+id/bPublic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/others_background"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:text="Others" />
+            <TextView
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textStyle="bold"/>
+        </TableRow>
+
+    </TableLayout>
+
+
+</LinearLayout>

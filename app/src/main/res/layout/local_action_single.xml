@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:id="@+id/tvBaseLine"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="231"
+        android:id="@+id/tvNoVols"
+        android:textSize="30dp"
+        android:layout_toLeftOf="@+id/tvBaseLine"
+        android:layout_below="@+id/tvBaseLine"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="50dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="30dp"
+        android:text="6"
+        android:id="@+id/tvNoHours"
+        android:layout_alignTop="@+id/tvNoVols"
+        android:layout_toRightOf="@+id/tvBaseLine"
+        android:layout_marginLeft="50dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Volunteers"
+        android:textStyle="bold"
+        android:id="@+id/volunteers"
+        android:layout_below="@+id/tvNoVols"
+        android:layout_alignRight="@+id/tvNoVols"
+        android:layout_alignEnd="@+id/tvNoVols" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hours"
+        android:id="@+id/hours"
+        android:textStyle="bold"
+        android:layout_below="@+id/tvNoHours"
+        android:layout_alignLeft="@+id/tvNoHours"
+        android:layout_alignStart="@+id/tvNoHours" />
+    <ImageView
+        android:paddingBottom="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="210dp"
+        android:id="@+id/ivGroupImage"
+        android:layout_below="@+id/volunteers"
+        android:src="@drawable/eunoia3"
+        android:layout_marginTop="15dp"
+        android:layout_centerHorizontal="true" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ivGroupImage"
+        android:padding="3dp"
+        android:background="@drawable/pager_bg"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/relativeLayout">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:id="@+id/tvBaseLineBox"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Vehicle free streets"
+            android:id="@+id/tvCause"
+            android:layout_margin="3dp"
+            android:layout_centerHorizontal="true"
+            android:textSize="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Adyar"
+            android:textSize="20dp"
+            android:id="@+id/tvLocation"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="3dp"
+            android:layout_below="@+id/tvCause"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="15/05/2015"
+            android:textSize="20dp"
+            android:id="@+id/tvDate"
+            android:layout_below="@+id/tvLocation"
+            android:layout_margin="3dp"
+            android:layout_centerHorizontal="true" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@+id/tvDate"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/linearLayout"
+            android:layout_marginRight="40dp"
+            android:layout_toLeftOf="@+id/tvBaseLineBox"
+            android:padding="3dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="JOIN"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                android:layout_gravity="bottom"/>
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/icon"
+                android:id="@+id/button"/>
+
+
+        </LinearLayout>
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/notif_read"
+            android:id="@+id/ivNoticeBoard"
+            android:padding="3dp"
+            android:layout_toRightOf="@+id/tvBaseLineBox"
+            android:layout_marginLeft="40dp"
+            android:layout_alignBottom="@+id/linearLayout"/>
+    </RelativeLayout>
+</RelativeLayout>
