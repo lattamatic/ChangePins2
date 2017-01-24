@@ -59,11 +59,11 @@ public class NewCustomPagerAdapter extends PagerAdapter implements View.OnClickL
 
     @Override
     public Object instantiateItem(ViewGroup container, final int position) {
-        View itemView = mLayoutInflater.inflate(R.layout.single_image, container, false);
+        View itemView = mLayoutInflater.inflate(R.layout.single_story, container, false);
 
-        ImageView imageView = (ImageView) itemView.findViewById(R.id.ivImages);
-        TextView desc = (TextView) itemView.findViewById(R.id.tvEunoiaDesc);
-        ImageView share = (ImageView) itemView.findViewById(R.id.ivShare);
+        ImageView imageView = (ImageView) itemView.findViewById(R.id.ivStoryImage);
+        TextView desc = (TextView) itemView.findViewById(R.id.tvStoryDesc);
+        ImageView share = (ImageView) itemView.findViewById(R.id.ivShareMore);
         ImageView fbShare = (ImageView) itemView.findViewById(R.id.ivShareFB);
         ImageView twitShare = (ImageView) itemView.findViewById(R.id.ivShareTwitter);
         ImageView whatsShare = (ImageView) itemView.findViewById(R.id.ivShareWhatsapp);
@@ -145,7 +145,7 @@ public class NewCustomPagerAdapter extends PagerAdapter implements View.OnClickL
                 }
                 break;
 
-            case R.id.ivShare:
+            case R.id.ivShareMore:
                 String message = "\n DOWNLOAD LINK";
                 Intent share = new Intent(Intent.ACTION_SEND);
                 share.setType("text/plain");

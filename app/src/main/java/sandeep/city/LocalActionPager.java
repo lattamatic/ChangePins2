@@ -1,11 +1,8 @@
 package sandeep.city;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.media.Image;
-import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -173,15 +170,15 @@ public class LocalActionPager extends PagerAdapter{
             this.id=id;
             this.comments=comments;
 
-            imageView = (ImageView) itemView.findViewById(R.id.ivGroupImage);
+            imageView = (ImageView) itemView.findViewById(R.id.ivLAGImage);
 
-            vols = (TextView) itemView.findViewById(R.id.tvNoVols);
-            hours = (TextView) itemView.findViewById(R.id.tvNoHours);
-            cause = (TextView) itemView.findViewById(R.id.tvCause);
-            location = (TextView) itemView.findViewById(R.id.tvLocation);
-            date = (TextView) itemView.findViewById(R.id.tvDate);
-            join = (LinearLayout) itemView.findViewById(R.id.linearLayout);
-            noticeBoard = (ImageView) itemView.findViewById(R.id.ivNoticeBoard);
+            vols = (TextView) itemView.findViewById(R.id.tvLAGNoOfVols);
+            hours = (TextView) itemView.findViewById(R.id.tvLAGNoOfHours);
+            cause = (TextView) itemView.findViewById(R.id.tvLAGTitle);
+            location = (TextView) itemView.findViewById(R.id.tvLAGLocation);
+            date = (TextView) itemView.findViewById(R.id.tvLAGDate);
+            join = (LinearLayout) itemView.findViewById(R.id.llJoinLAG);
+            noticeBoard = (ImageView) itemView.findViewById(R.id.ivLAGNoticeBoard);
         }
     }
 }

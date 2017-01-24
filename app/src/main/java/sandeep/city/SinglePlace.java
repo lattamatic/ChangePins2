@@ -2,18 +2,15 @@ package sandeep.city;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.Settings;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -22,12 +19,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
 
 public class SinglePlace extends RelativeLayout implements View.OnClickListener {
 
@@ -54,7 +45,7 @@ public class SinglePlace extends RelativeLayout implements View.OnClickListener 
 		inflater = (LayoutInflater) getContext().getSystemService(
 				Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.single_place, this, true);
-		location=(TextView) findViewById(R.id.tvLocation);
+		location=(TextView) findViewById(R.id.tvLAGLocation);
         setLocation= (ImageView) findViewById(R.id.ivSetLocation);
         address= (TextView) findViewById(R.id.tvAddress);
         setLocation.setOnClickListener(this);
