@@ -9,7 +9,6 @@
 
     <string-array name="nav_drawer_list_menu">
         <item>My Reports</item>
-        <item>My Groups</item>
         <item>Places</item>
         <item>About</item>
         <item>Help</item>

@@ -1,158 +1,97 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:padding="10dp" >
+    android:orientation="vertical"
+    android:padding="10dp">
 
     <LinearLayout
-        android:id="@+id/ivTransport"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/center"
-        android:layout_marginBottom="60dp"
-        android:layout_marginRight="25dp"
-        android:layout_toLeftOf="@+id/ivUtils"
-        android:orientation="vertical"
-        android:layout_gravity="center">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/transport"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Transport"
-            android:layout_marginTop="16dp"
-            android:textStyle="bold"/>
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/ivUtils"
-        android:layout_width="110dp"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/center"
-        android:layout_centerHorizontal="true"
-        android:orientation="vertical"
-        android:layout_marginBottom="60dp"
-        android:gravity="center">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/utils"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Utilities"
-            android:layout_marginTop="16dp"
-            android:textStyle="bold"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/ivWasteManagement"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/ivUtils"
-        android:layout_above="@+id/center"
-        android:layout_marginBottom="60dp"
-        android:layout_marginLeft="10dp"
-        android:orientation="vertical"
-        android:gravity="center">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/wastes"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Waste\nManagement"
-            android:textStyle="bold"
-            android:layout_marginTop="16dp"
-            android:gravity="center"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/ivPublicSpaces"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/center"
-        android:layout_centerHorizontal="true"
-        android:orientation="vertical"
-        android:gravity="center">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/public_spaces"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Public Spaces"
-            android:textStyle="bold"
-            android:layout_marginTop="16dp"/>
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/ivSafety"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:layout_below="@+id/center"
-        android:layout_toLeftOf="@+id/ivPublicSpaces"
-        android:layout_marginRight="25dp"
-        android:layout_marginTop="0dp">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/safety"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Safety"
-            android:layout_marginTop="16dp"
-            android:textStyle="bold"/>
-</LinearLayout>
-    <LinearLayout
-        android:id="@+id/ivServices"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_toRightOf="@+id/ivPublicSpaces"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp">
 
-        android:layout_below="@+id/center"
-        android:gravity="center">
-        <ImageView
+        <sandeep.city.Views.ImageIcon
+            android:id="@+id/iiTransport"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:image_icon="@drawable/transport"
+            app:title_name="Transport"></sandeep.city.Views.ImageIcon>
+
+        <sandeep.city.Views.ImageIcon
+            android:id="@+id/iiUtilities"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:image_icon="@drawable/utils"
+            app:title_name="Utilities">
+
+        </sandeep.city.Views.ImageIcon>
+
+
+        <sandeep.city.Views.ImageIcon
+            android:id="@+id/iiWasteManagement"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/services"/>
-        <TextView
+            android:layout_weight="1"
+            app:image_icon="@drawable/wastes"
+            app:title_name="Waste\nManagement">
+
+        </sandeep.city.Views.ImageIcon>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp">
+
+        <sandeep.city.Views.ImageIcon
+            android:id="@+id/iiPublicSpaces"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Services"
-            android:textStyle="bold"
-            android:layout_marginTop="16dp"/>
+            android:layout_weight="1"
+            app:image_icon="@drawable/public_spaces"
+            app:title_name="Public Spaces">
+
+        </sandeep.city.Views.ImageIcon>
+
+        <sandeep.city.Views.ImageIcon
+            android:id="@+id/iiSafety"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:image_icon="@drawable/safety"
+            app:title_name="Safety">
+
+        </sandeep.city.Views.ImageIcon>
+
+        <sandeep.city.Views.ImageIcon
+            android:id="@+id/iiServices"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:image_icon="@drawable/services"
+            app:title_name="Services">
+
+        </sandeep.city.Views.ImageIcon>
     </LinearLayout>
 
 
-
-
-
-
-    <TextView
-        android:id="@+id/center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"/>
     <Button
-        android:layout_marginTop="25dp"
         android:id="@+id/bPublic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ivPublicSpaces"
-        android:layout_centerHorizontal="true"
         android:background="@drawable/others_background"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        android:textStyle="bold"
+        android:text="Others"
+        android:layout_gravity="center"
         android:textColor="#FFFFFF"
-        android:text="Others" />
-</RelativeLayout>
+        android:textStyle="bold" />
+</LinearLayout>

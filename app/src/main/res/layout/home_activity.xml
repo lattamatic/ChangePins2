@@ -46,17 +46,8 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="21dp"
-                        android:layout_toLeftOf="@+id/ivLAGroups"
-                        android:src="@drawable/report" />
-
-                    <ImageView
-                        android:id="@+id/ivLAGroups"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="21dp"
                         android:layout_toLeftOf="@+id/ivBuzz"
-                        android:src="@drawable/join" />
+                        android:src="@drawable/report" />
 
                     <ImageView
                         android:id="@+id/ivBuzz"

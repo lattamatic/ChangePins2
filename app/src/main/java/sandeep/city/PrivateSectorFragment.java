@@ -14,17 +14,18 @@ import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
+import sandeep.city.Views.ImageIcon;
+
 public class PrivateSectorFragment extends Fragment implements OnClickListener,
 		android.content.DialogInterface.OnClickListener, OnLongClickListener {
 
-	LinearLayout electricity, waterSupply, sanitation, medical;
+	ImageIcon electricity, waterSupply, housing, education;
 	Button others;
 	AlertDialog.Builder builder;
 
@@ -48,22 +49,17 @@ public class PrivateSectorFragment extends Fragment implements OnClickListener,
 			Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.private_comp, container, false);
 
-		electricity = (LinearLayout) v.findViewById(R.id.ivElectricity);
-		waterSupply = (LinearLayout) v.findViewById(R.id.ivWaterSupply);
-		sanitation = (LinearLayout) v.findViewById(R.id.ivSanitation);
-		medical = (LinearLayout) v.findViewById(R.id.ivMedical);
+		electricity = (ImageIcon) v.findViewById(R.id.iiElectricity);
+		waterSupply = (ImageIcon) v.findViewById(R.id.iiWaterSupply);
+		housing = (ImageIcon) v.findViewById(R.id.iiHousing);
+		education = (ImageIcon) v.findViewById(R.id.iiEducation);
 		others = (Button) v.findViewById(R.id.bPrivate);
 
 		electricity.setOnClickListener(this);
 		waterSupply.setOnClickListener(this);
-		sanitation.setOnClickListener(this);
-		medical.setOnClickListener(this);
+		housing.setOnClickListener(this);
+		education.setOnClickListener(this);
 		others.setOnClickListener(this);
-
-//		electricity.setOnLongClickListener(this);
-//		waterSupply.setOnLongClickListener(this);
-//		sanitation.setOnLongClickListener(this);
-//		medical.setOnLongClickListener(this);
 
 		return v;
 	}
@@ -72,16 +68,7 @@ public class PrivateSectorFragment extends Fragment implements OnClickListener,
 	public void onClick(View v) {
 
 		if (v.getId() == R.id.bPrivate) {
-//			builder = new Builder(getActivity());
-//			builder.setTitle("Category");
-//			other = new EditText(getActivity());
-//			builder.setView(other);
-//			string = "OK";
-//			builder.setPositiveButton(string, this);
-//			builder.show();
-//            ///////////////////////////////////
-//            CustomDialog d = new CustomDialog(getActivity());
-//            d.show();
+
             d= new Dialog(getActivity());
             d.setContentView(R.layout.dialog);
             d.setTitle("Enter Category");
@@ -119,7 +106,7 @@ public class PrivateSectorFragment extends Fragment implements OnClickListener,
         } else {
 			switch (v.getId()) {
 
-			case R.id.ivElectricity:
+			case R.id.iiElectricity:
 				FinalComplaint.category="Electricity";
                 mTracker.send(new HitBuilders.EventBuilder()
                         .setCategory(getString(R.string.views))
@@ -128,7 +115,7 @@ public class PrivateSectorFragment extends Fragment implements OnClickListener,
                         .build());
 				break;
 
-			case R.id.ivWaterSupply:
+			case R.id.iiWaterSupply:
 				FinalComplaint.category="Water Supply";
                 mTracker.send(new HitBuilders.EventBuilder()
                         .setCategory(getString(R.string.views))
@@ -137,7 +124,7 @@ public class PrivateSectorFragment extends Fragment implements OnClickListener,
                         .build());
 				break;
 
-			case R.id.ivSanitation:
+			case R.id.iiHousing:
 				FinalComplaint.category="Housing";
                 mTracker.send(new HitBuilders.EventBuilder()
                         .setCategory(getString(R.string.views))
@@ -146,7 +133,7 @@ public class PrivateSectorFragment extends Fragment implements OnClickListener,
                         .build());
 				break;
 
-			case R.id.ivMedical:
+			case R.id.iiEducation:
 				FinalComplaint.category="Education";
                 mTracker.send(new HitBuilders.EventBuilder()
                         .setCategory(getString(R.string.views))
@@ -183,7 +170,7 @@ public class PrivateSectorFragment extends Fragment implements OnClickListener,
 	public boolean onLongClick(View v) {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
-		case R.id.ivElectricity:
+		case R.id.iiElectricity:
 
             mTracker.send(new HitBuilders.EventBuilder()
                     .setCategory(getString(R.string.views))
@@ -201,7 +188,7 @@ public class PrivateSectorFragment extends Fragment implements OnClickListener,
 			builder.show();
 			break;
 
-		case R.id.ivWaterSupply:
+		case R.id.iiWaterSupply:
 
             mTracker.send(new HitBuilders.EventBuilder()
                     .setCategory(getString(R.string.views))
@@ -219,7 +206,7 @@ public class PrivateSectorFragment extends Fragment implements OnClickListener,
 			builder2.show();
 			break;
 
-		case R.id.ivSanitation:
+		case R.id.iiHousing:
 
             mTracker.send(new HitBuilders.EventBuilder()
                     .setCategory(getString(R.string.views))
@@ -237,7 +224,7 @@ public class PrivateSectorFragment extends Fragment implements OnClickListener,
 			builder3.show();
 			break;
 
-		case R.id.ivMedical:
+		case R.id.iiEducation:
 
             mTracker.send(new HitBuilders.EventBuilder()
                     .setCategory(getString(R.string.views))

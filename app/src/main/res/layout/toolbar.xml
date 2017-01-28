@@ -30,16 +30,9 @@
         android:layout_height="wrap_content"
         android:src="@drawable/report"
         android:layout_marginRight="16dp"
-        android:layout_toLeftOf="@+id/ivLAGroups"/>
+        android:layout_toLeftOf="@+id/ivBuzz"/>
 
-    <ImageView
-        android:layout_centerVertical="true"
-        android:id="@+id/ivLAGroups"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/join"
-        android:layout_toLeftOf="@+id/ivBuzz"
-        android:layout_marginRight="16dp"/>
+
     <ImageView
         android:layout_centerVertical="true"
         android:id="@+id/ivBuzz"

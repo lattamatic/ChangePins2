@@ -20,10 +20,12 @@ import android.widget.Toast;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
+import sandeep.city.Views.ImageIcon;
+
 public class PublicSectorFragment extends Fragment implements OnClickListener, OnLongClickListener,CDialog.Communicator {
 
 	public static final String TAG = "PubSec";
-	LinearLayout transport, publicSpces, wasteManagement, safety, utils, services;
+	ImageIcon transport, publicSpces, wasteManagement, safety, utils, services;
 	Button others;
 	public String text;
     public String string;
@@ -47,12 +49,12 @@ public class PublicSectorFragment extends Fragment implements OnClickListener, O
 			Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.public_comp, container, false);
 
-		transport = (LinearLayout) v.findViewById(R.id.ivTransport);
-		publicSpces = (LinearLayout) v.findViewById(R.id.ivPublicSpaces);
-		wasteManagement = (LinearLayout) v.findViewById(R.id.ivWasteManagement);
-		safety = (LinearLayout) v.findViewById(R.id.ivSafety);
-		utils = (LinearLayout) v.findViewById(R.id.ivUtils);
-		services = (LinearLayout) v.findViewById(R.id.ivServices);
+		transport = (ImageIcon) v.findViewById(R.id.iiTransport);
+		publicSpces = (ImageIcon) v.findViewById(R.id.iiPublicSpaces);
+		wasteManagement = (ImageIcon) v.findViewById(R.id.iiWasteManagement);
+		safety = (ImageIcon) v.findViewById(R.id.iiSafety);
+		utils = (ImageIcon) v.findViewById(R.id.iiUtilities);
+		services = (ImageIcon) v.findViewById(R.id.iiServices);
 		others = (Button) v.findViewById(R.id.bPublic);
 
 		transport.setOnClickListener(this);
@@ -111,7 +113,7 @@ public class PublicSectorFragment extends Fragment implements OnClickListener, O
 
         } else {
 			switch (v.getId()) {
-			case R.id.ivTransport:
+			case R.id.iiTransport:
                 mTracker.send(new HitBuilders.EventBuilder()
                         .setCategory(getString(R.string.views))
                         .setAction(getString(R.string.click))
@@ -119,7 +121,7 @@ public class PublicSectorFragment extends Fragment implements OnClickListener, O
                         .build());
 				FinalComplaint.category = "Transport";
 				break;
-			case R.id.ivPublicSpaces:
+			case R.id.iiUtilities:
                 mTracker.send(new HitBuilders.EventBuilder()
                         .setCategory(getString(R.string.views))
                         .setAction(getString(R.string.click))
@@ -127,7 +129,7 @@ public class PublicSectorFragment extends Fragment implements OnClickListener, O
                         .build());
 				FinalComplaint.category = "Utilities";
 				break;
-			case R.id.ivWasteManagement:
+			case R.id.iiWasteManagement:
                 mTracker.send(new HitBuilders.EventBuilder()
                         .setCategory(getString(R.string.views))
                         .setAction(getString(R.string.click))
@@ -135,7 +137,7 @@ public class PublicSectorFragment extends Fragment implements OnClickListener, O
                         .build());
 				FinalComplaint.category = "Waste Management";
 				break;
-			case R.id.ivSafety:
+			case R.id.iiSafety:
                 mTracker.send(new HitBuilders.EventBuilder()
                         .setCategory(getString(R.string.views))
                         .setAction(getString(R.string.click))
@@ -143,7 +145,7 @@ public class PublicSectorFragment extends Fragment implements OnClickListener, O
                         .build());
 				FinalComplaint.category = "Safety";
 				break;
-			case R.id.ivUtils:
+			case R.id.iiPublicSpaces:
                 mTracker.send(new HitBuilders.EventBuilder()
                         .setCategory(getString(R.string.views))
                         .setAction(getString(R.string.click))
@@ -151,7 +153,7 @@ public class PublicSectorFragment extends Fragment implements OnClickListener, O
                         .build());
 				FinalComplaint.category = "Public Spaces";
 				break;
-			case R.id.ivServices:
+			case R.id.iiServices:
                 mTracker.send(new HitBuilders.EventBuilder()
                         .setCategory(getString(R.string.views))
                         .setAction(getString(R.string.click))
@@ -170,7 +172,7 @@ public class PublicSectorFragment extends Fragment implements OnClickListener, O
 	public boolean onLongClick(View v) {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
-		case R.id.ivTransport:
+		case R.id.iiTransport:
             mTracker.send(new HitBuilders.EventBuilder()
                     .setCategory(getString(R.string.views))
                     .setAction(getString(R.string.longclick))
@@ -186,7 +188,7 @@ public class PublicSectorFragment extends Fragment implements OnClickListener, O
 			builder.show();
 			break;
 
-		case R.id.ivPublicSpaces:
+		case R.id.iiUtilities:
             mTracker.send(new HitBuilders.EventBuilder()
                     .setCategory(getString(R.string.views))
                     .setAction(getString(R.string.longclick))
@@ -200,7 +202,7 @@ public class PublicSectorFragment extends Fragment implements OnClickListener, O
 			builder2.setView(description);
 			builder2.show();
 			break;
-		case R.id.ivWasteManagement:
+		case R.id.iiWasteManagement:
             mTracker.send(new HitBuilders.EventBuilder()
                     .setCategory(getString(R.string.views))
                     .setAction(getString(R.string.longclick))
@@ -214,7 +216,7 @@ public class PublicSectorFragment extends Fragment implements OnClickListener, O
 			builder3.setView(description);
 			builder3.show();
 			break;
-		case R.id.ivSafety:
+		case R.id.iiSafety:
             mTracker.send(new HitBuilders.EventBuilder()
                     .setCategory(getString(R.string.views))
                     .setAction(getString(R.string.longclick))
@@ -228,7 +230,7 @@ public class PublicSectorFragment extends Fragment implements OnClickListener, O
 			builder4.setView(description);
 			builder4.show();
 			break;
-		case R.id.ivUtils:
+		case R.id.iiPublicSpaces:
             mTracker.send(new HitBuilders.EventBuilder()
                     .setCategory(getString(R.string.views))
                     .setAction(getString(R.string.longclick))
@@ -242,7 +244,7 @@ public class PublicSectorFragment extends Fragment implements OnClickListener, O
 			builder5.setView(description);
 			builder5.show();
 			break;
-		case R.id.ivServices:
+		case R.id.iiServices:
             mTracker.send(new HitBuilders.EventBuilder()
                     .setCategory(getString(R.string.views))
                     .setAction(getString(R.string.longclick))

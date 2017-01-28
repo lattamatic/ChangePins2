@@ -36,7 +36,7 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
     ActionBarDrawerToggle toggle;
     ListView drawerList;
     public String[] drawer_menu;
-    ImageView title, report, laGroups, buzz;
+    ImageView title, report, buzz;
     public static int screenWatcher = 0;
     Tracker mTracker;
     AnalyticsApplication application;
@@ -87,12 +87,10 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
         drawerList.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, drawer_menu));
 
         title = (ImageView) findViewById(R.id.ivTitle);
-        laGroups = (ImageView) findViewById(R.id.ivLAGroups);
         report = (ImageView) findViewById(R.id.ivReport);
         buzz = (ImageView) findViewById(R.id.ivBuzz);
 
         title.setOnClickListener(this);
-        laGroups.setOnClickListener(this);
         report.setOnClickListener(this);
         buzz.setOnClickListener(this);
 
@@ -120,18 +118,8 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
                             atrans.commit();
                         }
                         break;
+
                     case 1:
-                        if (screenWatcher != 3) {
-                            screenWatcher = 3;
-                            MyGroups groups = new MyGroups();
-                            FragmentTransaction transs = getFragmentManager().beginTransaction();
-                            transs.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.came, R.anim.went);
-                            transs.replace(R.id.fragment, groups);
-                            transs.addToBackStack(null);
-                            transs.commit();
-                        }
-                        break;
-                    case 2:
                         if (screenWatcher != 4) {
                             screenWatcher = 4;
                             MyPlaces frament = new MyPlaces();
@@ -142,7 +130,7 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
                             trans.commit();
                         }
                         break;
-                    case 3:
+                    case 2:
                         if (screenWatcher != 5) {
                             screenWatcher = 5;
                             About about = new About();
@@ -153,7 +141,7 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
                             abtrans.commit();
                         }
                         break;
-                    case 4:
+                    case 3:
                         if (screenWatcher != 6) {
                             screenWatcher = 6;
                             Help help = new Help();
@@ -164,7 +152,7 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
                             helptrans.commit();
                         }
                         break;
-                    case 5:
+                    case 4:
                         Intent i = new Intent(HomeActivity.this, FBLogin.class);
                         startActivity(i);
                         finish();
@@ -172,7 +160,6 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
                 }
 
                 mDrawerLayout.closeDrawers();
-
             }
         });
 
@@ -217,25 +204,7 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
                     t.commit();
                 }
                 break;
-            case R.id.ivLAGroups:
-                if (screenWatcher != 8) {
-                    screenWatcher = 8;
 
-                    mTracker.send(new HitBuilders.EventBuilder()
-                            .setCategory(getString(R.string.views))
-                            .setAction(getString(R.string.click))
-                            .setLabel(getString(R.string.lagroups))
-                            .build());
-
-                    AllLocalActionGroups fragment = new AllLocalActionGroups();
-                    FragmentTransaction transaction = getFragmentManager()
-                            .beginTransaction();
-                    transaction.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.came, R.anim.went);
-                    transaction.replace(R.id.fragment, fragment);
-                    transaction.addToBackStack(null);
-                    transaction.commit();
-                }
-                break;
             case R.id.ivBuzz:
                 if (screenWatcher != 9) {
 

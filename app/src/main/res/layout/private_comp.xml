@@ -1,105 +1,67 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:orientation="vertical"
     android:padding="10dp">
-    <TextView
-        android:id="@+id/privcomp_center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"/>
+
 
     <LinearLayout
-        android:id="@+id/ivElectricity"
-        android:layout_width="wrap_content"
+        android:layout_margin="30dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/privcomp_center"
-        android:layout_toLeftOf="@+id/privcomp_center"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:layout_marginRight="35dp"
-        android:layout_marginBottom="55dp">
+        android:orientation="horizontal"
+        android:weightSum="2">
 
-        <ImageView
-
+        <sandeep.city.Views.ImageIcon
+            android:id="@+id/iiElectricity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/electricity" />
+            android:layout_weight="1"
+            app:image_icon="@drawable/electricity"
+            app:title_name="Electricity">
 
-        <TextView
-            android:id="@+id/tvElectricity"
+        </sandeep.city.Views.ImageIcon>
+
+
+        <sandeep.city.Views.ImageIcon
+            android:id="@+id/iiWaterSupply"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Electricity"
-            android:textStyle="bold" />
+            android:layout_weight="1"
+            app:image_icon="@drawable/water"
+            app:title_name="Water Supply">
+
+        </sandeep.city.Views.ImageIcon>
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ivWaterSupply"
-        android:layout_width="wrap_content"
+        android:layout_margin="30dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/privcomp_center"
-        android:layout_above="@+id/privcomp_center"
-        android:orientation="vertical"
-        android:layout_marginLeft="35dp"
-        android:layout_marginBottom="55dp"
-        android:gravity="center">
+        android:orientation="horizontal"
+        android:weightSum="2">
 
-        <ImageView
 
+        <sandeep.city.Views.ImageIcon
+            android:id="@+id/iiHousing"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/water" />
-        <TextView
-            android:id="@+id/tvWaterSupply"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Water Supply"
-            android:textStyle="bold" />
-    </LinearLayout>
+            android:layout_weight="1"
+            app:image_icon="@drawable/housing"
+            app:title_name="Housing">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/ivSanitation"
-        android:layout_below="@+id/privcomp_center"
-        android:layout_toLeftOf="@+id/privcomp_center"
-        android:layout_marginTop="15dp"
-        android:layout_marginRight="35dp"
-        android:gravity="center"
-        android:orientation="vertical">
-        <ImageView
+        </sandeep.city.Views.ImageIcon>
+
+        <sandeep.city.Views.ImageIcon
+            android:id="@+id/iiEducation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/housing" />
-        <TextView
-            android:id="@+id/tvSanitation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Housing"
-            android:textStyle="bold" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_below="@+id/privcomp_center"
-        android:layout_toRightOf="@+id/privcomp_center"
-        android:id="@+id/ivMedical"
-        android:gravity="center"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="35dp">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/education" />
-        <TextView
-            android:id="@+id/tvMedical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Education"
-            android:textStyle="bold" />
+            android:layout_weight="1"
+            app:image_icon="@drawable/education"
+            app:title_name="Education">
+
+        </sandeep.city.Views.ImageIcon>
 
     </LinearLayout>
 
@@ -107,14 +69,13 @@
         android:id="@+id/bPrivate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ivMedical"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/others_background"
+        android:layout_gravity="center"
         android:layout_marginTop="36dp"
+        android:background="@drawable/others_background"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:text="Others"
         android:textColor="#FFFFFF"
         android:textStyle="bold" />
 
-</RelativeLayout>
+</LinearLayout>
