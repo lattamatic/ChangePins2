@@ -10,8 +10,6 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-import sandeep.city.Views.ImageIcon;
-
 /**
  * Created by sandeep on 15/9/15.
  */

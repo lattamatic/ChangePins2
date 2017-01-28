@@ -13,19 +13,18 @@ import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
-import sandeep.city.Views.ImageIcon;
+import sandeep.city.Views.CustomIconTitle;
 
 public class PublicSectorFragment extends Fragment implements OnClickListener, OnLongClickListener,CDialog.Communicator {
 
 	public static final String TAG = "PubSec";
-	ImageIcon transport, publicSpces, wasteManagement, safety, utils, services;
+	CustomIconTitle transport, publicSpces, wasteManagement, safety, utils, services;
 	Button others;
 	public String text;
     public String string;
@@ -49,12 +48,12 @@ public class PublicSectorFragment extends Fragment implements OnClickListener, O
 			Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.public_comp, container, false);
 
-		transport = (ImageIcon) v.findViewById(R.id.iiTransport);
-		publicSpces = (ImageIcon) v.findViewById(R.id.iiPublicSpaces);
-		wasteManagement = (ImageIcon) v.findViewById(R.id.iiWasteManagement);
-		safety = (ImageIcon) v.findViewById(R.id.iiSafety);
-		utils = (ImageIcon) v.findViewById(R.id.iiUtilities);
-		services = (ImageIcon) v.findViewById(R.id.iiServices);
+		transport = (CustomIconTitle) v.findViewById(R.id.iiTransport);
+		publicSpces = (CustomIconTitle) v.findViewById(R.id.iiPublicSpaces);
+		wasteManagement = (CustomIconTitle) v.findViewById(R.id.iiWasteManagement);
+		safety = (CustomIconTitle) v.findViewById(R.id.iiSafety);
+		utils = (CustomIconTitle) v.findViewById(R.id.iiUtilities);
+		services = (CustomIconTitle) v.findViewById(R.id.iiServices);
 		others = (Button) v.findViewById(R.id.bPublic);
 
 		transport.setOnClickListener(this);

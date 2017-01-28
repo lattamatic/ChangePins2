@@ -20,12 +20,12 @@ import android.widget.Toast;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
-import sandeep.city.Views.ImageIcon;
+import sandeep.city.Views.CustomIconTitle;
 
 public class PrivateSectorFragment extends Fragment implements OnClickListener,
 		android.content.DialogInterface.OnClickListener, OnLongClickListener {
 
-	ImageIcon electricity, waterSupply, housing, education;
+	CustomIconTitle electricity, waterSupply, housing, education;
 	Button others;
 	AlertDialog.Builder builder;
 
@@ -49,10 +49,10 @@ public class PrivateSectorFragment extends Fragment implements OnClickListener,
 			Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.private_comp, container, false);
 
-		electricity = (ImageIcon) v.findViewById(R.id.iiElectricity);
-		waterSupply = (ImageIcon) v.findViewById(R.id.iiWaterSupply);
-		housing = (ImageIcon) v.findViewById(R.id.iiHousing);
-		education = (ImageIcon) v.findViewById(R.id.iiEducation);
+		electricity = (CustomIconTitle) v.findViewById(R.id.iiElectricity);
+		waterSupply = (CustomIconTitle) v.findViewById(R.id.iiWaterSupply);
+		housing = (CustomIconTitle) v.findViewById(R.id.iiHousing);
+		education = (CustomIconTitle) v.findViewById(R.id.iiEducation);
 		others = (Button) v.findViewById(R.id.bPrivate);
 
 		electricity.setOnClickListener(this);

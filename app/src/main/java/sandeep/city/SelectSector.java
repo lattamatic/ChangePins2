@@ -2,23 +2,21 @@ package sandeep.city;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
-import sandeep.city.Views.ImageIcon;
+import sandeep.city.Views.CustomIconTitle;
 
 public class SelectSector extends Fragment implements OnClickListener {
 
-	private ImageIcon privateSector;
-	private ImageIcon publicSector;
+	private CustomIconTitle privateSector;
+	private CustomIconTitle publicSector;
     Tracker mTracker;
     String TAG="SelectSector";
     AnalyticsApplication application;
@@ -36,8 +34,8 @@ public class SelectSector extends Fragment implements OnClickListener {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.select_sector, container, false);
-		privateSector = (ImageIcon) v.findViewById(R.id.ivPrivateSector);
-		publicSector = (ImageIcon) v.findViewById(R.id.ivPublicSector);
+		privateSector = (CustomIconTitle) v.findViewById(R.id.ivPrivateSector);
+		publicSector = (CustomIconTitle) v.findViewById(R.id.ivPublicSector);
 		privateSector.setOnClickListener(this);
 		publicSector.setOnClickListener(this);
 		return v;

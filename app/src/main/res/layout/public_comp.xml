@@ -13,34 +13,37 @@
         android:layout_marginTop="30dp"
         android:layout_marginBottom="30dp">
 
-        <sandeep.city.Views.ImageIcon
+        <sandeep.city.Views.CustomIconTitle
             android:id="@+id/iiTransport"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             app:image_icon="@drawable/transport"
-            app:title_name="Transport"></sandeep.city.Views.ImageIcon>
+            app:title_name="Transport"
+            app:titleSize="6sp"></sandeep.city.Views.CustomIconTitle>
 
-        <sandeep.city.Views.ImageIcon
+        <sandeep.city.Views.CustomIconTitle
             android:id="@+id/iiUtilities"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             app:image_icon="@drawable/utils"
-            app:title_name="Utilities">
+            app:title_name="Utilities"
+            app:titleSize="6sp">
 
-        </sandeep.city.Views.ImageIcon>
+        </sandeep.city.Views.CustomIconTitle>
 
 
-        <sandeep.city.Views.ImageIcon
+        <sandeep.city.Views.CustomIconTitle
             android:id="@+id/iiWasteManagement"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             app:image_icon="@drawable/wastes"
-            app:title_name="Waste\nManagement">
+            app:title_name="Waste Management"
+            app:titleSize="6sp">
 
-        </sandeep.city.Views.ImageIcon>
+        </sandeep.city.Views.CustomIconTitle>
     </LinearLayout>
 
     <LinearLayout
@@ -51,35 +54,38 @@
         android:layout_marginTop="30dp"
         android:layout_marginBottom="30dp">
 
-        <sandeep.city.Views.ImageIcon
+        <sandeep.city.Views.CustomIconTitle
             android:id="@+id/iiPublicSpaces"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             app:image_icon="@drawable/public_spaces"
-            app:title_name="Public Spaces">
+            app:title_name="Public Spaces"
+            app:titleSize="6sp">
 
-        </sandeep.city.Views.ImageIcon>
+        </sandeep.city.Views.CustomIconTitle>
 
-        <sandeep.city.Views.ImageIcon
+        <sandeep.city.Views.CustomIconTitle
             android:id="@+id/iiSafety"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             app:image_icon="@drawable/safety"
-            app:title_name="Safety">
+            app:title_name="Safety"
+            app:titleSize="6sp">
 
-        </sandeep.city.Views.ImageIcon>
+        </sandeep.city.Views.CustomIconTitle>
 
-        <sandeep.city.Views.ImageIcon
+        <sandeep.city.Views.CustomIconTitle
             android:id="@+id/iiServices"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             app:image_icon="@drawable/services"
-            app:title_name="Services">
+            app:title_name="Services"
+            app:titleSize="6sp">
 
-        </sandeep.city.Views.ImageIcon>
+        </sandeep.city.Views.CustomIconTitle>
     </LinearLayout>
 
 
