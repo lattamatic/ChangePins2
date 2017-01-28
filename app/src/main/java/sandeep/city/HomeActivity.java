@@ -36,15 +36,13 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
     ActionBarDrawerToggle toggle;
     ListView drawerList;
     public String[] drawer_menu;
-    ImageView title, report, laGroups, buzz, report1, laGroups1, buzz1;
+    ImageView title, report, laGroups, buzz;
     public static int screenWatcher = 0;
     Tracker mTracker;
     AnalyticsApplication application;
     public static TextView userName;
     public static ImageView userImage;
     public static String category;
-    Button gotIt;
-    RelativeLayout layer;
     String Preferences;
     SharedPreferences prefs;
     SharedPreferences.Editor editor;
@@ -70,9 +68,6 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
                 Preferences, Context.MODE_PRIVATE);
         editor=prefs.edit();
 
-        boolean isFirstrun = prefs.getBoolean("onboarding",
-                true);
-
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -96,14 +91,6 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
         report = (ImageView) findViewById(R.id.ivReport);
         buzz = (ImageView) findViewById(R.id.ivBuzz);
 
-        layer = (RelativeLayout) findViewById(R.id.rlLayer);
-        laGroups1 = (ImageView) findViewById(R.id.ivLAGroups1);
-        report1 = (ImageView) findViewById(R.id.ivReport1);
-        buzz1 = (ImageView) findViewById(R.id.ivBuzz1);
-        gotIt = (Button) findViewById(R.id.bClose);
-        gotIt.setOnClickListener(this);
-        report1.setOnClickListener(this);
-
         title.setOnClickListener(this);
         laGroups.setOnClickListener(this);
         report.setOnClickListener(this);
@@ -116,10 +103,6 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
         trans.commit();
         screenWatcher = 1;
 
-
-        if(!isFirstrun){
-            layer.setVisibility(View.GONE);
-        }
 
         drawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -214,9 +197,7 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.ivReport1:
-                Log.d("let's see", "Clicked");
-                layer.setVisibility(View.GONE);
+
             case R.id.ivReport:
                 if (screenWatcher != 7) {
                     screenWatcher = 7;
@@ -293,10 +274,6 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
                     trans.commit();
                 }
                 break;
-            case R.id.bClose:
-                layer.setVisibility(View.GONE);
-                break;
-
         }
     }
 
