@@ -80,6 +80,7 @@
 
 
     <string name="createprofile">Create Profile </string>
+    <string name="registercomplaint">Register Complaint</string>
 
     <!--Strings for shared preferences-->
     <string name="user">user</string>

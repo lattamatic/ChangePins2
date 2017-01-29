@@ -4,8 +4,6 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.app.Fragment;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +19,6 @@ import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
 import sandeep.city.AnalyticsApplication;
-import sandeep.city.Activity.ActivityRegisterComplaint;
 import sandeep.city.InterfaceOnClickCategory;
 import sandeep.city.R;
 import sandeep.city.Views.ViewIconTitle;
@@ -57,7 +54,7 @@ public class FragmentPrivateSector extends Fragment implements OnClickListener,O
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.private_comp, container, false);
+        View v = inflater.inflate(R.layout.frag_privatecategories, container, false);
 
         electricity = (ViewIconTitle) v.findViewById(R.id.iiElectricity);
         waterSupply = (ViewIconTitle) v.findViewById(R.id.iiWaterSupply);

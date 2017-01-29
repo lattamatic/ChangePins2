@@ -42,7 +42,7 @@ public class ActivityChooseCategory extends ChangePinsActivity implements Fragme
 
     @Override
     protected int getTitleText() {
-        return R.string.myreports;
+        return R.string.registercomplaint;
     }
 
     @Override

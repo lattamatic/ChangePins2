@@ -1,7 +1,6 @@
 package sandeep.city.Fragment;
 
 import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,7 +41,7 @@ public class FragmentSelectSector extends Fragment implements OnClickListener {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View v = inflater.inflate(R.layout.select_sector, container, false);
+		View v = inflater.inflate(R.layout.frag_selectsector, container, false);
 		privateSector = (ViewIconTitle) v.findViewById(R.id.ivPrivateSector);
 		publicSector = (ViewIconTitle) v.findViewById(R.id.ivPublicSector);
 		privateSector.setOnClickListener(this);
