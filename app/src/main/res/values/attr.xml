@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="CustomIconTitle">
+    <declare-styleable name="ViewIconTitle">
         <attr name="title_name" format="string" />
         <attr name="image_icon" format="reference"/>
         <attr name="titleSize" format="dimension"/>

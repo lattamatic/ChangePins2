@@ -42,7 +42,7 @@ public class CDialog extends DialogFragment implements View.OnClickListener{
         }
     }
 
-    interface Communicator
+    public interface Communicator
     {
         public void onDialogMessage(String message);
     }

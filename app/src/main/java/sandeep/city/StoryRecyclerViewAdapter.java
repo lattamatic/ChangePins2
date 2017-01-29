@@ -1,7 +1,6 @@
 package sandeep.city;
 
 import android.support.v7.widget.RecyclerView;
-import android.test.suitebuilder.TestMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +8,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
+
+import sandeep.city.POJO.SingleStory;
 
 /**
  * Created by sandeep_chi on 1/24/2017.

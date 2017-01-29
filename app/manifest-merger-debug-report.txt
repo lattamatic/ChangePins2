@@ -85,7 +85,7 @@ MERGED from com.google.maps.android:android-maps-utils:0.3.4:7:5
 		ADDED from AndroidManifest.xml:32:9
 	android:theme
 		ADDED from AndroidManifest.xml:34:9
-activity#sandeep.city.MainActivity
+activity#sandeep.city.Activity.ActivityMain
 ADDED from AndroidManifest.xml:35:9
 	android:label
 		ADDED from AndroidManifest.xml:37:13
@@ -105,7 +105,7 @@ activity#sandeep.city.Complaint
 ADDED from AndroidManifest.xml:44:9
 	android:name
 		ADDED from AndroidManifest.xml:44:19
-activity#sandeep.city.SelectSector
+activity#sandeep.city.Fragment.FragmentSelectSector
 ADDED from AndroidManifest.xml:46:9
 	android:name
 		ADDED from AndroidManifest.xml:46:19

@@ -64,14 +64,13 @@
 
                 <!--Actionbar icons-->
     <string name="report">Report</string>
-    <string name="lagroups">Local Action Groups</string>
     <string name="buzz">Buzz</string>
     <string name="home">Title/Home</string>
 
                 <!--Navigation Drawer-->
     <string name="myreports">My Reports</string>
     <string name="mygroups">My Groups</string>
-    <string name="places">Places</string>
+    <string name="myplaces">My Places</string>
     <string name="about">About</string>
     <string name="help">Help</string>
     <string name="logout">Logout</string>
@@ -79,6 +78,8 @@
                 <!--Reporting page-->
     <string name="succesfulreport">Reported Successfully</string>
 
+
+    <string name="createprofile">Create Profile </string>
 
     <!--Strings for shared preferences-->
     <string name="user">user</string>

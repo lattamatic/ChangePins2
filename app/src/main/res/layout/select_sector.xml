@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"/>
 
-    <sandeep.city.Views.CustomIconTitle
+    <sandeep.city.Views.ViewIconTitle
         android:id="@+id/ivPublicSector"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -22,7 +22,7 @@
         app:titleSize="10sp"/>
 
 
-    <sandeep.city.Views.CustomIconTitle
+    <sandeep.city.Views.ViewIconTitle
         android:id="@+id/ivPrivateSector"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

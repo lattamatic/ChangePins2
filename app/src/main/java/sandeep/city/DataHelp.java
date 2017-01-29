@@ -5,7 +5,6 @@ package sandeep.city;
  */
 
         import java.util.ArrayList;
-        import java.util.List;
 
         import android.content.ContentValues;
         import android.content.Context;
@@ -14,6 +13,10 @@ package sandeep.city;
         import android.database.sqlite.SQLiteOpenHelper;
         import android.util.Log;
         import android.widget.Toast;
+
+        import sandeep.city.POJO.SingleGroup;
+        import sandeep.city.POJO.SinglePlace;
+        import sandeep.city.POJO.SingleReport;
 
 public class DataHelp
 {

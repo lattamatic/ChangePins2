@@ -13,16 +13,16 @@
         android:layout_marginTop="30dp"
         android:layout_marginBottom="30dp">
 
-        <sandeep.city.Views.CustomIconTitle
+        <sandeep.city.Views.ViewIconTitle
             android:id="@+id/iiTransport"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             app:image_icon="@drawable/transport"
             app:title_name="Transport"
-            app:titleSize="6sp"></sandeep.city.Views.CustomIconTitle>
+            app:titleSize="6sp"></sandeep.city.Views.ViewIconTitle>
 
-        <sandeep.city.Views.CustomIconTitle
+        <sandeep.city.Views.ViewIconTitle
             android:id="@+id/iiUtilities"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -31,10 +31,10 @@
             app:title_name="Utilities"
             app:titleSize="6sp">
 
-        </sandeep.city.Views.CustomIconTitle>
+        </sandeep.city.Views.ViewIconTitle>
 
 
-        <sandeep.city.Views.CustomIconTitle
+        <sandeep.city.Views.ViewIconTitle
             android:id="@+id/iiWasteManagement"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
             app:title_name="Waste Management"
             app:titleSize="6sp">
 
-        </sandeep.city.Views.CustomIconTitle>
+        </sandeep.city.Views.ViewIconTitle>
     </LinearLayout>
 
     <LinearLayout
@@ -54,7 +54,7 @@
         android:layout_marginTop="30dp"
         android:layout_marginBottom="30dp">
 
-        <sandeep.city.Views.CustomIconTitle
+        <sandeep.city.Views.ViewIconTitle
             android:id="@+id/iiPublicSpaces"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -63,9 +63,9 @@
             app:title_name="Public Spaces"
             app:titleSize="6sp">
 
-        </sandeep.city.Views.CustomIconTitle>
+        </sandeep.city.Views.ViewIconTitle>
 
-        <sandeep.city.Views.CustomIconTitle
+        <sandeep.city.Views.ViewIconTitle
             android:id="@+id/iiSafety"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -74,9 +74,9 @@
             app:title_name="Safety"
             app:titleSize="6sp">
 
-        </sandeep.city.Views.CustomIconTitle>
+        </sandeep.city.Views.ViewIconTitle>
 
-        <sandeep.city.Views.CustomIconTitle
+        <sandeep.city.Views.ViewIconTitle
             android:id="@+id/iiServices"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -85,7 +85,7 @@
             app:title_name="Services"
             app:titleSize="6sp">
 
-        </sandeep.city.Views.CustomIconTitle>
+        </sandeep.city.Views.ViewIconTitle>
     </LinearLayout>
 
 

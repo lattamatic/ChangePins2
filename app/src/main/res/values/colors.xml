@@ -2,4 +2,11 @@
 <resources>
 
     <color name="dull" id="dull">#B2B2B2</color>
+
+
+    <color name="colorPrimary">#999</color>
+    <color name="colorPrimaryDark">#000</color>
+    <color name="colorAccent">#999</color>
+
+
 </resources>
