@@ -1,9 +1,11 @@
 package sandeep.city.Activity;
 
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,8 +22,8 @@ import java.util.ArrayList;
 import sandeep.city.ChangePinsActivity;
 import sandeep.city.DataHelp;
 import sandeep.city.FinalComp;
-import sandeep.city.R;
 import sandeep.city.POJO.SingleReport;
+import sandeep.city.R;
 
 /**
  * Created by sandeep on 26/10/15.
@@ -32,7 +34,6 @@ public class ActivityMyReports extends ChangePinsActivity {
     ListView reports;
     ArrayList<SingleReport> reportList;
     ReportsAdapter adapter;
-    View v;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,25 +60,15 @@ public class ActivityMyReports extends ChangePinsActivity {
                     transaction.commit();
                 }
             });
-        } else {
-            setContentView(R.layout.no_reports);
-            TextView tv = (TextView) findViewById(R.id.tvNoReports);
-            tv.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    finish();
-//                    FragmentTransaction transaction = getFragmentManager()
-//                            .beginTransaction();
-//                    transaction.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.came, R.anim.went);
-//
-//                    transaction.replace(R.id.fragment1, new FragmentSelectSector())
-//                            .addToBackStack("Secs");
-//                    transaction.commit();
-//                }
-                }
-            });
-
         }
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabAddReport);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ActivityMyReports.this,ActivityChooseCategory.class));
+            }
+        });
     }
 
     @Override

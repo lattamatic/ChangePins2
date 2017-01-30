@@ -1,19 +1,19 @@
 package sandeep.city.Activity;
 
-import java.util.ArrayList;
-
 import android.app.Dialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import sandeep.city.ChangePinsActivity;
 import sandeep.city.DataHelp;
@@ -22,15 +22,8 @@ import sandeep.city.R;
 
 public class ActivityMyPlaces extends ChangePinsActivity{
 
-	LinearLayout layout;
-	SinglePlace place, close;
-	TextView add;
-    ImageView addLoc;
-	SharedPreferences preferences;
-	SharedPreferences.Editor editor;
-	int count;
+
     Dialog d;
-    ArrayList<SinglePlace> places;
 
 
     private DataHelp dh;
@@ -40,36 +33,17 @@ public class ActivityMyPlaces extends ChangePinsActivity{
         super.onCreate(savedInstanceState);
 
         dh = new DataHelp(this);
-        layout = (LinearLayout) findViewById(R.id.myPlaceLinlayout);
-        display();
-        add = (TextView) findViewById(R.id.tvAddLocation);
-        addLoc= (ImageView) findViewById(R.id.ivAddLocation);
-        add.setOnClickListener(new OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                showDialog();
-            }
-        });
-        addLoc.setOnClickListener(new OnClickListener(){
-
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabAddPlace);
+        fab.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDialog();
             }
         });
+
     }
 
-    private void display() {
-        places = dh.getPlaces();
-        count =places.size();
-        layout.removeAllViews();
-        for (int i = 0; i < count; i++) {
-            place = places.get(i);
-            layout.addView(place, i);
-        }
-    }
 
     private void showDialog(){
         d= new Dialog(this);
@@ -90,7 +64,6 @@ public class ActivityMyPlaces extends ChangePinsActivity{
                             Toast.LENGTH_SHORT).show();
                 } else {
                     dh.place_insert(string.toUpperCase(),0,0,"Click icon to set location");
-                    display();
                 }
                 d.dismiss();
 
