@@ -61,7 +61,7 @@ public class FinalComp extends Fragment{
 
         category.setText(singleReport.getCategory());
         title.setText(singleReport.getTitle());
-        desc.setText(singleReport.getDesc());
+        desc.setText(singleReport.getDescription());
         location.setText("Latitude:"+singleReport.getLat()+"\nLongitude: "+singleReport.getLon()+"\n\n"+singleReport.getLocAddress());
         File imgFile = new File("/sdcard/ChangePins/"+singleReport.getImg_link()+".jpg");
 

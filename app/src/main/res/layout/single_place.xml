@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="HOME"
-        android:id="@+id/tvLAGLocation"
+        android:id="@+id/tvPlaceTitle"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -18,16 +18,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Click on the icon to set location"
-        android:id="@+id/tvAddress"
-        android:layout_alignTop="@+id/tvLAGLocation"
-        android:layout_toLeftOf="@+id/ivSetLocation"
+        android:id="@+id/tvPlaceAddress"
+        android:layout_alignTop="@+id/tvPlaceTitle"
+        android:layout_toLeftOf="@+id/ivPlaceSetLocation"
         android:gravity="right"
-        android:layout_toRightOf="@+id/tvLAGLocation"/>
+        android:layout_toRightOf="@+id/tvPlaceTitle"/>
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/ivSetLocation"
+        android:id="@+id/ivPlaceSetLocation"
         android:src="@drawable/location"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"

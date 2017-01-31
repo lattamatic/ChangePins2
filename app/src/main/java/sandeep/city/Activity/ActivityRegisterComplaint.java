@@ -41,7 +41,6 @@ import java.util.ArrayList;
 
 import sandeep.city.AnalyticsApplication;
 import sandeep.city.AppLocationService;
-import sandeep.city.DataHelp;
 import sandeep.city.DownloadImageTask;
 import sandeep.city.POJO.SingleReport;
 import sandeep.city.R;
@@ -74,8 +73,6 @@ public class ActivityRegisterComplaint extends Activity implements OnClickListen
     String mCurrentPhotoPath;
     private Uri picUri;
 
-    private DataHelp dh;
-
     Tracker mTracker;
     AnalyticsApplication application;
 
@@ -89,7 +86,7 @@ public class ActivityRegisterComplaint extends Activity implements OnClickListen
         mTracker = application.getDefaultTracker();
 
 
-        dh = new DataHelp(this);
+      //  dh = new DataHelp(this);
         title = (TextView) findViewById(R.id.tvCategory);
         location_set = (TextView) findViewById(R.id.location_set);
         upload = (ImageView) findViewById(R.id.bUploadImage);
@@ -149,90 +146,90 @@ public class ActivityRegisterComplaint extends Activity implements OnClickListen
                 }
                 break;
             case R.id.bSubmit:
-                if (ettitle.getText().toString().matches("")) {
-                    Toast.makeText(this, "Title cannot be empty",
-                            Toast.LENGTH_SHORT).show();
-                } else if (description.getText().toString().matches("")) {
-                    Toast.makeText(this, "Description cannot be empty",
-                            Toast.LENGTH_SHORT).show();
-                }
-// else if (location_set.getText().toString().matches("")) {
-//                    Toast.makeText(this, "Turn on GPS and add location",
+//                if (ettitle.getText().toString().matches("")) {
+//                    Toast.makeText(this, "Title cannot be empty",
+//                            Toast.LENGTH_SHORT).show();
+//                } else if (description.getText().toString().matches("")) {
+//                    Toast.makeText(this, "Description cannot be empty",
 //                            Toast.LENGTH_SHORT).show();
 //                }
-                else if (staticMap.getVisibility() == View.GONE) {
-                    Toast.makeText(this, "Choose a location to proceed", Toast.LENGTH_SHORT).show();
-                    PlacePicker.IntentBuilder buildr = new PlacePicker.IntentBuilder();
-                    Context c = this;
-                    try {
-                        startActivityForResult(buildr.build(c), LOCATION);
-                    } catch (GooglePlayServicesRepairableException e) {
-                        e.printStackTrace();
-                    } catch (GooglePlayServicesNotAvailableException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    mTracker.send(new HitBuilders.EventBuilder()
-                            .setCategory(getString(R.string.views))
-                            .setAction(getString(R.string.click))
-                            .setLabel(getString(R.string.succesfulreport))
-                            .build());
-
-                    tit = ettitle.getText().toString();
-                    descString = description.getText().toString();
-                    //loc_address = location_set.getText().toString();
-
-                    BitmapDrawable bitmapDrawable = (BitmapDrawable) imageView.getDrawable();
-                    Bitmap mIcon = bitmapDrawable.getBitmap();
-
-
-                    ArrayList<SingleReport> gen = dh.getReports();
-                    String file_id = String.valueOf(gen.size() + 1);
-
-                    File sdCardDirectory = Environment.getExternalStorageDirectory();
-                    sdCardDirectory = new File(sdCardDirectory.getAbsolutePath() + "/ChangePins/");
-                    sdCardDirectory.mkdirs();
-                    File image = new File(sdCardDirectory, file_id + ".jpg");
-                    String file_path = image.getAbsolutePath();
-                    boolean success = false;
-
-                    // Encode the file as a PNG image.
-                    FileOutputStream outStream;
-                    try {
-
-                        outStream = new FileOutputStream(image);
-                        mIcon.compress(Bitmap.CompressFormat.JPEG, 100, outStream);
-        /* 100 to keep full quality of the image */
-
-                        outStream.flush();
-                        outStream.close();
-                        success = true;
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    if (success) {
-                        Toast.makeText(this, "Reported successfully",
-                                Toast.LENGTH_LONG).show();
-                        dh.report_insert(tit, descString, file_id, latitude, longitude, loc_address, title.getText().toString());
-
-                        imageView.setImageResource(R.drawable.frame);
-                        locMessage.setVisibility(View.VISIBLE);
-                        staticMap.setVisibility(View.GONE);
-                        ettitle.setText("");
-                        description.setText("");
-
-
-                    } else {
-                        Toast.makeText(this,
-                                "Error during image saving", Toast.LENGTH_LONG).show();
-                    }
-
-                }
-
-
-                break;
+//// else if (location_set.getText().toString().matches("")) {
+////                    Toast.makeText(this, "Turn on GPS and add location",
+////                            Toast.LENGTH_SHORT).show();
+////                }
+//                else if (staticMap.getVisibility() == View.GONE) {
+//                    Toast.makeText(this, "Choose a location to proceed", Toast.LENGTH_SHORT).show();
+//                    PlacePicker.IntentBuilder buildr = new PlacePicker.IntentBuilder();
+//                    Context c = this;
+//                    try {
+//                        startActivityForResult(buildr.build(c), LOCATION);
+//                    } catch (GooglePlayServicesRepairableException e) {
+//                        e.printStackTrace();
+//                    } catch (GooglePlayServicesNotAvailableException e) {
+//                        e.printStackTrace();
+//                    }
+//                } else {
+//                    mTracker.send(new HitBuilders.EventBuilder()
+//                            .setCategory(getString(R.string.views))
+//                            .setAction(getString(R.string.click))
+//                            .setLabel(getString(R.string.succesfulreport))
+//                            .build());
+//
+//                    tit = ettitle.getText().toString();
+//                    descString = description.getText().toString();
+//                    //loc_address = location_set.getText().toString();
+//
+//                    BitmapDrawable bitmapDrawable = (BitmapDrawable) imageView.getDrawable();
+//                    Bitmap mIcon = bitmapDrawable.getBitmap();
+//
+//
+//                  //  ArrayList<SingleReport> gen = dh.getReports();
+//                   // String file_id = String.valueOf(gen.size() + 1);
+//
+//                    File sdCardDirectory = Environment.getExternalStorageDirectory();
+//                    sdCardDirectory = new File(sdCardDirectory.getAbsolutePath() + "/ChangePins/");
+//                    sdCardDirectory.mkdirs();
+//                    //File image = new File(sdCardDirectory, file_id + ".jpg");
+//                    //String file_path = image.getAbsolutePath();
+//                    boolean success = false;
+//
+//                    // Encode the file as a PNG image.
+//                    FileOutputStream outStream;
+//                    try {
+//
+//                      //  outStream = new FileOutputStream(image);
+//                        //mIcon.compress(Bitmap.CompressFormat.JPEG, 100, outStream);
+//        /* 100 to keep full quality of the image */
+//
+//                        //outStream.flush();
+//                        //outStream.close();
+//                        success = true;
+//                    } catch (FileNotFoundException e) {
+//                        e.printStackTrace();
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                    if (success) {
+//                        Toast.makeText(this, "Reported successfully",
+//                                Toast.LENGTH_LONG).show();
+//                        dh.report_insert(tit, descString, file_id, latitude, longitude, loc_address, title.getText().toString());
+//
+//                        imageView.setImageResource(R.drawable.frame);
+//                        locMessage.setVisibility(View.VISIBLE);
+//                        staticMap.setVisibility(View.GONE);
+//                        ettitle.setText("");
+//                        description.setText("");
+//
+//
+//                    } else {
+//                        Toast.makeText(this,
+//                                "Error during image saving", Toast.LENGTH_LONG).show();
+//                    }
+//
+//                }
+//
+//
+//                break;
             case R.id.ivBack:
                 finish();
                 break;

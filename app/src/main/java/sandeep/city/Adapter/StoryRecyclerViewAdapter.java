@@ -1,4 +1,4 @@
-package sandeep.city;
+package sandeep.city.Adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +10,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import sandeep.city.POJO.SingleStory;
+import sandeep.city.R;
 
 /**
  * Created by sandeep_chi on 1/24/2017.
@@ -19,7 +20,7 @@ public class StoryRecyclerViewAdapter extends RecyclerView.Adapter<StoryRecycler
 
     private List<SingleStory> storyList;
 
-    public StoryRecyclerViewAdapter(List<SingleStory> storyList){
+    public StoryRecyclerViewAdapter(List<SingleStory> storyList) {
         this.storyList = storyList;
     }
 
@@ -27,6 +28,7 @@ public class StoryRecyclerViewAdapter extends RecyclerView.Adapter<StoryRecycler
 
         public TextView description, author;
         public ImageView storyImage;
+
         public ViewHolder(View v) {
             super(v);
             description = (TextView) v.findViewById(R.id.tvStoryDesc);
@@ -34,8 +36,6 @@ public class StoryRecyclerViewAdapter extends RecyclerView.Adapter<StoryRecycler
             storyImage = (ImageView) v.findViewById(R.id.ivStoryImage);
         }
     }
-
-
 
 
     @Override

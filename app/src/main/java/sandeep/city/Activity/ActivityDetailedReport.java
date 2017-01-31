@@ -12,8 +12,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import sandeep.city.DataHelp;
-import sandeep.city.POJO.SingleReport;
 import sandeep.city.R;
 
 /**
@@ -26,7 +24,6 @@ public class ActivityDetailedReport extends ActionBarActivity implements TextWat
     LinearLayout addImage;
     int checkmode,checkChanges;
     Boolean inEditMode;
-    DataHelp dh;
     int id;
     String t, des;
 
@@ -35,12 +32,10 @@ public class ActivityDetailedReport extends ActionBarActivity implements TextWat
         super.onCreate(savedInstanceState);
         setContentView(R.layout.report_detailed_layout);
 
-        dh = new DataHelp(this);
-
         id=getIntent().getIntExtra("id",-1);
         Log.d("id",id+" ");
 
-        SingleReport report = dh.getaReport(id);
+      //  SingleReport report = dh.getaReport(id);
 
 
         title = (EditText) findViewById(R.id.etComplainTitle);
@@ -56,8 +51,8 @@ public class ActivityDetailedReport extends ActionBarActivity implements TextWat
         inEditMode = false;
 
 
-        title.setText(report.getTitle());
-        description.setText(report.getDesc());
+//        title.setText(report.getTitle());
+//        description.setText(report.getDescription());
 
         title.addTextChangedListener(this);
         description.addTextChangedListener(this);
@@ -123,7 +118,7 @@ public class ActivityDetailedReport extends ActionBarActivity implements TextWat
     }
 
     private void saveChanges() {
-        dh.report_update(id, "Title","Description",0.0,0.0, "Himalayas");
+     //   dh.report_update(id, "Title","Description",0.0,0.0, "Himalayas");
     }
 
     private void turnEditOn(){

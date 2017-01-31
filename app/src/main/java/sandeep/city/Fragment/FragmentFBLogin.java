@@ -55,7 +55,6 @@ import sandeep.city.Activity.ActivityCreateProfile;
 import sandeep.city.Activity.ActivityHome;
 import sandeep.city.AnalyticsApplication;
 import sandeep.city.CustomPagerAdapter;
-import sandeep.city.DataHelp;
 import sandeep.city.R;
 
 /**
@@ -76,7 +75,7 @@ public class FragmentFBLogin extends Fragment {
     String Preferences;
     SharedPreferences.Editor editor;
     Uri img_value = null;
-    DataHelp dh;
+
     ViewPager _mViewPager;
     private CustomPagerAdapter _adapter;
     private RadioButton r1, r2, r3, r4;
@@ -106,14 +105,6 @@ public class FragmentFBLogin extends Fragment {
         Preferences = getResources().getString(R.string.user);
 
         //initializing dummy data
-        dh = new DataHelp(getActivity());
-        dh.group_delete();
-        dh.group_insert("Garbage Clearance", "Rajamundry", "15-05-2015", 234, 3, "", 1, 1, "{\"comments\":[{\"name\":\"Sandeep\",\"comment\":\"Wear comfortable outfit. Try to cover the whole body. Wear something, like a cap, on head.\",\"time\":\"8.30AM\"},{\"name\":\"Sandeep\",\"comment\":\"We will be distributing caps and gloves! Try to be there by 10\",\"time\":\"9.00AM\"}]}");
-        dh.group_insert("Footpath for Citizens", "Taramani", "23-07-2015", 87, 6, "", 0, 2, "comments");
-        dh.group_insert("Area Clearance", "Bhilai", "14-10-2015", 390, 2, "", 0, 3, "comments");
-        dh.group_insert("Workshop for Rural Women", "Velachery", "24-06-2015", 113, 4, "", 1, 4, "{\"comments\":[{\"name\":\"Tejo\",\"comment\":\"Come to GC bus stop by 7. Institute is arranging a bus.\",\"time\":\"8.30PM\"}]}");
-        dh.group_insert("Vehicle free streets", "Marina Beach", "19-05-2015", 29, 9, "", 0, 5, "com");
-
         FacebookSdk.sdkInitialize(getActivity().getApplicationContext()); //ActivityFBLogin initialisation
 
         preferences = getActivity().getSharedPreferences(Preferences, Context.MODE_PRIVATE);

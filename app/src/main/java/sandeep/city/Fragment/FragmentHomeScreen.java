@@ -13,7 +13,7 @@ import java.util.List;
 
 import sandeep.city.R;
 import sandeep.city.POJO.SingleStory;
-import sandeep.city.StoryRecyclerViewAdapter;
+import sandeep.city.Adapter.StoryRecyclerViewAdapter;
 
 /**
  * Created by sandeep on 22/3/15.

@@ -7,7 +7,7 @@ public class SingleReport {
 
     int id;
     String title;
-    String desc;
+    String description;
     String img_link;
     double lat;
     double lon;
@@ -21,13 +21,12 @@ public class SingleReport {
     public SingleReport(int id, String title, String desc, String img_link, double lat, double lon, String locAddress, String category){
         this.id= id;
         this.title = title;
-        this.desc = desc;
+        this.description = desc;
         this.img_link = img_link;
         this.lat = lat;
         this.lon = lon;
         this.locAddress = locAddress;
         this.category = category;
-
     }
 
     public String getCategory() {
@@ -54,12 +53,12 @@ public class SingleReport {
         this.title = title;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getImg_link() {

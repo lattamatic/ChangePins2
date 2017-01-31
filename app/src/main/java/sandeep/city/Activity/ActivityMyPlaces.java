@@ -1,38 +1,42 @@
 package sandeep.city.Activity;
 
 import android.app.Dialog;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import sandeep.city.Adapter.PlaceRecyclerViewAdapter;
 import sandeep.city.ChangePinsActivity;
-import sandeep.city.DataHelp;
 import sandeep.city.POJO.SinglePlace;
 import sandeep.city.R;
 
 public class ActivityMyPlaces extends ChangePinsActivity{
 
-
     Dialog d;
-
-
-    private DataHelp dh;
+    RecyclerView placesRecycler;
+    ArrayList<SinglePlace> placesList;
+    RecyclerView.LayoutManager layoutManager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        dh = new DataHelp(this);
+        placesRecycler = (RecyclerView) findViewById(R.id.rvPlaces);
+        layoutManager = new LinearLayoutManager(this);
+        placesRecycler.setLayoutManager(layoutManager);
+        placesList = new ArrayList<SinglePlace>();
+        placesRecycler.setAdapter(new PlaceRecyclerViewAdapter(placesList));
+
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabAddPlace);
         fab.setOnClickListener(new OnClickListener() {
@@ -63,7 +67,7 @@ public class ActivityMyPlaces extends ChangePinsActivity{
                     Toast.makeText(ActivityMyPlaces.this, "Location title cannot be empty",
                             Toast.LENGTH_SHORT).show();
                 } else {
-                    dh.place_insert(string.toUpperCase(),0,0,"Click icon to set location");
+                    //dh.place_insert(string.toUpperCase(),0,0,"Click icon to set location");
                 }
                 d.dismiss();
 

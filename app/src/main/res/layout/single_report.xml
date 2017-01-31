@@ -1,38 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="wrap_content"
-    android:padding="10dp"
-    android:elevation="5dp"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
     android:background="@android:color/white"
-    android:layout_margin="5dp">
+    android:elevation="5dp"
+    android:orientation="horizontal"
+    android:padding="10dp">
 
     <ImageView
+        android:id="@+id/ivReportThumbnail"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:id="@+id/ivImageSingle"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:src="@drawable/gallery"/>
+        android:src="@drawable/gallery" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Complaint title"
-        android:id="@+id/tvTitleSingle"
-        android:layout_marginLeft="20dp"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/ivImageSingle"
-        android:layout_toEndOf="@+id/ivImageSingle" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Street light of my street hasn't been working for so many days"
-        android:id="@+id/tvDescSingle"
-        android:layout_below="@+id/tvTitleSingle"
-        android:padding="5dp"
-        android:layout_alignLeft="@+id/tvTitleSingle"
-        android:layout_alignStart="@+id/tvTitleSingle" />
-</RelativeLayout>
+        <TextView
+            android:id="@+id/tvReportTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="Complaint title"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/tvReportDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:layout_marginLeft="15dp"
+            android:text="Street light of my street hasn't been working for so many days" />
+    </LinearLayout>
+</LinearLayout>
