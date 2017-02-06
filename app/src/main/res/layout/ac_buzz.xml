@@ -4,8 +4,6 @@
     android:layout_height="match_parent"
     android:background="@android:color/white">
 
-    <include layout="@layout/layout_toolbar"/>
-
     <ListView
         android:id="@+id/lvBuzz"
         android:layout_width="fill_parent"

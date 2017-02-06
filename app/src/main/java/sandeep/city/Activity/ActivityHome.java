@@ -27,6 +27,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 import sandeep.city.AnalyticsApplication;
 import sandeep.city.Fragment.FragmentAbout;
+import sandeep.city.Fragment.FragmentBuzz;
 import sandeep.city.Fragment.FragmentHelp;
 import sandeep.city.Fragment.FragmentMyPlaces;
 import sandeep.city.Fragment.FragmentHomeScreen;
@@ -176,8 +177,11 @@ public class ActivityHome extends ActionBarActivity implements View.OnClickListe
                         .setAction(getString(R.string.click))
                         .setLabel(getString(R.string.buzz))
                         .build());
-
-                startActivity(new Intent(ActivityHome.this, ActivityBuzz.class));
+                FragmentBuzz fragmentBuzz = new FragmentBuzz();
+                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.fragment, fragmentBuzz,"Buzz");
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
                 break;
             case R.id.tvTitle:
 
