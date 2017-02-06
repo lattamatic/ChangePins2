@@ -68,9 +68,7 @@
             android:icon="@drawable/icon"
             android:label="@string/app_name"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".Activity.ActivityHelp" />
         <activity android:name=".Activity.ActivityHome" />
-        <activity android:name=".Activity.ActivityMyReports" />
         <activity android:name=".Activity.ActivityRegisterComplaint" />
 
     </application>

@@ -29,6 +29,7 @@ import sandeep.city.AnalyticsApplication;
 import sandeep.city.Fragment.FragmentHelp;
 import sandeep.city.Fragment.FragmentMyPlaces;
 import sandeep.city.Fragment.FragmentHomeScreen;
+import sandeep.city.Fragment.FragmentMyReports;
 import sandeep.city.R;
 
 /**
@@ -110,7 +111,11 @@ public class ActivityHome extends ActionBarActivity implements View.OnClickListe
 
                 switch (position) {
                     case 0:
-                        startActivity(new Intent(ActivityHome.this, ActivityMyReports.class));
+                        FragmentMyReports fragmentMyReports = new FragmentMyReports();
+                        FragmentTransaction fTransaction = getFragmentManager().beginTransaction();
+                        fTransaction.replace(R.id.fragment, fragmentMyReports,"My Reports");
+                        fTransaction.addToBackStack(null);
+                        fTransaction.commit();
                         break;
 
                     case 1:
