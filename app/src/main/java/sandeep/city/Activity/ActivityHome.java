@@ -97,7 +97,7 @@ public class ActivityHome extends ActionBarActivity implements View.OnClickListe
 
         FragmentHomeScreen frament = new FragmentHomeScreen();
         FragmentTransaction trans = getFragmentManager().beginTransaction();
-        trans.add(R.id.fragment, frament);
+        trans.add(R.id.fragment, frament,"Home Screen");
         trans.commit();
 
 
@@ -203,5 +203,17 @@ public class ActivityHome extends ActionBarActivity implements View.OnClickListe
         );
         AppIndex.AppIndexApi.end(client, viewAction);
         client.disconnect();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!getFragmentManager().findFragmentByTag("Home Screen").isVisible()) {
+            FragmentHomeScreen frament = new FragmentHomeScreen();
+            FragmentTransaction trans = getFragmentManager().beginTransaction();
+            trans.add(R.id.fragment, frament,"Home Screen");
+            trans.commit();
+        } else {
+            finish();
+        }
     }
 }
