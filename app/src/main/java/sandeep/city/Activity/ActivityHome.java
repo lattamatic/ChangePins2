@@ -26,6 +26,7 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import sandeep.city.AnalyticsApplication;
+import sandeep.city.Fragment.FragmentAbout;
 import sandeep.city.Fragment.FragmentHelp;
 import sandeep.city.Fragment.FragmentMyPlaces;
 import sandeep.city.Fragment.FragmentHomeScreen;
@@ -126,7 +127,11 @@ public class ActivityHome extends ActionBarActivity implements View.OnClickListe
                         trans.commit();
                         break;
                     case 2:
-                        startActivity(new Intent(ActivityHome.this, ActivityAbout.class));
+                        FragmentAbout fragmentAbout = new FragmentAbout();
+                        FragmentTransaction tr = getFragmentManager().beginTransaction();
+                        tr.replace(R.id.fragment,fragmentAbout,"About");
+                        tr.addToBackStack(null);
+                        tr.commit();
                         break;
                     case 3:
                         FragmentHelp fragmentHelp = new FragmentHelp();

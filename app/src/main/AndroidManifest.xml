@@ -58,7 +58,6 @@
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
-        <activity android:name=".Activity.ActivityAbout" />
         <activity android:name=".Activity.ActivityBuzz" />
         <activity android:name=".Activity.ActivityChooseCategory"/>
         <activity android:name=".Activity.ActivityCreateProfile" />
