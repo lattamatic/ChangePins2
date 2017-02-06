@@ -25,8 +25,8 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import sandeep.city.AnalyticsApplication;
+import sandeep.city.Fragment.FragmentMyPlaces;
 import sandeep.city.Fragment.FragmentHomeScreen;
-import sandeep.city.Fragment.FragmentSelectSector;
 import sandeep.city.R;
 
 /**
@@ -111,7 +111,11 @@ public class ActivityHome extends ActionBarActivity implements View.OnClickListe
                         break;
 
                     case 1:
-                        startActivity(new Intent(ActivityHome.this, ActivityMyPlaces.class));
+                        FragmentMyPlaces frament = new FragmentMyPlaces();
+                        FragmentTransaction trans = getFragmentManager().beginTransaction();
+                        trans.replace(R.id.fragment, frament,"My Places");
+                        trans.addToBackStack(null);
+                        trans.commit();
                         break;
                     case 2:
                         startActivity(new Intent(ActivityHome.this, ActivityAbout.class));
