@@ -38,7 +38,8 @@ public class ActivityHome extends ActionBarActivity implements View.OnClickListe
     ActionBarDrawerToggle toggle;
     ListView drawerList;
     public String[] drawer_menu;
-    ImageView title, report, buzz;
+    ImageView  report, buzz;
+    TextView title;
     Tracker mTracker;
     AnalyticsApplication application;
     public static TextView userName;
@@ -87,7 +88,7 @@ public class ActivityHome extends ActionBarActivity implements View.OnClickListe
                 R.array.nav_drawer_list_menu);
         drawerList.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, drawer_menu));
 
-        title = (ImageView) findViewById(R.id.ivTitle);
+        title = (TextView) findViewById(R.id.tvTitle);
         report = (ImageView) findViewById(R.id.ivReport);
         buzz = (ImageView) findViewById(R.id.ivBuzz);
 
@@ -162,7 +163,7 @@ public class ActivityHome extends ActionBarActivity implements View.OnClickListe
 
                 startActivity(new Intent(ActivityHome.this, ActivityBuzz.class));
                 break;
-            case R.id.ivTitle:
+            case R.id.tvTitle:
                 if (!getFragmentManager().findFragmentByTag("Home Screen").isVisible()) {
                     FragmentHomeScreen frament = new FragmentHomeScreen();
                     FragmentTransaction trans = getFragmentManager().beginTransaction();

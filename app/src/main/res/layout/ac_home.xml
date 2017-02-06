@@ -29,13 +29,15 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical">
 
-                    <ImageView
-                        android:id="@+id/ivTitle"
-                        android:layout_width="100dp"
+                    <TextView
+                        android:id="@+id/tvTitle"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_toRightOf="@+id/ivNavMennu"
                         android:padding="3dp"
-                        android:src="@drawable/title_logo" />
+                        android:text="@string/app_name"
+                        android:textSize="25sp"
+                        android:gravity="center"/>
 
                     <ImageView
                         android:id="@+id/ivReport"
