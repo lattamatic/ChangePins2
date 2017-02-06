@@ -162,6 +162,14 @@ public class ActivityHome extends ActionBarActivity implements View.OnClickListe
 
                 startActivity(new Intent(ActivityHome.this, ActivityBuzz.class));
                 break;
+            case R.id.ivTitle:
+                if (!getFragmentManager().findFragmentByTag("Home Screen").isVisible()) {
+                    FragmentHomeScreen frament = new FragmentHomeScreen();
+                    FragmentTransaction trans = getFragmentManager().beginTransaction();
+                    trans.add(R.id.fragment, frament,"Home Screen");
+                    trans.commit();
+                }
+                break;
         }
     }
 
