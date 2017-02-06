@@ -33,11 +33,7 @@ public class ActivityChooseCategory extends ChangePinsActivity implements Fragme
 
     @Override
     protected void setBackNavigation() {
-        if (getFragmentManager().findFragmentByTag("Select Sector").isVisible()) {
-            finish();
-        } else {
-            getFragmentManager().popBackStack();
-        }
+        checkNavigation();
     }
 
     @Override
@@ -79,6 +75,10 @@ public class ActivityChooseCategory extends ChangePinsActivity implements Fragme
 
     @Override
     public void onBackPressed() {
+        checkNavigation();
+    }
+
+    private void checkNavigation(){
         if (getFragmentManager().findFragmentByTag("Select Sector").isVisible()) {
             finish();
         } else {

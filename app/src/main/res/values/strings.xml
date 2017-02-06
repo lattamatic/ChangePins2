@@ -8,7 +8,7 @@
     <string name="app_id">700223156767547</string>
 
     <string-array name="nav_drawer_list_menu">
-        <item>My Reports</item>
+        <item>Reports</item>
         <item>Places</item>
         <item>About</item>
         <item>Help</item>
@@ -68,9 +68,8 @@
     <string name="home">Title/Home</string>
 
                 <!--Navigation Drawer-->
-    <string name="myreports">My Reports</string>
-    <string name="mygroups">My Groups</string>
-    <string name="myplaces">My Places</string>
+    <string name="myreports">Reports</string>
+    <string name="myplaces">Places</string>
     <string name="about">About</string>
     <string name="help">Help</string>
     <string name="logout">Logout</string>

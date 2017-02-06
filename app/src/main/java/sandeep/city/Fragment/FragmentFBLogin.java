@@ -54,7 +54,7 @@ import java.util.List;
 import sandeep.city.Activity.ActivityCreateProfile;
 import sandeep.city.Activity.ActivityHome;
 import sandeep.city.AnalyticsApplication;
-import sandeep.city.CustomPagerAdapter;
+import sandeep.city.Adapter.CustomPagerAdapter;
 import sandeep.city.R;
 
 /**

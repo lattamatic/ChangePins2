@@ -39,7 +39,6 @@ public class ActivityHome extends ActionBarActivity implements View.OnClickListe
     ListView drawerList;
     public String[] drawer_menu;
     ImageView title, report, buzz;
-    public static int screenWatcher = 0;
     Tracker mTracker;
     AnalyticsApplication application;
     public static TextView userName;
@@ -98,10 +97,8 @@ public class ActivityHome extends ActionBarActivity implements View.OnClickListe
 
         FragmentHomeScreen frament = new FragmentHomeScreen();
         FragmentTransaction trans = getFragmentManager().beginTransaction();
-        trans.replace(R.id.fragment, frament);
-        trans.addToBackStack(null);
+        trans.add(R.id.fragment, frament);
         trans.commit();
-        screenWatcher = 1;
 
 
         drawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -137,18 +134,7 @@ public class ActivityHome extends ActionBarActivity implements View.OnClickListe
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        if (screenWatcher != 1) {
-            FragmentHomeScreen frament = new FragmentHomeScreen();
-            FragmentTransaction trans = getFragmentManager().beginTransaction();
-            trans.replace(R.id.fragment, frament);
-            trans.addToBackStack(null);
-            trans.commit();
-            screenWatcher = 1;
-        }
-    }
+
 
     @Override
     public void onClick(View v) {
@@ -171,24 +157,6 @@ public class ActivityHome extends ActionBarActivity implements View.OnClickListe
                         .build());
 
                 startActivity(new Intent(ActivityHome.this, ActivityBuzz.class));
-                break;
-            case R.id.ivTitle:
-                if (screenWatcher != 1) {
-                    screenWatcher = 1;
-
-                    mTracker.send(new HitBuilders.EventBuilder()
-                            .setCategory(getString(R.string.views))
-                            .setAction(getString(R.string.click))
-                            .setLabel(getString(R.string.home))
-                            .build());
-
-                    FragmentHomeScreen frament = new FragmentHomeScreen();
-                    FragmentTransaction trans = getFragmentManager().beginTransaction();
-                    trans.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.came, R.anim.went);
-                    trans.replace(R.id.fragment, frament);
-                    trans.addToBackStack(null);
-                    trans.commit();
-                }
                 break;
         }
     }

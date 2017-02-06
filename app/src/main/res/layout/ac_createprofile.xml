@@ -1,40 +1,41 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@android:color/white">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@android:color/white"
-        android:elevation="3dp">
+    <!--<android.support.v7.widget.Toolbar-->
+        <!--android:id="@+id/toolbar"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="48dp"-->
+        <!--android:background="@android:color/white"-->
+        <!--android:elevation="3dp">-->
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical">
+        <!--<RelativeLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:gravity="center_vertical">-->
 
-            <Button
-                android:id="@+id/bContinue"
-                android:layout_width="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:background="@drawable/others_background"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="10dp"
-                android:text="Save"
-                android:textColor="#FFFFFF"
-                android:textStyle="bold" />
+            <!--&lt;!&ndash;<Button&ndash;&gt;-->
+                <!--&lt;!&ndash;android:id="@+id/bContinue"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_centerVertical="true"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_height="30dp"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_gravity="center"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:background="@drawable/others_background"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_alignParentRight="true"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_marginRight="10dp"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:text="Save"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:textColor="#FFFFFF"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:textStyle="bold" />&ndash;&gt;-->
 
-        </RelativeLayout>
+        <!--</RelativeLayout>-->
 
-    </android.support.v7.widget.Toolbar>
+    <!--</android.support.v7.widget.Toolbar>-->
+
+    <include layout="@layout/layout_toolbar"/>
 
         <LinearLayout
-            android:layout_below="@+id/toolbar"
             android:id="@+id/relLay"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
@@ -122,6 +123,18 @@
                     android:background="@drawable/border"/>
             </LinearLayout>
 
+            <Button
+                android:layout_margin="16dp"
+                android:id="@+id/bContinue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/others_background"
+                android:text="Save and Proceed"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:padding="4dp"/>
+
         </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

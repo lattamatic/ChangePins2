@@ -1,4 +1,4 @@
-package sandeep.city;
+package sandeep.city.Adapter;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+
+import sandeep.city.R;
 
 /**
  * Created by sandeep on 1/3/15.

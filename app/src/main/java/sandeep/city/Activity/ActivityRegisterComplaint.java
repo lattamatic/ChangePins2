@@ -7,11 +7,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.Settings;
@@ -24,7 +21,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -32,17 +28,10 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 
 import sandeep.city.AnalyticsApplication;
-import sandeep.city.AppLocationService;
 import sandeep.city.DownloadImageTask;
-import sandeep.city.POJO.SingleReport;
 import sandeep.city.R;
 
 public class ActivityRegisterComplaint extends Activity implements OnClickListener {
@@ -67,10 +56,6 @@ public class ActivityRegisterComplaint extends Activity implements OnClickListen
     ImageView back;
 
     private String location_string;
-    Location gpsLocation;
-    AppLocationService appLocationService;
-    double latitude, longitude;
-    String mCurrentPhotoPath;
     private Uri picUri;
 
     Tracker mTracker;

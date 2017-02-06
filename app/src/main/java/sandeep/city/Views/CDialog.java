@@ -1,4 +1,4 @@
-package sandeep.city;
+package sandeep.city.Views;
 
 import android.app.Activity;
 import android.app.DialogFragment;
@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+
+import sandeep.city.R;
 
 /**
  * Created by sandeep on 2/3/15.
