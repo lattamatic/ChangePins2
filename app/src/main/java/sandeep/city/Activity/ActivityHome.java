@@ -11,6 +11,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -25,6 +26,7 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import sandeep.city.AnalyticsApplication;
+import sandeep.city.Fragment.FragmentHelp;
 import sandeep.city.Fragment.FragmentMyPlaces;
 import sandeep.city.Fragment.FragmentHomeScreen;
 import sandeep.city.R;
@@ -122,7 +124,11 @@ public class ActivityHome extends ActionBarActivity implements View.OnClickListe
                         startActivity(new Intent(ActivityHome.this, ActivityAbout.class));
                         break;
                     case 3:
-                        startActivity(new Intent(ActivityHome.this, ActivityHelp.class));
+                        FragmentHelp fragmentHelp = new FragmentHelp();
+                        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                        fragmentTransaction.replace(R.id.fragment, fragmentHelp,"Help");
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
                         break;
                     case 4:
                         Intent i = new Intent(ActivityHome.this, ActivityFBLogin.class);
@@ -164,11 +170,17 @@ public class ActivityHome extends ActionBarActivity implements View.OnClickListe
                 startActivity(new Intent(ActivityHome.this, ActivityBuzz.class));
                 break;
             case R.id.tvTitle:
+
+                Log.d("title click",""+getFragmentManager().findFragmentByTag("Home Screen").isVisible());
+
                 if (!getFragmentManager().findFragmentByTag("Home Screen").isVisible()) {
                     FragmentHomeScreen frament = new FragmentHomeScreen();
                     FragmentTransaction trans = getFragmentManager().beginTransaction();
-                    trans.add(R.id.fragment, frament,"Home Screen");
+                    trans.replace(R.id.fragment, frament,"Home Screen");
+                    trans.addToBackStack(null);
                     trans.commit();
+                }else{
+
                 }
                 break;
         }
@@ -216,6 +228,7 @@ public class ActivityHome extends ActionBarActivity implements View.OnClickListe
 
     @Override
     public void onBackPressed() {
+        Log.d("back click",""+getFragmentManager().findFragmentByTag("Home Screen").isVisible());
         if (!getFragmentManager().findFragmentByTag("Home Screen").isVisible()) {
             FragmentHomeScreen frament = new FragmentHomeScreen();
             FragmentTransaction trans = getFragmentManager().beginTransaction();
