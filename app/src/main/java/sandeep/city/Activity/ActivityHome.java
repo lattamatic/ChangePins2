@@ -1,11 +1,13 @@
 package sandeep.city.Activity;
 
+import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -23,6 +25,7 @@ import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.auth.api.credentials.internal.SaveRequest;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import sandeep.city.AnalyticsApplication;
@@ -41,13 +44,13 @@ import sandeep.city.R;
 /**
  * Created by sandeep on 25/10/15.
  */
-public class ActivityHome extends ActionBarActivity implements View.OnClickListener,FragmentSelectSector.SelectSectorInterface, InterfaceOnClickCategory, FragmentMyReports.OnClickAddReport {
+public class ActivityHome extends ActionBarActivity implements View.OnClickListener, FragmentSelectSector.SelectSectorInterface, InterfaceOnClickCategory, FragmentMyReports.OnClickAddReport {
 
     DrawerLayout mDrawerLayout;
     ActionBarDrawerToggle toggle;
     ListView drawerList;
     public String[] drawer_menu;
-    ImageView  report, buzz;
+    ImageView report, buzz;
     TextView title;
     Tracker mTracker;
     AnalyticsApplication application;
@@ -57,6 +60,17 @@ public class ActivityHome extends ActionBarActivity implements View.OnClickListe
     String Preferences;
     SharedPreferences prefs;
     SharedPreferences.Editor editor;
+
+    static final String homeScreen = "Home Screen";
+    static final String reports = "Reports";
+    static final String places = "Places";
+    static final String about = "About";
+    static final String help = "Help";
+    static final String selectSector = "Select Sector";
+    static final String buz = "Buzz";
+    static final String publicSector = "Public Sector";
+    static final String privateSector = "Private Sector";
+
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -105,10 +119,9 @@ public class ActivityHome extends ActionBarActivity implements View.OnClickListe
         report.setOnClickListener(this);
         buzz.setOnClickListener(this);
 
-        FragmentHomeScreen frament = new FragmentHomeScreen();
-        FragmentTransaction trans = getFragmentManager().beginTransaction();
-        trans.add(R.id.fragment, frament,"Home Screen");
-        trans.commit();
+        popAFragment(privateSector);
+        popAFragment(publicSector);
+        popAFragment(homeScreen);
 
 
         drawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -117,33 +130,16 @@ public class ActivityHome extends ActionBarActivity implements View.OnClickListe
 
                 switch (position) {
                     case 0:
-                        FragmentMyReports fragmentMyReports = new FragmentMyReports();
-                        FragmentTransaction fTransaction = getFragmentManager().beginTransaction();
-                        fTransaction.replace(R.id.fragment, fragmentMyReports,"My Reports");
-                        fTransaction.addToBackStack(null);
-                        fTransaction.commit();
+                        popAFragment(reports);
                         break;
-
                     case 1:
-                        FragmentMyPlaces frament = new FragmentMyPlaces();
-                        FragmentTransaction trans = getFragmentManager().beginTransaction();
-                        trans.replace(R.id.fragment, frament,"My Places");
-                        trans.addToBackStack(null);
-                        trans.commit();
+                        popAFragment(places);
                         break;
                     case 2:
-                        FragmentAbout fragmentAbout = new FragmentAbout();
-                        FragmentTransaction tr = getFragmentManager().beginTransaction();
-                        tr.replace(R.id.fragment,fragmentAbout,"About");
-                        tr.addToBackStack(null);
-                        tr.commit();
+                        popAFragment(about);
                         break;
                     case 3:
-                        FragmentHelp fragmentHelp = new FragmentHelp();
-                        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                        fragmentTransaction.replace(R.id.fragment, fragmentHelp,"Help");
-                        fragmentTransaction.addToBackStack(null);
-                        fragmentTransaction.commit();
+                        popAFragment(help);
                         break;
                     case 4:
                         Intent i = new Intent(ActivityHome.this, ActivityFBLogin.class);
@@ -161,7 +157,6 @@ public class ActivityHome extends ActionBarActivity implements View.OnClickListe
     }
 
 
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -172,11 +167,7 @@ public class ActivityHome extends ActionBarActivity implements View.OnClickListe
                         .setAction(getString(R.string.click))
                         .setLabel(getString(R.string.report))
                         .build());
-                FragmentSelectSector fragmentSelectSector = new FragmentSelectSector();
-                FragmentTransaction tran = getFragmentManager().beginTransaction();
-                tran.replace(R.id.fragment,fragmentSelectSector,"Select Sector");
-                tran.addToBackStack(null);
-                tran.commit();
+                popAFragment(selectSector);
                 break;
 
             case R.id.ivBuzz:
@@ -185,23 +176,15 @@ public class ActivityHome extends ActionBarActivity implements View.OnClickListe
                         .setAction(getString(R.string.click))
                         .setLabel(getString(R.string.buzz))
                         .build());
-                FragmentBuzz fragmentBuzz = new FragmentBuzz();
-                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.fragment, fragmentBuzz,"Buzz");
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                popAFragment(buz);
                 break;
             case R.id.tvTitle:
 
-                Log.d("title click",""+getFragmentManager().findFragmentByTag("Home Screen").isVisible());
+                Log.d("title click", "" + getFragmentManager().findFragmentByTag(homeScreen).isVisible());
 
-                if (!getFragmentManager().findFragmentByTag("Home Screen").isVisible()) {
-                    FragmentHomeScreen frament = new FragmentHomeScreen();
-                    FragmentTransaction trans = getFragmentManager().beginTransaction();
-                    trans.replace(R.id.fragment, frament,"Home Screen");
-                    trans.addToBackStack(null);
-                    trans.commit();
-                }else{
+                if (!getFragmentManager().findFragmentByTag(homeScreen).isVisible()) {
+                    popAFragment(homeScreen);
+                } else {
 
                 }
                 break;
@@ -250,29 +233,31 @@ public class ActivityHome extends ActionBarActivity implements View.OnClickListe
 
     @Override
     public void onBackPressed() {
-        if(getFragmentManager().findFragmentByTag("Home Screen").isVisible()){
-            finish();
-        }else{
-            super.onBackPressed();
+        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            mDrawerLayout.closeDrawers();
+        } else {
+            if (getFragmentManager().findFragmentByTag(homeScreen).isVisible()) {
+                finish();
+            } else {
+                Fragment f1 = getFragmentManager().findFragmentByTag(privateSector);
+                Fragment f2 = getFragmentManager().findFragmentByTag(publicSector);
+                if (f1.isVisible() || f2.isVisible()) {
+                    super.onBackPressed();
+                } else {
+                    popAFragment(homeScreen);
+                }
+            }
         }
     }
 
     @Override
     public void onClickPublic() {
-        FragmentPublicSector fragmentPublicSector = new FragmentPublicSector();
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment, fragmentPublicSector,"Public Sector");
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
+        popAFragment(publicSector);
     }
 
     @Override
     public void onClickPrivate() {
-        FragmentPrivateSector fragmentPrivateSector = new FragmentPrivateSector();
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment, fragmentPrivateSector,"Private Sector");
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
+        popAFragment(privateSector);
     }
 
     @Override
@@ -284,10 +269,44 @@ public class ActivityHome extends ActionBarActivity implements View.OnClickListe
 
     @Override
     public void onClickAddReport() {
-        FragmentSelectSector fragmentSelectSector = new FragmentSelectSector();
-        FragmentTransaction tran = getFragmentManager().beginTransaction();
-        tran.replace(R.id.fragment,fragmentSelectSector,"Select Sector");
-        tran.addToBackStack(null);
-        tran.commit();
+        popAFragment(selectSector);
+    }
+
+    private void popAFragment(String fragment){
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        Fragment fragment1 = null;
+        switch (fragment){
+            case homeScreen:
+                fragment1 = new FragmentHomeScreen();
+                break;
+            case reports:
+                fragment1 = new FragmentMyReports();
+                break;
+            case places:
+                fragment1 = new FragmentMyPlaces();
+                break;
+            case about:
+                fragment1 = new FragmentAbout();
+                break;
+            case help:
+                fragment1 = new FragmentHelp();
+                break;
+            case selectSector:
+                fragment1 = new FragmentSelectSector();
+                break;
+            case buz:
+                fragment1 = new FragmentBuzz();
+                break;
+            case privateSector:
+                fragment1 = new FragmentPrivateSector();
+                break;
+            case publicSector:
+                fragment1 = new FragmentPublicSector();
+                break;
+        }
+
+        transaction.replace(R.id.fragment,fragment1,fragment);
+        transaction.addToBackStack(fragment);
+        transaction.commit();
     }
 }
