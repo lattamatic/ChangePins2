@@ -25,7 +25,7 @@ public class FragmentBuzz extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.ac_buzz,container,false);
+        View v = inflater.inflate(R.layout.frag_buzz,container,false);
         list = new ArrayList<String>();
         list.add("Welcome to ChangePins. Report a problem or create a group!");
         list.add("A new group is formed in you locality");

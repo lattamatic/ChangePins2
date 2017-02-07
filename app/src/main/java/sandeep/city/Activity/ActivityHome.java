@@ -32,12 +32,16 @@ import sandeep.city.Fragment.FragmentHelp;
 import sandeep.city.Fragment.FragmentMyPlaces;
 import sandeep.city.Fragment.FragmentHomeScreen;
 import sandeep.city.Fragment.FragmentMyReports;
+import sandeep.city.Fragment.FragmentPrivateSector;
+import sandeep.city.Fragment.FragmentPublicSector;
+import sandeep.city.Fragment.FragmentSelectSector;
+import sandeep.city.InterfaceOnClickCategory;
 import sandeep.city.R;
 
 /**
  * Created by sandeep on 25/10/15.
  */
-public class ActivityHome extends ActionBarActivity implements View.OnClickListener {
+public class ActivityHome extends ActionBarActivity implements View.OnClickListener,FragmentSelectSector.SelectSectorInterface, InterfaceOnClickCategory, FragmentMyReports.OnClickAddReport {
 
     DrawerLayout mDrawerLayout;
     ActionBarDrawerToggle toggle;
@@ -168,7 +172,11 @@ public class ActivityHome extends ActionBarActivity implements View.OnClickListe
                         .setAction(getString(R.string.click))
                         .setLabel(getString(R.string.report))
                         .build());
-                startActivity(new Intent(ActivityHome.this, ActivityChooseCategory.class));
+                FragmentSelectSector fragmentSelectSector = new FragmentSelectSector();
+                FragmentTransaction tran = getFragmentManager().beginTransaction();
+                tran.replace(R.id.fragment,fragmentSelectSector,"Select Sector");
+                tran.addToBackStack(null);
+                tran.commit();
                 break;
 
             case R.id.ivBuzz:
@@ -242,14 +250,65 @@ public class ActivityHome extends ActionBarActivity implements View.OnClickListe
 
     @Override
     public void onBackPressed() {
-        Log.d("back click",""+getFragmentManager().findFragmentByTag("Home Screen").isVisible());
-        if (!getFragmentManager().findFragmentByTag("Home Screen").isVisible()) {
-            FragmentHomeScreen frament = new FragmentHomeScreen();
-            FragmentTransaction trans = getFragmentManager().beginTransaction();
-            trans.add(R.id.fragment, frament,"Home Screen");
-            trans.commit();
-        } else {
+        if(getFragmentManager().findFragmentByTag("Home Screen").isVisible()){
             finish();
+        }else{
+            super.onBackPressed();
         }
+
+//        Log.d("back click home",""+getFragmentManager().findFragmentByTag("Home Screen").isVisible());
+//        if (!getFragmentManager().findFragmentByTag("Home Screen").isVisible()) {
+//            Log.d("back click sele",""+getFragmentManager().findFragmentByTag("Select Sector").isVisible());
+//            if(getFragmentManager().findFragmentByTag("Public Sector").isVisible()||getFragmentManager().findFragmentByTag("Private Sector").isVisible()){
+//                //Log.d("back click",""+(getFragmentManager().findFragmentByTag("Public Sector").isVisible()||getFragmentManager().findFragmentByTag("Private Sector").isVisible()));
+//                FragmentSelectSector fragmentSelectSector = new FragmentSelectSector();
+//                FragmentTransaction tran = getFragmentManager().beginTransaction();
+//                tran.replace(R.id.fragment,fragmentSelectSector,"Select Sector");
+//                tran.addToBackStack(null);
+//                tran.commit();
+//            }else{
+//                FragmentHomeScreen frament = new FragmentHomeScreen();
+//                FragmentTransaction trans = getFragmentManager().beginTransaction();
+//                trans.replace(R.id.fragment, frament,"Home Screen");
+//                trans.addToBackStack(null);
+//                trans.commit();
+//            }
+//        } else {
+//            finish();
+//        }
+    }
+
+    @Override
+    public void onClickPublic() {
+        FragmentPublicSector fragmentPublicSector = new FragmentPublicSector();
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragment, fragmentPublicSector,"Public Sector");
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onClickPrivate() {
+        FragmentPrivateSector fragmentPrivateSector = new FragmentPrivateSector();
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragment, fragmentPrivateSector,"Private Sector");
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onClickCategory(String category) {
+        Intent intent = new Intent(this, ActivityRegisterComplaint.class);
+        intent.putExtra("category", category);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onClickAddReport() {
+        FragmentSelectSector fragmentSelectSector = new FragmentSelectSector();
+        FragmentTransaction tran = getFragmentManager().beginTransaction();
+        tran.replace(R.id.fragment,fragmentSelectSector,"Select Sector");
+        tran.addToBackStack(null);
+        tran.commit();
     }
 }

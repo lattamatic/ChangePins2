@@ -19,7 +19,6 @@ public class FragmentSelectSector extends Fragment implements OnClickListener {
 	private ViewIconTitle privateSector;
 	private ViewIconTitle publicSector;
     Tracker mTracker;
-    String TAG="FragmentSelectSector";
     AnalyticsApplication application;
 	SelectSectorInterface myInterface;
 

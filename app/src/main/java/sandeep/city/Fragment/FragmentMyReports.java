@@ -1,7 +1,6 @@
 package sandeep.city.Fragment;
 
 import android.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -13,7 +12,6 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-import sandeep.city.Activity.ActivityChooseCategory;
 import sandeep.city.Adapter.ReportRecyclerViewAdapter;
 import sandeep.city.POJO.SingleReport;
 import sandeep.city.R;
@@ -27,12 +25,21 @@ public class FragmentMyReports extends Fragment {
     RecyclerView reportsRecycler;
     ArrayList<SingleReport> reportList;
     RecyclerView.LayoutManager layoutManager;
+    OnClickAddReport onClickAddReport;
+
+    public interface OnClickAddReport{
+        void onClickAddReport();
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.frag_myreports,container,false);
+
+        onClickAddReport = (OnClickAddReport) getActivity();
+
         reportList = new ArrayList<SingleReport>();
+
 
 
         if (reportList.size() > 0) {
@@ -49,7 +56,7 @@ public class FragmentMyReports extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(),ActivityChooseCategory.class));
+                onClickAddReport.onClickAddReport();
             }
         });
         return v;
