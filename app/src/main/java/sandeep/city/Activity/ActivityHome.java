@@ -255,27 +255,6 @@ public class ActivityHome extends ActionBarActivity implements View.OnClickListe
         }else{
             super.onBackPressed();
         }
-
-//        Log.d("back click home",""+getFragmentManager().findFragmentByTag("Home Screen").isVisible());
-//        if (!getFragmentManager().findFragmentByTag("Home Screen").isVisible()) {
-//            Log.d("back click sele",""+getFragmentManager().findFragmentByTag("Select Sector").isVisible());
-//            if(getFragmentManager().findFragmentByTag("Public Sector").isVisible()||getFragmentManager().findFragmentByTag("Private Sector").isVisible()){
-//                //Log.d("back click",""+(getFragmentManager().findFragmentByTag("Public Sector").isVisible()||getFragmentManager().findFragmentByTag("Private Sector").isVisible()));
-//                FragmentSelectSector fragmentSelectSector = new FragmentSelectSector();
-//                FragmentTransaction tran = getFragmentManager().beginTransaction();
-//                tran.replace(R.id.fragment,fragmentSelectSector,"Select Sector");
-//                tran.addToBackStack(null);
-//                tran.commit();
-//            }else{
-//                FragmentHomeScreen frament = new FragmentHomeScreen();
-//                FragmentTransaction trans = getFragmentManager().beginTransaction();
-//                trans.replace(R.id.fragment, frament,"Home Screen");
-//                trans.addToBackStack(null);
-//                trans.commit();
-//            }
-//        } else {
-//            finish();
-//        }
     }
 
     @Override
