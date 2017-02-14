@@ -59,7 +59,6 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
         <activity android:name=".Activity.ActivityCreateProfile" />
-        <activity android:name=".Activity.ActivityDetailedReport" />
         <activity
             android:name=".Activity.ActivityFBLogin"
             android:icon="@drawable/icon"
