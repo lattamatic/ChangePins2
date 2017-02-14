@@ -32,6 +32,7 @@ public class ActivityCreateProfile extends ChangePinsActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //instantiating the views
         email = (EditText) findViewById(R.id.etEmail);
         phone = (EditText) findViewById(R.id.etPhone);
         next = (Button) findViewById(R.id.bContinue);

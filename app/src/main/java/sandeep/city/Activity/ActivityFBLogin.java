@@ -27,7 +27,7 @@ public class ActivityFBLogin extends ActionBarActivity {
     }
 
     @Override
-    public void onBackPressed() {
+    public void onBackPressed() {//If navigated to this screen to logout, on back click go back to homescreen
         super.onBackPressed();
         if(isLoggedIn()){
             Intent i = new Intent(this,ActivityHome.class);

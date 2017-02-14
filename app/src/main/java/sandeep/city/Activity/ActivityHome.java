@@ -52,6 +52,7 @@ public class ActivityHome extends ActionBarActivity implements View.OnClickListe
     public String[] drawer_menu;
     ImageView report, buzz;
     TextView title;
+    Toolbar toolbar;
     Tracker mTracker;
     AnalyticsApplication application;
     public static TextView userName;
@@ -88,42 +89,33 @@ public class ActivityHome extends ActionBarActivity implements View.OnClickListe
         mTracker = application.getDefaultTracker();
 
         Preferences = getResources().getString(R.string.user);
-
         prefs = getSharedPreferences(
                 Preferences, Context.MODE_PRIVATE);
         editor = prefs.edit();
 
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        final ActionBar ab = getSupportActionBar();
-        ab.setHomeAsUpIndicator(R.drawable.drawer_icon);
-        ab.setDisplayHomeAsUpEnabled(true);
-
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        toggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.app_name, R.string.app_name);
-        mDrawerLayout.setDrawerListener(toggle);
-
+        //instatiating the views
         drawerList = (ListView) findViewById(R.id.list_slidermenu);
-
-        drawer_menu = getResources().getStringArray(
-                R.array.nav_drawer_list_menu);
-        drawerList.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, drawer_menu));
-
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         title = (TextView) findViewById(R.id.tvTitle);
         report = (ImageView) findViewById(R.id.ivReport);
         buzz = (ImageView) findViewById(R.id.ivBuzz);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
+        //ActionBar related
+        setSupportActionBar(toolbar);
+        final ActionBar ab = getSupportActionBar();
+        ab.setHomeAsUpIndicator(R.drawable.drawer_icon);
+        ab.setDisplayHomeAsUpEnabled(true);
         title.setOnClickListener(this);
         report.setOnClickListener(this);
         buzz.setOnClickListener(this);
 
-        popAFragment(privateSector);
-        popAFragment(publicSector);
-        popAFragment(homeScreen);
-
-
+        //Drawer related
+        toggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.app_name, R.string.app_name);
+        mDrawerLayout.setDrawerListener(toggle);
+        drawer_menu = getResources().getStringArray(
+                R.array.nav_drawer_list_menu);
+        drawerList.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, drawer_menu));
         drawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -150,6 +142,11 @@ public class ActivityHome extends ActionBarActivity implements View.OnClickListe
                 mDrawerLayout.closeDrawers();
             }
         });
+
+        //Adding fragment to activity
+        popAFragment(privateSector);
+        popAFragment(publicSector);
+        popAFragment(homeScreen);
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -233,6 +230,12 @@ public class ActivityHome extends ActionBarActivity implements View.OnClickListe
 
     @Override
     public void onBackPressed() {
+
+        //Closes if Navigation Drawer is in open state
+        //If the current fragment is homescreen, closes the activity
+        //If the current fragment is either private or public sector category screen, takes back to the previous fragment(which is Choosing Sector)
+        //If the current fragment is anything else takes back to homescreen
+
         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             mDrawerLayout.closeDrawers();
         } else {
@@ -252,16 +255,19 @@ public class ActivityHome extends ActionBarActivity implements View.OnClickListe
 
     @Override
     public void onClickPublic() {
+        //This is onclick listener from the fragment choosing sector
         popAFragment(publicSector);
     }
 
     @Override
     public void onClickPrivate() {
+        //This is onclick listener from the fragment choosing sector
         popAFragment(privateSector);
     }
 
     @Override
     public void onClickCategory(String category) {
+        //This is onclick listener from the fragments public/private sectors
         Intent intent = new Intent(this, ActivityRegisterComplaint.class);
         intent.putExtra("category", category);
         startActivity(intent);
@@ -269,9 +275,11 @@ public class ActivityHome extends ActionBarActivity implements View.OnClickListe
 
     @Override
     public void onClickAddReport() {
+        //onclick listener to add a new report from Reports fragment
         popAFragment(selectSector);
     }
 
+    //This method lays the fragment on click of something
     private void popAFragment(String fragment){
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         Fragment fragment1 = null;
