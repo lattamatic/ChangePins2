@@ -13,6 +13,7 @@ import sandeep.city.R;
 
 /**
  * Created by sandeep_chi on 2/6/2017.
+ * This Fragment is the About Screen of the app
  */
 
 public class FragmentAbout extends Fragment {

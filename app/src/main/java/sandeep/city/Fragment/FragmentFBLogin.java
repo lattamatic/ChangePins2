@@ -53,8 +53,8 @@ import java.util.List;
 
 import sandeep.city.Activity.ActivityCreateProfile;
 import sandeep.city.Activity.ActivityHome;
-import sandeep.city.AnalyticsApplication;
 import sandeep.city.Adapter.CustomPagerAdapter;
+import sandeep.city.AnalyticsApplication;
 import sandeep.city.R;
 
 /**
@@ -71,7 +71,7 @@ public class FragmentFBLogin extends Fragment {
     Intent i;
     Context c;
 
-    SharedPreferences preferences;
+    SharedPreferences sharedPreferences;
     String Preferences;
     SharedPreferences.Editor editor;
     Uri img_value = null;
@@ -107,8 +107,8 @@ public class FragmentFBLogin extends Fragment {
         //initializing dummy data
         FacebookSdk.sdkInitialize(getActivity().getApplicationContext()); //ActivityFBLogin initialisation
 
-        preferences = getActivity().getSharedPreferences(Preferences, Context.MODE_PRIVATE);
-        editor = preferences.edit();
+        sharedPreferences = getActivity().getSharedPreferences(Preferences, Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
 
         callbackManager = CallbackManager.Factory.create();
         callback = new FacebookCallback<LoginResult>() {

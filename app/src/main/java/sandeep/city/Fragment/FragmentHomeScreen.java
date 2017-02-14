@@ -43,9 +43,8 @@ public class FragmentHomeScreen extends Fragment{
     }
 
 
+    //creating dummy data
     private void prepareStoryList(){
-
-
         for(int i=1;i<20;i++){
             storyList.add(new SingleStory("Title - "+i, "Author - "+i,i + "The Domlur Bus Stop getting  spotfixed! It's a shame that residents of Bengaluru tolerate the defacement and vandalism of its well-made bus-stops. Hopefully, things will change now - with this superb work by concerned residents of the area"));
         }

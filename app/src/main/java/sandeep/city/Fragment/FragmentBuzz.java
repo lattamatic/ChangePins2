@@ -27,10 +27,13 @@ public class FragmentBuzz extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.frag_buzz,container,false);
         list = new ArrayList<String>();
+
+        //Adding static content as notifications
         list.add("Welcome to ChangePins. Report a problem or create a group!");
         list.add("A new group is formed in you locality");
         list.add("A user has requested to  your group");
         list.add("A group in your locality has finished their task");
+
         buzz = (ListView) v.findViewById(R.id.lvBuzz);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,list);
         buzz.setAdapter(adapter);
