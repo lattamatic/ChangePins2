@@ -112,6 +112,7 @@ public class FragmentFBLogin extends Fragment {
 
         callbackManager = CallbackManager.Factory.create();
         callback = new FacebookCallback<LoginResult>() {
+
             @Override
             public void onSuccess(LoginResult loginResult) {
                 profileTracker = new ProfileTracker() {
