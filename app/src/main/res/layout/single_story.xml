@@ -50,33 +50,17 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp">
 
-            <ImageView
-                android:id="@+id/ivShareFB"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_margin="8dp"
-                android:src="@drawable/facebook" />
-
-            <ImageView
-                android:id="@+id/ivShareWhatsapp"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_margin="8dp"
-                android:src="@drawable/whatsapp" />
-
-            <ImageView
-                android:id="@+id/ivShareTwitter"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_margin="8dp"
-                android:src="@drawable/twitter" />
-
-            <ImageView
-                android:id="@+id/ivShareMore"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_margin="8dp"
-                android:src="@drawable/dots_more" />
+            <TextView
+                android:id="@+id/tvShareStory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/others_background"
+                android:text="Share"
+                android:padding="5dp"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:layout_margin="10dp"/>
         </LinearLayout>
     </LinearLayout>
 </android.support.v7.widget.CardView>

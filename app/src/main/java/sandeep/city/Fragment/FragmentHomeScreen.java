@@ -35,7 +35,7 @@ public class FragmentHomeScreen extends Fragment{
         layoutManager = new LinearLayoutManager(getActivity());
         storyRV.setLayoutManager(layoutManager);
 
-        storyRV.setAdapter( new StoryRecyclerViewAdapter(storyList));
+        storyRV.setAdapter( new StoryRecyclerViewAdapter(storyList, getActivity()));
 
         prepareStoryList();
 

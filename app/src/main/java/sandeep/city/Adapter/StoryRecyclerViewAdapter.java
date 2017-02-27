@@ -1,5 +1,7 @@
 package sandeep.city.Adapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,14 +21,17 @@ import sandeep.city.R;
 public class StoryRecyclerViewAdapter extends RecyclerView.Adapter<StoryRecyclerViewAdapter.ViewHolder> {
 
     private List<SingleStory> storyList;
+    Context context;
 
-    public StoryRecyclerViewAdapter(List<SingleStory> storyList) {
+    public StoryRecyclerViewAdapter(List<SingleStory> storyList, Context context) {
         this.storyList = storyList;
+        this.context = context;
     }
+
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView description, author;
+        public TextView description, author, share;
         public ImageView storyImage;
 
         public ViewHolder(View v) {
@@ -34,6 +39,7 @@ public class StoryRecyclerViewAdapter extends RecyclerView.Adapter<StoryRecycler
             description = (TextView) v.findViewById(R.id.tvStoryDesc);
             author = (TextView) v.findViewById(R.id.tvStoryAuthor);
             storyImage = (ImageView) v.findViewById(R.id.ivStoryImage);
+            share = (TextView) v.findViewById(R.id.tvShareStory);
         }
     }
 
@@ -47,9 +53,19 @@ public class StoryRecyclerViewAdapter extends RecyclerView.Adapter<StoryRecycler
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        SingleStory story = storyList.get(position);
+        final SingleStory story = storyList.get(position);
         holder.description.setText(story.getDescription());
         holder.author.setText(story.getAuthor());
+        holder.share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(android.content.Intent.ACTION_SEND);
+                i.setType("text/plain");
+                i.putExtra(android.content.Intent.EXTRA_SUBJECT,story.getTitle());
+                i.putExtra(android.content.Intent.EXTRA_TEXT, story.getDescription());
+                context.startActivity(Intent.createChooser(i,"Share via"));
+            }
+        });
     }
 
     @Override
