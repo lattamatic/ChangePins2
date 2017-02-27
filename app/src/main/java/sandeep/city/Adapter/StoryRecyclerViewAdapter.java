@@ -77,7 +77,6 @@ public class StoryRecyclerViewAdapter extends RecyclerView.Adapter<StoryRecycler
             public void run() {
                 int width = holder.storyImage.getWidth();
                 int height = (int) (width/1.6);
-                Log.d("tag",width+" "+height);
                 LinearLayout.LayoutParams lp= new LinearLayout.LayoutParams(width,height);
                 holder.storyImage.setLayoutParams(lp);
                 holder.storyImage.requestLayout();

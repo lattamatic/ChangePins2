@@ -19,7 +19,7 @@
             android:id="@+id/ivStoryImage"
             android:layout_width="match_parent"
             android:layout_height="10dp"
-            android:src="@drawable/imagefour" />
+            android:src="@drawable/samplestoryimage" />
 
         <TextView
             android:id="@+id/tvStoryAuthor"
