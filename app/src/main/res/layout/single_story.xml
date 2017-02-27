@@ -18,9 +18,8 @@
         <ImageView
             android:id="@+id/ivStoryImage"
             android:layout_width="match_parent"
-            android:layout_height="185dp"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/eunoia3" />
+            android:layout_height="10dp"
+            android:src="@drawable/imagefour" />
 
         <TextView
             android:id="@+id/tvStoryAuthor"

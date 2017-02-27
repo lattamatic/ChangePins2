@@ -3,10 +3,12 @@ package sandeep.city.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -52,7 +54,8 @@ public class StoryRecyclerViewAdapter extends RecyclerView.Adapter<StoryRecycler
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder h, int position) {
+        final ViewHolder holder = h;
         final SingleStory story = storyList.get(position);
         holder.description.setText(story.getDescription());
         holder.author.setText(story.getAuthor());
@@ -64,6 +67,21 @@ public class StoryRecyclerViewAdapter extends RecyclerView.Adapter<StoryRecycler
                 i.putExtra(android.content.Intent.EXTRA_SUBJECT,story.getTitle());
                 i.putExtra(android.content.Intent.EXTRA_TEXT, story.getDescription());
                 context.startActivity(Intent.createChooser(i,"Share via"));
+            }
+        });
+
+
+        //Code to set image layout parameters to fit in the screen
+        holder.storyImage.post(new Runnable() {
+            @Override
+            public void run() {
+                int width = holder.storyImage.getWidth();
+                int height = (int) (width/1.6);
+                Log.d("tag",width+" "+height);
+                LinearLayout.LayoutParams lp= new LinearLayout.LayoutParams(width,height);
+                holder.storyImage.setLayoutParams(lp);
+                holder.storyImage.requestLayout();
+
             }
         });
     }
