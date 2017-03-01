@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             app:image_icon="@drawable/electricity"
-            app:title_name="Electricity"
+            app:title_name="@string/electricity"
             app:titleSize="6sp">
 
         </sandeep.city.Views.ViewIconTitle>
@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             app:image_icon="@drawable/water"
-            app:title_name="Water Supply"
+            app:title_name="@string/watersupply"
             app:titleSize="6sp">
 
         </sandeep.city.Views.ViewIconTitle>
@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             app:image_icon="@drawable/housing"
-            app:title_name="Housing"
+            app:title_name="@string/housing"
             app:titleSize="6sp">
 
         </sandeep.city.Views.ViewIconTitle>
@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             app:image_icon="@drawable/education"
-            app:title_name="Education"
+            app:title_name="@string/education"
             app:titleSize="6sp">
 
         </sandeep.city.Views.ViewIconTitle>

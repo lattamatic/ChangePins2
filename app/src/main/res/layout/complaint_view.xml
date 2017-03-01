@@ -1,5 +1,5 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/scrollView1"
+    android:id="@+id/scrollView"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
@@ -18,7 +18,7 @@
             android:textSize="25dp" />
 
         <TextView
-            android:id="@+id/tvComplantTitle"
+            android:id="@+id/tvComplaintTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tvCategory"
@@ -28,20 +28,20 @@
         </TextView>
 
         <TextView
-            android:id="@+id/etComplainTitle"
+            android:id="@+id/etComplaintTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tvComplantTitle"
+            android:layout_below="@id/tvComplaintTitle"
             android:layout_marginTop="10dp"
             android:textSize="20dp"
             android:text="TITLE EXAMPLE">
         </TextView>
 
         <TextView
-            android:id="@+id/tvDescription"
+            android:id="@+id/tvCompDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/etComplainTitle"
+            android:layout_below="@id/etComplaintTitle"
             android:layout_marginTop="10dp"
             android:text="*Description:" />
 
@@ -49,7 +49,7 @@
             android:id="@+id/etDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tvDescription"
+            android:layout_below="@id/tvCompDescription"
             android:layout_marginTop="10dp"
             android:textSize="20dp"
             android:text="Example text. In my world, in my world this is where we all came from. Thre dreams we had, love we give this is what we are waiting for"/>
@@ -66,20 +66,20 @@
 
 
             <ImageView
-                android:id="@+id/but_location"
+                android:id="@+id/bPickLocation"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:src="@drawable/location"
                 android:layout_margin="10dp"
                 android:layout_centerHorizontal="true"/>
             <TextView
-                android:id="@+id/location_set"
+                android:id="@+id/tvLocationText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/etDescription"
                 android:gravity="center"
                 android:layout_centerVertical="true"
-                android:layout_toRightOf="@id/but_location"
+                android:layout_toRightOf="@id/bPickLocation"
                 android:layout_marginTop="10dp"
                 android:text=""/>
         </LinearLayout>

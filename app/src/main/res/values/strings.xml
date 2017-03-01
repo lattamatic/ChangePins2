@@ -78,7 +78,7 @@
     <string name="succesfulreport">Reported Successfully</string>
 
 
-    <string name="createprofile">Create Profile </string>
+    <string name="createprofile">Create Profile</string>
     <string name="registercomplaint">Register Complaint</string>
 
     <!--Strings for shared preferences-->

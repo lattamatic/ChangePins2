@@ -28,20 +28,16 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
 
-import java.io.InputStream;
-
 import sandeep.city.AnalyticsApplication;
 import sandeep.city.DownloadImageTask;
 import sandeep.city.R;
 
 public class ActivityRegisterComplaint extends Activity implements OnClickListener {
 
-    String tit, descString, loc_address;
     TextView title, location_set;
     ImageView upload, takePic, submit;
     EditText ettitle, description;
     ImageView but_location;
-    InputStream is;
     public View layout;
     public ImageView imageView;
     public final int TAKE_PICTURE = 1;
@@ -65,7 +61,7 @@ public class ActivityRegisterComplaint extends Activity implements OnClickListen
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.final_complaint);
+        setContentView(R.layout.ac_register_complaint);
 
         application = (AnalyticsApplication) getApplication();
         mTracker = application.getDefaultTracker();
@@ -73,15 +69,15 @@ public class ActivityRegisterComplaint extends Activity implements OnClickListen
 
       //  dh = new DataHelp(this);
         title = (TextView) findViewById(R.id.tvCategory);
-        location_set = (TextView) findViewById(R.id.location_set);
-        upload = (ImageView) findViewById(R.id.bUploadImage);
-        takePic = (ImageView) findViewById(R.id.bTakePic);
-        submit = (ImageView) findViewById(R.id.bSubmit);
+        location_set = (TextView) findViewById(R.id.tvLocationText);
+        upload = (ImageView) findViewById(R.id.ivUploadImage);
+        takePic = (ImageView) findViewById(R.id.ivTakePic);
+        submit = (ImageView) findViewById(R.id.ivSubmit);
         layout = (View) findViewById(R.id.relLay);
         imageView = (ImageView) findViewById(R.id.ivPreview);
-        ettitle = (EditText) findViewById(R.id.etComplainTitle);
+        ettitle = (EditText) findViewById(R.id.etComplaintTitle);
         description = (EditText) findViewById(R.id.etDescription);
-        but_location = (ImageView) findViewById(R.id.but_location);
+        but_location = (ImageView) findViewById(R.id.bPickLocation);
         staticMap = (ImageView) findViewById(R.id.ivStaticMap);
         locMessage = (TextView) findViewById(R.id.tvLocMessage);
 
@@ -106,20 +102,20 @@ public class ActivityRegisterComplaint extends Activity implements OnClickListen
     public void onClick(View v) {
         // TODO Auto-generated method stub
         switch (v.getId()) {
-            case R.id.bUploadImage:
+            case R.id.ivUploadImage:
                 Intent photoPic = new Intent(
                         Intent.ACTION_PICK,
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(photoPic, SELECT_PIC);
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
                 break;
-            case R.id.bTakePic:
+            case R.id.ivTakePic:
                 Intent intent = new Intent(
                         android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(intent, TAKE_PICTURE);
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
                 break;
-            case R.id.but_location:
+            case R.id.bPickLocation:
                 PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
                 Context context = this;
                 try {
@@ -130,7 +126,7 @@ public class ActivityRegisterComplaint extends Activity implements OnClickListen
                     e.printStackTrace();
                 }
                 break;
-            case R.id.bSubmit:
+            case R.id.ivSubmit:
 //                if (ettitle.getText().toString().matches("")) {
 //                    Toast.makeText(this, "Title cannot be empty",
 //                            Toast.LENGTH_SHORT).show();

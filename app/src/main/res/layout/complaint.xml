@@ -1,5 +1,5 @@
 <ScrollView
-    android:id="@+id/scrollView1"
+    android:id="@+id/scrollView"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
@@ -19,7 +19,7 @@
             android:textSize="25dp" />
 
         <TextView
-            android:id="@+id/tvComplantTitle"
+            android:id="@+id/tvComplaintTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tvCategory"
@@ -28,10 +28,10 @@
             android:textSize="15dp"></TextView>
 
         <EditText
-            android:id="@+id/etComplainTitle"
+            android:id="@+id/etComplaintTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tvComplantTitle"
+            android:layout_below="@id/tvComplaintTitle"
             android:layout_marginTop="10dp"
             android:background="@android:drawable/editbox_background"
             android:ems="15"
@@ -39,10 +39,10 @@
             android:maxLines="1"></EditText>
 
         <TextView
-            android:id="@+id/tvDescription"
+            android:id="@+id/tvCompDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/etComplainTitle"
+            android:layout_below="@id/etComplaintTitle"
             android:layout_marginTop="10dp"
             android:text="*Description:" />
 
@@ -50,7 +50,7 @@
             android:id="@+id/etDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tvDescription"
+            android:layout_below="@id/tvCompDescription"
             android:layout_marginTop="10dp"
             android:background="@android:drawable/editbox_background"
             android:ems="10"
@@ -93,7 +93,7 @@
                 android:visibility="gone" />
 
             <ImageView
-                android:id="@+id/but_location"
+                android:id="@+id/bPickLocation"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_centerHorizontal="true"
@@ -101,13 +101,13 @@
                 android:src="@drawable/location" />
 
             <TextView
-                android:id="@+id/location_set"
+                android:id="@+id/tvLocationText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/etDescription"
                 android:layout_centerVertical="true"
                 android:layout_marginTop="10dp"
-                android:layout_toRightOf="@id/but_location"
+                android:layout_toRightOf="@id/bPickLocation"
                 android:gravity="center"
                 android:text=""
                 android:visibility="gone" />
@@ -130,7 +130,7 @@
             android:src="@drawable/frame" />
 
         <ImageView
-            android:id="@+id/bUploadImage"
+            android:id="@+id/ivUploadImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/ivPreview"
@@ -139,16 +139,16 @@
             android:src="@drawable/gallery" />
 
         <ImageView
-            android:id="@+id/bTakePic"
+            android:id="@+id/ivTakePic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_alignTop="@id/bUploadImage"
+            android:layout_alignTop="@id/ivUploadImage"
             android:layout_marginRight="60dp"
             android:src="@drawable/take_pic" />
 
         <ImageView
-            android:id="@+id/bSubmit"
+            android:id="@+id/ivSubmit"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_below="@+id/ivPreview"
