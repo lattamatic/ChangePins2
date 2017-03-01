@@ -66,8 +66,7 @@ public class ActivityRegisterComplaint extends Activity implements OnClickListen
         application = (AnalyticsApplication) getApplication();
         mTracker = application.getDefaultTracker();
 
-
-      //  dh = new DataHelp(this);
+        //Instantiating views
         title = (TextView) findViewById(R.id.tvCategory);
         location_set = (TextView) findViewById(R.id.tvLocationText);
         upload = (ImageView) findViewById(R.id.ivUploadImage);
@@ -305,12 +304,12 @@ public class ActivityRegisterComplaint extends Activity implements OnClickListen
             cropIntent.setDataAndType(picUri, "image/*");
             // set crop properties
             cropIntent.putExtra("crop", "true");
-            // indicate aspect of desired crop
-            cropIntent.putExtra("aspectX", 1);
-            cropIntent.putExtra("aspectY", 1);
-            // indicate output X and Y
-            cropIntent.putExtra("outputX", 256);
-            cropIntent.putExtra("outputY", 256);
+            // indicate aspect of desired crop, commenting as of now
+//            cropIntent.putExtra("aspectX", 1);
+//            cropIntent.putExtra("aspectY", 1);
+//            // indicate output X and Y, commenting as of now
+//            cropIntent.putExtra("outputX", 256);
+//            cropIntent.putExtra("outputY", 256);
             // retrieve data on return
             cropIntent.putExtra("return-data", true);
             // start the activity - we handle returning in onActivityResult
