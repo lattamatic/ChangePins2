@@ -8,9 +8,11 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,14 +31,16 @@ import com.google.android.gms.maps.model.LatLng;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import sandeep.city.DownloadImageTask;
 import sandeep.city.POJO.SingleReport;
 import sandeep.city.R;
 import sandeep.city.SQLiteClasses.ReportsDataSource;
 
-public class ActivityRegisterComplaint extends Activity implements OnClickListener, DownloadImageTask.ShowMapImage {
+public class ActivityRegisterComplaint extends Activity implements OnClickListener, DownloadImageTask.ShowMapImage{
 
     TextView category, location_set;
     ImageView upload, takePic, submit;
@@ -57,6 +61,11 @@ public class ActivityRegisterComplaint extends Activity implements OnClickListen
 
     private String location_string;
     private Uri picUri;
+
+    public interface OnSubmitReport{
+        void onSubmitReport();
+    };
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -126,33 +135,17 @@ public class ActivityRegisterComplaint extends Activity implements OnClickListen
                 } else if (description.getText().toString().matches("")) {
                     Toast.makeText(this, "Description cannot be empty",
                             Toast.LENGTH_SHORT).show();
-//                } else if (location_set.getText().toString().matches("")) {
-//                    Toast.makeText(this, "Turn on Location Service and add a location",
-//                            Toast.LENGTH_SHORT).show();
-//                } else if (staticMap.getVisibility() == View.GONE) {
-//                    Toast.makeText(this, "Choose a location to proceed", Toast.LENGTH_SHORT).show();
-//                    PlacePicker.IntentBuilder buildr = new PlacePicker.IntentBuilder();
-//                    Context c = this;
-//                    try {
-//                        startActivityForResult(buildr.build(c), LOCATION);
-//                    } catch (GooglePlayServicesRepairableException e) {
-//                        e.printStackTrace();
-//                    } catch (GooglePlayServicesNotAvailableException e) {
-//                        e.printStackTrace();
-//                    }
-                } else if (imageView.getBackground()!=null){
-                    ReportsDataSource dataSource = new ReportsDataSource(this);
-                    dataSource.open();
-                    SingleReport report = dataSource.createReport(category.getText().toString(), ettitle.getText().toString(),
-                            description.getText().toString(), "NoImage");
-                    dataSource.close();
-                }else{
-                ReportsDataSource dataSource = new ReportsDataSource(this);
-                dataSource.open();
-                String saveImage = saveImageInMobile(((BitmapDrawable) imageView.getDrawable()).getBitmap());
-                SingleReport report = dataSource.createReport(category.getText().toString(), ettitle.getText().toString(),
-                        description.getText().toString(), saveImage);
-                dataSource.close();
+                } else if (imageView.getBackground() != null) {
+                    AsyncSubmitReport async = new AsyncSubmitReport();
+                    SingleReport report = new SingleReport(category.getText().toString(), ettitle.getText().toString(),
+                            description.getText().toString(), "NoImage",0);
+                    async.execute(report);
+                    } else {
+                    String saveImage = saveImageInMobile(((BitmapDrawable) imageView.getDrawable()).getBitmap());
+                    AsyncSubmitReport async = new AsyncSubmitReport();
+                    SingleReport report = new SingleReport(category.getText().toString(), ettitle.getText().toString(),
+                            description.getText().toString(), saveImage,0);
+                    async.execute(report);
                 }
                 break;
             case R.id.ivBack:
@@ -212,7 +205,6 @@ public class ActivityRegisterComplaint extends Activity implements OnClickListen
         locMessage.setVisibility(View.GONE);
     }
 
-
     private class GeocoderHandler extends Handler {
         @Override
         public void handleMessage(Message message) {
@@ -232,22 +224,12 @@ public class ActivityRegisterComplaint extends Activity implements OnClickListen
     private void performCrop() {
         // take care of exceptions
         try {
-            // call the standard crop action intent (the user device may not
-            // support it)
             Intent cropIntent = new Intent("com.android.camera.action.CROP");
-            // indicate image type and Uri
             cropIntent.setDataAndType(picUri, "image/*");
-            // set crop properties
             cropIntent.putExtra("crop", "true");
-            // indicate aspect of desired crop, commenting as of now
 //            cropIntent.putExtra("aspectX", 1);
 //            cropIntent.putExtra("aspectY", 1);
-//            // indicate output X and Y, commenting as of now
-//            cropIntent.putExtra("outputX", 256);
-//            cropIntent.putExtra("outputY", 256);
-            // retrieve data on return
             cropIntent.putExtra("return-data", true);
-            // start the activity - we handle returning in onActivityResult
             startActivityForResult(cropIntent, CROP_PIC);
         } catch (ActivityNotFoundException anfe) {
             Toast toast = Toast
@@ -257,18 +239,14 @@ public class ActivityRegisterComplaint extends Activity implements OnClickListen
     }
 
     private String saveImageInMobile(Bitmap bitmapImage) {
-
-
         ContextWrapper cw = new ContextWrapper(getApplicationContext());
-        // path to /data/data/yourapp/app_data/imageDir
+        // path to the directory where images are saved
         File directory = cw.getDir("report_images", Context.MODE_PRIVATE);
-        // Create imageDir
         long currentDateTimeString = new Date().getTime();
-        File mypath = new File(directory, currentDateTimeString + ".jpg");
+        File imagePath = new File(directory, currentDateTimeString + ".jpg");
         FileOutputStream fos = null;
         try {
-            fos = new FileOutputStream(mypath);
-            // Use the compress method on the BitMap object to write image to the OutputStream
+            fos = new FileOutputStream(imagePath);
             bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
         } catch (Exception e) {
             e.printStackTrace();
@@ -282,4 +260,31 @@ public class ActivityRegisterComplaint extends Activity implements OnClickListen
         return currentDateTimeString + ".jpg";
     }
 
+    private class AsyncSubmitReport extends AsyncTask<SingleReport,Void,Void>{
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+
+        @Override
+        protected Void doInBackground(SingleReport... params) {
+            ReportsDataSource dataSource = new ReportsDataSource(getApplicationContext());
+            dataSource.open();
+            SingleReport report = dataSource.createReport(params[0].getCategory(),params[0].getTitle(),
+                    params[0].getDescription(), params[0].getImage_path());
+            dataSource.close();
+            return null;
+        }
+
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            LocalBroadcastManager.getInstance(ActivityRegisterComplaint.this).sendBroadcast(new Intent("Intent filter"));
+            Toast.makeText(ActivityRegisterComplaint.this,"Report submitted successfully!", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+    }
 }

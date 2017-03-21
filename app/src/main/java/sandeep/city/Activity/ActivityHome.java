@@ -2,11 +2,15 @@ package sandeep.city.Activity;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -44,7 +48,8 @@ import sandeep.city.R;
 /**
  * Created by sandeep on 25/10/15.
  */
-public class ActivityHome extends ActionBarActivity implements View.OnClickListener, FragmentSelectSector.SelectSectorInterface, InterfaceOnClickCategory, FragmentMyReports.OnClickAddReport {
+public class ActivityHome extends ActionBarActivity implements View.OnClickListener, FragmentSelectSector.SelectSectorInterface,
+        InterfaceOnClickCategory, FragmentMyReports.OnClickAddReport, ActivityRegisterComplaint.OnSubmitReport {
 
     DrawerLayout mDrawerLayout;
     ActionBarDrawerToggle toggle;
@@ -61,6 +66,7 @@ public class ActivityHome extends ActionBarActivity implements View.OnClickListe
     String Preferences;
     SharedPreferences prefs;
     SharedPreferences.Editor editor;
+    BroadcastReceiver bcReceiver;
 
     static final String homeScreen = "Home Screen";
     static final String reports = "Reports";
@@ -151,7 +157,16 @@ public class ActivityHome extends ActionBarActivity implements View.OnClickListe
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
-    }
+
+        bcReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                popAFragment(homeScreen);
+            }
+        };
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(bcReceiver, new IntentFilter("Intent filter"));
+        }
 
 
     @Override
@@ -315,6 +330,17 @@ public class ActivityHome extends ActionBarActivity implements View.OnClickListe
 
         transaction.replace(R.id.fragment,fragment1,fragment);
         transaction.addToBackStack(fragment);
-        transaction.commit();
+        transaction.commitAllowingStateLoss();
+    }
+
+    @Override
+    public void onSubmitReport() {
+        popAFragment(ActivityHome.homeScreen);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(bcReceiver);
     }
 }
