@@ -177,7 +177,7 @@ public class ActivityHome extends ActionBarActivity implements View.OnClickListe
                 break;
             case R.id.tvTitle:
 
-                Log.d("title click", "" + getFragmentManager().findFragmentByTag(homeScreen).isVisible());
+                Log.d("category click", "" + getFragmentManager().findFragmentByTag(homeScreen).isVisible());
 
                 if (!getFragmentManager().findFragmentByTag(homeScreen).isVisible()) {
                     popAFragment(homeScreen);
@@ -197,7 +197,7 @@ public class ActivityHome extends ActionBarActivity implements View.OnClickListe
         client.connect();
         Action viewAction = Action.newAction(
                 Action.TYPE_VIEW, // TODO: choose an action type.
-                "Home Page", // TODO: Define a title for the content shown.
+                "Home Page", // TODO: Define a category for the content shown.
                 // TODO: If you have web page content that matches this app activity's content,
                 // make sure this auto-generated web page URL is correct.
                 // Otherwise, set the URL to null.
@@ -216,7 +216,7 @@ public class ActivityHome extends ActionBarActivity implements View.OnClickListe
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         Action viewAction = Action.newAction(
                 Action.TYPE_VIEW, // TODO: choose an action type.
-                "Home Page", // TODO: Define a title for the content shown.
+                "Home Page", // TODO: Define a category for the content shown.
                 // TODO: If you have web page content that matches this app activity's content,
                 // make sure this auto-generated web page URL is correct.
                 // Otherwise, set the URL to null.

@@ -1,47 +1,44 @@
 package sandeep.city.POJO;
 
 /**
- * Created by sandeep on 22/6/15.
+ * Created by sandeep_chi on 3/8/2017.
  */
+
 public class SingleReport {
 
-    int id;
+    long id;
     String title;
-    String description;
-    String img_link;
-    double lat;
-    double lon;
-    String locAddress;
     String category;
+    String description;
+    String image_path;
+    long place_id;
 
     public SingleReport(){
 
     }
 
-    public SingleReport(int id, String title, String desc, String img_link, double lat, double lon, String locAddress, String category){
-        this.id= id;
+    public SingleReport(long id, String title, String category, String description, String image_path, long place_id){
+        this.id = id;
         this.title = title;
-        this.description = desc;
-        this.img_link = img_link;
-        this.lat = lat;
-        this.lon = lon;
-        this.locAddress = locAddress;
         this.category = category;
+        this.description = description;
+        this.image_path = image_path;
+        this.place_id = place_id;
     }
 
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
+    public SingleReport(String title, String category, String description, String image_path, long place_id){
+        this.title = title;
         this.category = category;
+        this.description = description;
+        this.image_path = image_path;
+        this.place_id = place_id;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -53,6 +50,14 @@ public class SingleReport {
         this.title = title;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -61,38 +66,19 @@ public class SingleReport {
         this.description = description;
     }
 
-    public String getImg_link() {
-        return img_link;
+    public String getImage_path() {
+        return image_path;
     }
 
-    public void setImg_link(String img_link) {
-        this.img_link = img_link;
+    public void setImage_path(String image_path) {
+        this.image_path = image_path;
     }
 
-    public double getLat() {
-        return lat;
+    public long getPlace_id(){
+        return place_id;
     }
 
-    public void setLat(double lat) {
-        this.lat = lat;
+    public void setPlace_id(long place_id){
+        this.place_id = place_id;
     }
-
-    public double getLon() {
-        return lon;
-    }
-
-    public void setLon(double lon) {
-        this.lon = lon;
-    }
-
-    public String getLocAddress() {
-        return locAddress;
-    }
-
-    public void setLocAddress(String locAddress) {
-        this.locAddress = locAddress;
-    }
-
-
-
 }

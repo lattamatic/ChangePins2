@@ -1,12 +1,20 @@
 package sandeep.city.Adapter;
 
+import android.content.Context;
+import android.content.ContextWrapper;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.List;
 
 import sandeep.city.POJO.SingleReport;
@@ -19,9 +27,11 @@ import sandeep.city.R;
 public class ReportRecyclerViewAdapter extends RecyclerView.Adapter<ReportRecyclerViewAdapter.ViewHolder> {
 
     private List<SingleReport> reportList;
+    Context context;
 
-    public ReportRecyclerViewAdapter(List<SingleReport> reportList) {
+    public ReportRecyclerViewAdapter(List<SingleReport> reportList, Context context) {
         this.reportList = reportList;
+        this.context = context;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -50,10 +60,38 @@ public class ReportRecyclerViewAdapter extends RecyclerView.Adapter<ReportRecycl
         SingleReport report = reportList.get(position);
         holder.description.setText(report.getDescription());
         holder.title.setText(report.getTitle());
+        Log.d("isnide",report.getImage_path());
+        if(report.getImage_path().equals("NoImage")){
+            holder.reportThumbnail.setImageResource(R.drawable.gallery);
+        }else{
+            Log.d("outside",report.getImage_path());
+            holder.reportThumbnail.setImageBitmap(loadImageFromStorage(report.getImage_path()));
+        }
     }
 
     @Override
     public int getItemCount() {
         return reportList.size();
+    }
+
+
+    private Bitmap loadImageFromStorage(String path)
+    {
+        ContextWrapper cw = new ContextWrapper(context);
+        Bitmap b = null;
+        try {
+            File directory = cw.getDir("report_images", Context.MODE_PRIVATE);
+            // Create imageDir
+
+            File f=new File(directory, path);
+            b = BitmapFactory.decodeStream(new FileInputStream(f));
+        }
+        catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+
+        return b;
+
     }
 }

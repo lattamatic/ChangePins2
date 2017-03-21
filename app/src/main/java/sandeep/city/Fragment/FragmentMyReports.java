@@ -10,11 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import sandeep.city.Adapter.ReportRecyclerViewAdapter;
 import sandeep.city.POJO.SingleReport;
 import sandeep.city.R;
+import sandeep.city.SQLiteClasses.ReportsDataSource;
 
 /**
  * Created by sandeep_chi on 2/6/2017.
@@ -23,9 +24,10 @@ import sandeep.city.R;
 public class FragmentMyReports extends Fragment {
 
     RecyclerView reportsRecycler;
-    ArrayList<SingleReport> reportList;
+    List<SingleReport> reportList;
     RecyclerView.LayoutManager layoutManager;
     OnClickAddReport onClickAddReport;
+    ReportsDataSource dataSource;
 
     public interface OnClickAddReport{
         void onClickAddReport();
@@ -38,9 +40,10 @@ public class FragmentMyReports extends Fragment {
 
         onClickAddReport = (OnClickAddReport) getActivity();
 
-        reportList = new ArrayList<SingleReport>();
+        dataSource = new ReportsDataSource(getActivity());
+        dataSource.open();
 
-
+        reportList = dataSource.getAllReports();
 
         if (reportList.size() > 0) {
 
@@ -48,7 +51,7 @@ public class FragmentMyReports extends Fragment {
             layoutManager = new LinearLayoutManager(getActivity());
             reportsRecycler.setLayoutManager(layoutManager);
 
-            reportsRecycler.setAdapter( new ReportRecyclerViewAdapter(reportList));
+            reportsRecycler.setAdapter( new ReportRecyclerViewAdapter(reportList, getActivity()));
 
         }
 

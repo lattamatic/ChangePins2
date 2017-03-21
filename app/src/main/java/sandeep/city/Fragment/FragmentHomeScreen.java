@@ -24,6 +24,7 @@ public class FragmentHomeScreen extends Fragment{
     RecyclerView.LayoutManager layoutManager;
     List<SingleStory> storyList;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

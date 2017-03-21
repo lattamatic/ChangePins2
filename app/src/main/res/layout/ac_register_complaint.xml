@@ -162,7 +162,7 @@
                 android:layout_height="100dp"
                 android:layout_below="@+id/tvImage"
                 android:layout_centerHorizontal="true"
-                android:src="@drawable/frame"/>
+                android:background="@drawable/frame"/>
 
             <ImageView
                 android:id="@+id/ivUploadImage"

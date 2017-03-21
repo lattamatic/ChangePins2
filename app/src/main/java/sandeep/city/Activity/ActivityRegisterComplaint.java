@@ -1,17 +1,16 @@
 package sandeep.city.Activity;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
-import android.content.DialogInterface;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -21,20 +20,25 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
 
-import sandeep.city.AnalyticsApplication;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Date;
+
 import sandeep.city.DownloadImageTask;
+import sandeep.city.POJO.SingleReport;
 import sandeep.city.R;
+import sandeep.city.SQLiteClasses.ReportsDataSource;
 
-public class ActivityRegisterComplaint extends Activity implements OnClickListener {
+public class ActivityRegisterComplaint extends Activity implements OnClickListener, DownloadImageTask.ShowMapImage {
 
-    TextView title, location_set;
+    TextView category, location_set;
     ImageView upload, takePic, submit;
     EditText ettitle, description;
     ImageView but_location;
@@ -46,28 +50,21 @@ public class ActivityRegisterComplaint extends Activity implements OnClickListen
     public final int GET_LOC = 11;
     public final int LOCATION = 2;
     public Bitmap bitmap;
-    public static TextView locMessage;
-    public static ImageView staticMap;
-    public static ProgressBar progressBar;
+    private TextView locMessage;
+    private ImageView staticMap;
+    private ProgressBar progressBar;
     ImageView back;
 
     private String location_string;
     private Uri picUri;
-
-    Tracker mTracker;
-    AnalyticsApplication application;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ac_register_complaint);
 
-        application = (AnalyticsApplication) getApplication();
-        mTracker = application.getDefaultTracker();
-
         //Instantiating views
-        title = (TextView) findViewById(R.id.tvCategory);
+        category = (TextView) findViewById(R.id.tvCategory);
         location_set = (TextView) findViewById(R.id.tvLocationText);
         upload = (ImageView) findViewById(R.id.ivUploadImage);
         takePic = (ImageView) findViewById(R.id.ivTakePic);
@@ -79,11 +76,8 @@ public class ActivityRegisterComplaint extends Activity implements OnClickListen
         but_location = (ImageView) findViewById(R.id.bPickLocation);
         staticMap = (ImageView) findViewById(R.id.ivStaticMap);
         locMessage = (TextView) findViewById(R.id.tvLocMessage);
-
         back = (ImageView) findViewById(R.id.ivBack);
-
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
-
 
         upload.setOnClickListener(this);
         takePic.setOnClickListener(this);
@@ -91,8 +85,8 @@ public class ActivityRegisterComplaint extends Activity implements OnClickListen
         but_location.setOnClickListener(this);
         back.setOnClickListener(this);
 
-
-        title.setText(getIntent().getStringExtra("category"));
+        //Setting category from the data sent from previous activity
+        category.setText(getIntent().getStringExtra("category"));
 
     }
 
@@ -126,18 +120,16 @@ public class ActivityRegisterComplaint extends Activity implements OnClickListen
                 }
                 break;
             case R.id.ivSubmit:
-//                if (ettitle.getText().toString().matches("")) {
-//                    Toast.makeText(this, "Title cannot be empty",
+                if (ettitle.getText().toString().matches("")) {
+                    Toast.makeText(this, "Title cannot be empty",
+                            Toast.LENGTH_SHORT).show();
+                } else if (description.getText().toString().matches("")) {
+                    Toast.makeText(this, "Description cannot be empty",
+                            Toast.LENGTH_SHORT).show();
+//                } else if (location_set.getText().toString().matches("")) {
+//                    Toast.makeText(this, "Turn on Location Service and add a location",
 //                            Toast.LENGTH_SHORT).show();
-//                } else if (description.getText().toString().matches("")) {
-//                    Toast.makeText(this, "Description cannot be empty",
-//                            Toast.LENGTH_SHORT).show();
-//                }
-//// else if (location_set.getText().toString().matches("")) {
-////                    Toast.makeText(this, "Turn on GPS and add location",
-////                            Toast.LENGTH_SHORT).show();
-////                }
-//                else if (staticMap.getVisibility() == View.GONE) {
+//                } else if (staticMap.getVisibility() == View.GONE) {
 //                    Toast.makeText(this, "Choose a location to proceed", Toast.LENGTH_SHORT).show();
 //                    PlacePicker.IntentBuilder buildr = new PlacePicker.IntentBuilder();
 //                    Context c = this;
@@ -148,68 +140,21 @@ public class ActivityRegisterComplaint extends Activity implements OnClickListen
 //                    } catch (GooglePlayServicesNotAvailableException e) {
 //                        e.printStackTrace();
 //                    }
-//                } else {
-//                    mTracker.send(new HitBuilders.EventBuilder()
-//                            .setCategory(getString(R.string.views))
-//                            .setAction(getString(R.string.click))
-//                            .setLabel(getString(R.string.succesfulreport))
-//                            .build());
-//
-//                    tit = ettitle.getText().toString();
-//                    descString = description.getText().toString();
-//                    //loc_address = location_set.getText().toString();
-//
-//                    BitmapDrawable bitmapDrawable = (BitmapDrawable) imageView.getDrawable();
-//                    Bitmap mIcon = bitmapDrawable.getBitmap();
-//
-//
-//                  //  ArrayList<SingleReport> gen = dh.getReports();
-//                   // String file_id = String.valueOf(gen.size() + 1);
-//
-//                    File sdCardDirectory = Environment.getExternalStorageDirectory();
-//                    sdCardDirectory = new File(sdCardDirectory.getAbsolutePath() + "/ChangePins/");
-//                    sdCardDirectory.mkdirs();
-//                    //File image = new File(sdCardDirectory, file_id + ".jpg");
-//                    //String file_path = image.getAbsolutePath();
-//                    boolean success = false;
-//
-//                    // Encode the file as a PNG image.
-//                    FileOutputStream outStream;
-//                    try {
-//
-//                      //  outStream = new FileOutputStream(image);
-//                        //mIcon.compress(Bitmap.CompressFormat.JPEG, 100, outStream);
-//        /* 100 to keep full quality of the image */
-//
-//                        //outStream.flush();
-//                        //outStream.close();
-//                        success = true;
-//                    } catch (FileNotFoundException e) {
-//                        e.printStackTrace();
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//                    if (success) {
-//                        Toast.makeText(this, "Reported successfully",
-//                                Toast.LENGTH_LONG).show();
-//                        dh.report_insert(tit, descString, file_id, latitude, longitude, loc_address, title.getText().toString());
-//
-//                        imageView.setImageResource(R.drawable.frame);
-//                        locMessage.setVisibility(View.VISIBLE);
-//                        staticMap.setVisibility(View.GONE);
-//                        ettitle.setText("");
-//                        description.setText("");
-//
-//
-//                    } else {
-//                        Toast.makeText(this,
-//                                "Error during image saving", Toast.LENGTH_LONG).show();
-//                    }
-//
-//                }
-//
-//
-//                break;
+                } else if (imageView.getBackground()!=null){
+                    ReportsDataSource dataSource = new ReportsDataSource(this);
+                    dataSource.open();
+                    SingleReport report = dataSource.createReport(category.getText().toString(), ettitle.getText().toString(),
+                            description.getText().toString(), "NoImage");
+                    dataSource.close();
+                }else{
+                ReportsDataSource dataSource = new ReportsDataSource(this);
+                dataSource.open();
+                String saveImage = saveImageInMobile(((BitmapDrawable) imageView.getDrawable()).getBitmap());
+                SingleReport report = dataSource.createReport(category.getText().toString(), ettitle.getText().toString(),
+                        description.getText().toString(), saveImage);
+                dataSource.close();
+                }
+                break;
             case R.id.ivBack:
                 finish();
                 break;
@@ -226,7 +171,6 @@ public class ActivityRegisterComplaint extends Activity implements OnClickListen
             if (bitmap != null) {
                 bitmap.recycle();
             }
-
             picUri = data.getData();
             performCrop();
         } else if (requestCode == SELECT_PIC && resultCode == RESULT_OK) {
@@ -236,6 +180,7 @@ public class ActivityRegisterComplaint extends Activity implements OnClickListen
             Bundle extras = data.getExtras();
             Bitmap thePic = extras.getParcelable("data");
             imageView.setImageBitmap(thePic);
+            imageView.setBackground(null);
         } else if (requestCode == GET_LOC && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             location_string = (String) extras.get("location");
@@ -249,10 +194,22 @@ public class ActivityRegisterComplaint extends Activity implements OnClickListen
             double lat = ll.latitude;
             Log.d("location", "lat:" + lat + " lon:" + lon);
             String url = "https://maps.googleapis.com/maps/api/staticmap?center=" + lat + "," + lon + "&zoom=17&size=600x300&maptype=normal";
-
-            new DownloadImageTask(staticMap, locMessage, progressBar).execute(url);
+            new DownloadImageTask(ActivityRegisterComplaint.this).execute(url);
         }
 
+    }
+
+    @Override
+    public void onResultsReceived(Bitmap result) {
+        staticMap.setImageBitmap(result);
+        staticMap.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onDownloadStart() {
+        progressBar.setVisibility(View.VISIBLE);
+        locMessage.setVisibility(View.GONE);
     }
 
 
@@ -270,28 +227,6 @@ public class ActivityRegisterComplaint extends Activity implements OnClickListen
             }
             location_set.setText(locationAddress);
         }
-    }
-
-    public void showSettingsAlert() {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(
-                this);
-        alertDialog.setTitle("SETTINGS");
-        alertDialog.setMessage("Enable Location Provider! Go to settings menu?");
-        alertDialog.setPositiveButton("Settings",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(
-                                Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                        startActivity(intent);
-                    }
-                });
-        alertDialog.setNegativeButton("Cancel",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-        alertDialog.show();
     }
 
     private void performCrop() {
@@ -320,4 +255,31 @@ public class ActivityRegisterComplaint extends Activity implements OnClickListen
             toast.show();
         }
     }
+
+    private String saveImageInMobile(Bitmap bitmapImage) {
+
+
+        ContextWrapper cw = new ContextWrapper(getApplicationContext());
+        // path to /data/data/yourapp/app_data/imageDir
+        File directory = cw.getDir("report_images", Context.MODE_PRIVATE);
+        // Create imageDir
+        long currentDateTimeString = new Date().getTime();
+        File mypath = new File(directory, currentDateTimeString + ".jpg");
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(mypath);
+            // Use the compress method on the BitMap object to write image to the OutputStream
+            bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                fos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return currentDateTimeString + ".jpg";
+    }
+
 }
