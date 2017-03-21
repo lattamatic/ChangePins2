@@ -80,7 +80,6 @@ public class StoryRecyclerViewAdapter extends RecyclerView.Adapter<StoryRecycler
                 LinearLayout.LayoutParams lp= new LinearLayout.LayoutParams(width,height);
                 holder.storyImage.setLayoutParams(lp);
                 holder.storyImage.requestLayout();
-
             }
         });
     }
