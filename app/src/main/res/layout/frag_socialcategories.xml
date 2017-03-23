@@ -6,35 +6,34 @@
     android:padding="10dp"
     android:background="@android:color/white">
 
-
     <LinearLayout
-        android:layout_margin="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="3">
+        android:weightSum="3"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp">
 
         <sandeep.city.Views.ViewIconTitle
             android:id="@+id/iiElectricity"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            app:image_icon="@drawable/electricity"
+            app:image_icon="@drawable/electricitybulb"
             app:title_name="@string/electricity"
-            app:titleSize="6sp">
-
-        </sandeep.city.Views.ViewIconTitle>
-
+            app:titleSize="6sp"></sandeep.city.Views.ViewIconTitle>
 
         <sandeep.city.Views.ViewIconTitle
             android:id="@+id/iiWaterSupply"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            app:image_icon="@drawable/water"
+            app:image_icon="@drawable/watersupply"
             app:title_name="@string/watersupply"
             app:titleSize="6sp">
+
         </sandeep.city.Views.ViewIconTitle>
+
 
         <sandeep.city.Views.ViewIconTitle
             android:id="@+id/iiGender"
@@ -49,12 +48,12 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_margin="30dp"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="3">
-
+        android:weightSum="3"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp">
 
         <sandeep.city.Views.ViewIconTitle
             android:id="@+id/iiHousing"
@@ -64,7 +63,6 @@
             app:image_icon="@drawable/housing"
             app:title_name="@string/housing"
             app:titleSize="6sp">
-
         </sandeep.city.Views.ViewIconTitle>
 
         <sandeep.city.Views.ViewIconTitle
@@ -83,25 +81,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            app:image_icon="@drawable/nutrition"
+            app:image_icon="@drawable/nutritionnew"
             app:title_name="@string/nutrition"
             app:titleSize="6sp">
 
         </sandeep.city.Views.ViewIconTitle>
-
     </LinearLayout>
 
+
     <Button
-        android:id="@+id/bPrivate"
+        android:id="@+id/bSocial"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="36dp"
         android:background="@drawable/others_background"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:text="Others"
+        android:layout_gravity="center"
         android:textColor="#FFFFFF"
         android:textStyle="bold" />
-
 </LinearLayout>

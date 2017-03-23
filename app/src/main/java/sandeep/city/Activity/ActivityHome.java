@@ -9,7 +9,6 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -29,7 +28,6 @@ import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.auth.api.credentials.internal.SaveRequest;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import sandeep.city.AnalyticsApplication;
@@ -39,7 +37,7 @@ import sandeep.city.Fragment.FragmentHelp;
 import sandeep.city.Fragment.FragmentMyPlaces;
 import sandeep.city.Fragment.FragmentHomeScreen;
 import sandeep.city.Fragment.FragmentMyReports;
-import sandeep.city.Fragment.FragmentPrivateSector;
+import sandeep.city.Fragment.FragmentSocialSector;
 import sandeep.city.Fragment.FragmentPublicSector;
 import sandeep.city.Fragment.FragmentSelectSector;
 import sandeep.city.InterfaceOnClickCategory;
@@ -321,7 +319,7 @@ public class ActivityHome extends ActionBarActivity implements View.OnClickListe
                 fragment1 = new FragmentBuzz();
                 break;
             case privateSector:
-                fragment1 = new FragmentPrivateSector();
+                fragment1 = new FragmentSocialSector();
                 break;
             case publicSector:
                 fragment1 = new FragmentPublicSector();

@@ -23,9 +23,9 @@ import sandeep.city.InterfaceOnClickCategory;
 import sandeep.city.R;
 import sandeep.city.Views.ViewIconTitle;
 
-public class FragmentPrivateSector extends Fragment implements OnClickListener,OnLongClickListener {
+public class FragmentSocialSector extends Fragment implements OnClickListener,OnLongClickListener {
 
-    ViewIconTitle electricity, waterSupply, housing, education;
+    ViewIconTitle electricity, waterSupply, housing, education, genderissues, nutrition;
     Button others;
     AlertDialog.Builder builder;
 
@@ -60,12 +60,16 @@ public class FragmentPrivateSector extends Fragment implements OnClickListener,O
         waterSupply = (ViewIconTitle) v.findViewById(R.id.iiWaterSupply);
         housing = (ViewIconTitle) v.findViewById(R.id.iiHousing);
         education = (ViewIconTitle) v.findViewById(R.id.iiEducation);
-        others = (Button) v.findViewById(R.id.bPrivate);
+        genderissues = (ViewIconTitle) v.findViewById(R.id.iiGender);
+        nutrition = (ViewIconTitle) v.findViewById(R.id.iiNutrition);
+        others = (Button) v.findViewById(R.id.bSocial);
 
         electricity.setOnClickListener(this);
         waterSupply.setOnClickListener(this);
         housing.setOnClickListener(this);
         education.setOnClickListener(this);
+        genderissues.setOnClickListener(this);
+        nutrition.setOnClickListener(this);
         others.setOnClickListener(this);
 
         return v;
@@ -74,7 +78,7 @@ public class FragmentPrivateSector extends Fragment implements OnClickListener,O
     @Override
     public void onClick(View v) {
 
-        if (v.getId() == R.id.bPrivate) {
+        if (v.getId() == R.id.bSocial) {
 
             d = new Dialog(getActivity());
             d.setContentView(R.layout.dialog);
@@ -109,38 +113,55 @@ public class FragmentPrivateSector extends Fragment implements OnClickListener,O
             switch (v.getId()) {
 
                 case R.id.iiElectricity:
-                    category = "Electricity";
+                    category = getString(R.string.electricity);
                     mTracker.send(new HitBuilders.EventBuilder()
                             .setCategory(getString(R.string.views))
                             .setAction(getString(R.string.click))
-                            .setLabel(getString(R.string.electricity))
+                            .setLabel(category)
                             .build());
                     break;
 
                 case R.id.iiWaterSupply:
-                    category = "Water Supply";
+                    category = getString(R.string.watersupply);
                     mTracker.send(new HitBuilders.EventBuilder()
                             .setCategory(getString(R.string.views))
                             .setAction(getString(R.string.click))
-                            .setLabel(getString(R.string.watersupply))
+                            .setLabel(category)
                             .build());
                     break;
 
                 case R.id.iiHousing:
-                    category = "Housing";
+                    category = getString(R.string.housing);
                     mTracker.send(new HitBuilders.EventBuilder()
                             .setCategory(getString(R.string.views))
                             .setAction(getString(R.string.click))
-                            .setLabel(getString(R.string.housing))
+                            .setLabel(category)
                             .build());
                     break;
 
                 case R.id.iiEducation:
-                    category = "Education";
+                    category = getString(R.string.education);
                     mTracker.send(new HitBuilders.EventBuilder()
                             .setCategory(getString(R.string.views))
                             .setAction(getString(R.string.click))
-                            .setLabel(getString(R.string.education))
+                            .setLabel(category)
+                            .build());
+                    break;
+                case R.id.iiGender:
+                    category = getString(R.string.gender);
+                    mTracker.send(new HitBuilders.EventBuilder()
+                            .setCategory(getString(R.string.views))
+                            .setAction(getString(R.string.click))
+                            .setLabel(category)
+                            .build());
+                    break;
+
+                case R.id.iiNutrition:
+                    category = getString(R.string.nutrition);
+                    mTracker.send(new HitBuilders.EventBuilder()
+                            .setCategory(getString(R.string.views))
+                            .setAction(getString(R.string.click))
+                            .setLabel(category)
                             .build());
                     break;
 
@@ -156,36 +177,37 @@ public class FragmentPrivateSector extends Fragment implements OnClickListener,O
         // TODO Auto-generated method stub
 
         AlertDialog.Builder builder = new Builder(getActivity());
+        String category;
         switch (v.getId()) {
             case R.id.iiElectricity:
-
+                category = getString(R.string.electricity);
                 mTracker.send(new HitBuilders.EventBuilder()
                         .setCategory(getString(R.string.views))
                         .setAction(getString(R.string.longclick))
-                        .setLabel(getString(R.string.electricity))
+                        .setLabel(category)
                         .build());
 
-                builder.setTitle("Electricity");
+                builder.setTitle(category);
                 description = new TextView(getActivity());
                 description
-                        .setText("Please document issues or problems related to electricity here");
+                        .setText("Please document issues or problems related to Electricity here");
                 builder.setView(description);
 
                 builder.show();
                 break;
 
             case R.id.iiWaterSupply:
-
+                category = getString(R.string.watersupply);
                 mTracker.send(new HitBuilders.EventBuilder()
                         .setCategory(getString(R.string.views))
                         .setAction(getString(R.string.longclick))
-                        .setLabel(getString(R.string.watersupply))
+                        .setLabel(category)
                         .build());
 
-                builder.setTitle("Water Supply");
+                builder.setTitle(category);
                 description = new TextView(getActivity());
                 description
-                        .setText("Please document issues and problems related to water or its supply here");
+                        .setText("Please document issues and problems related to Water or Water Supply here");
                 builder.setView(description);
 
                 builder.show();
@@ -193,32 +215,64 @@ public class FragmentPrivateSector extends Fragment implements OnClickListener,O
 
             case R.id.iiHousing:
 
+                category = getString(R.string.housing);
                 mTracker.send(new HitBuilders.EventBuilder()
                         .setCategory(getString(R.string.views))
                         .setAction(getString(R.string.longclick))
-                        .setLabel(getString(R.string.housing))
+                        .setLabel(category)
                         .build());
 
-                builder.setTitle("Housing");
+                builder.setTitle(category);
                 description = new TextView(getActivity());
                 description
-                        .setText("Please document issues related to housing here");
+                        .setText("Please document issues related to Housing here");
                 builder.setView(description);
                 builder.show();
                 break;
 
             case R.id.iiEducation:
-
+                category = getString(R.string.education);
                 mTracker.send(new HitBuilders.EventBuilder()
                         .setCategory(getString(R.string.views))
                         .setAction(getString(R.string.longclick))
-                        .setLabel(getString(R.string.education))
+                        .setLabel(category)
                         .build());
 
-                builder.setTitle("Education");
+                builder.setTitle(category);
                 description = new TextView(getActivity());
                 description
-                        .setText("Please document issues related to education here");
+                        .setText("Please document issues related to Education here");
+                builder.setView(description);
+                builder.show();
+                break;
+
+            case R.id.iiGender:
+                category = getString(R.string.gender);
+                mTracker.send(new HitBuilders.EventBuilder()
+                        .setCategory(getString(R.string.views))
+                        .setAction(getString(R.string.longclick))
+                        .setLabel(category)
+                        .build());
+
+                builder.setTitle(category);
+                description = new TextView(getActivity());
+                description
+                        .setText("Please document issues related to Gender here");
+                builder.setView(description);
+                builder.show();
+                break;
+            case R.id.iiNutrition:
+                category = getString(R.string.nutrition);
+                mTracker.send(new HitBuilders.EventBuilder()
+                        .setCategory(getString(R.string.views))
+                        .setAction(getString(R.string.longclick))
+                        .setLabel(category)
+                        .build());
+
+                builder.setTitle(category);
+                description = new TextView(getActivity());
+                description
+                        .setText("Please document issues related to Nutrition here");
                 builder.setView(description);
                 builder.show();
                 break;
