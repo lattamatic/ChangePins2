@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="2">
+        android:weightSum="3">
 
         <sandeep.city.Views.ViewIconTitle
             android:id="@+id/iiElectricity"
@@ -34,6 +34,16 @@
             app:image_icon="@drawable/water"
             app:title_name="@string/watersupply"
             app:titleSize="6sp">
+        </sandeep.city.Views.ViewIconTitle>
+
+        <sandeep.city.Views.ViewIconTitle
+            android:id="@+id/iiGender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:image_icon="@drawable/genderissues"
+            app:title_name="@string/gender"
+            app:titleSize="6sp">
 
         </sandeep.city.Views.ViewIconTitle>
     </LinearLayout>
@@ -43,7 +53,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="2">
+        android:weightSum="3">
 
 
         <sandeep.city.Views.ViewIconTitle
@@ -64,6 +74,17 @@
             android:layout_weight="1"
             app:image_icon="@drawable/education"
             app:title_name="@string/education"
+            app:titleSize="6sp">
+
+        </sandeep.city.Views.ViewIconTitle>
+
+        <sandeep.city.Views.ViewIconTitle
+            android:id="@+id/iiNutrition"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:image_icon="@drawable/nutrition"
+            app:title_name="@string/nutrition"
             app:titleSize="6sp">
 
         </sandeep.city.Views.ViewIconTitle>

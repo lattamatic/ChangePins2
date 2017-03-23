@@ -53,6 +53,8 @@
     <string name="watersupply">Water Supply</string>
     <string name="housing">Housing</string>
     <string name="education">Education</string>
+    <string name="gender">Gender Issues</string>
+    <string name="nutrition">Nutrition</string>
 
                 <!--public-->
     <string name="transport">Transport</string>

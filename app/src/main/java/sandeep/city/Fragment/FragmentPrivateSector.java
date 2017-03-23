@@ -54,7 +54,7 @@ public class FragmentPrivateSector extends Fragment implements OnClickListener,O
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.frag_privatecategories, container, false);
+        View v = inflater.inflate(R.layout.frag_socialcategories, container, false);
 
         electricity = (ViewIconTitle) v.findViewById(R.id.iiElectricity);
         waterSupply = (ViewIconTitle) v.findViewById(R.id.iiWaterSupply);
