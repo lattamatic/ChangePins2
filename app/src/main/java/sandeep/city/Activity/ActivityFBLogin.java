@@ -10,7 +10,7 @@ import sandeep.city.Fragment.FragmentFBLogin;
 import sandeep.city.R;
 
 
-public class ActivityFBLogin extends ActionBarActivity {
+public class ActivityFBLogin extends ActionBarActivity implements FragmentFBLogin.FBLoginInterface {
 
 
     @Override
@@ -39,5 +39,18 @@ public class ActivityFBLogin extends ActionBarActivity {
     public boolean isLoggedIn() {
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
         return accessToken != null;
+    }
+
+    @Override
+    public void OnClickSignUp() {
+        Intent i = new Intent(this,ActivityCreateProfile.class);
+        startActivity(i);
+    }
+
+    @Override
+    public void OnClickSkip() {
+        Intent i = new Intent(this,ActivityHome.class);
+        startActivity(i);
+        finish();
     }
 }

@@ -3,32 +3,21 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical">
-    <!-- ViewPager -->
-    <RelativeLayout
+
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:orientation="horizontal"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
         android:background="@android:color/white"
         xmlns:android="http://schemas.android.com/apk/res/android" >
 
-        <android.support.v4.view.ViewPager
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/registerPager"
-            android:layout_width="match_parent"
-            android:layout_below="@+id/tvAction"
-            android:layout_height="300dp"
-            android:layout_margin="20dp"
-            android:layout_centerHorizontal="true">
-        </android.support.v4.view.ViewPager>
-
         <com.facebook.login.widget.LoginButton
-            android:visibility="invisible"
             android:clickable="false"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/login_button"
-            android:layout_marginTop="40dp"
-            android:layout_below="@+id/registerPager"
+            android:layout_marginTop="100dp"
             android:layout_centerHorizontal="true"
             android:src="@drawable/login_fb" />
 
@@ -41,37 +30,19 @@
             android:textSize="20sp"
             android:background="@drawable/border_all_sides_black"
             android:layout_below="@+id/login_button"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="100dp"
             android:layout_centerHorizontal="true"/>
 
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Participate"
-            android:textStyle="bold"
-            android:layout_alignParentTop="true"
-            android:layout_margin="10dp"
-            android:textSize="@dimen/text_story_title"
-            android:layout_centerHorizontal="true"
-            android:id="@+id/tvAction"/>
-
-        <include layout="@layout/footer"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-           android:layout_below="@+id/registerPager"
-            android:layout_centerHorizontal="true"
-            android:background="#efefef"/>
         <TextView
             android:id="@+id/tvSkip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="SKIP"
             android:textSize="15sp"
+            android:layout_gravity="right"
             android:layout_marginRight="25dp"
             android:layout_below="@+id/login_button"
             android:layout_marginTop="20dp"
             android:layout_alignParentRight="true"/>
-    </RelativeLayout>
+    </LinearLayout>
 </FrameLayout>

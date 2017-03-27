@@ -22,25 +22,17 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
-import com.google.android.gms.common.GooglePlayServicesRepairableException;
-import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.ui.PlacePicker;
-import com.google.android.gms.maps.model.LatLng;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import sandeep.city.DownloadImageTask;
 import sandeep.city.POJO.SingleReport;
 import sandeep.city.R;
 import sandeep.city.SQLiteClasses.ReportsDataSource;
 
-public class ActivityRegisterComplaint extends Activity implements OnClickListener, DownloadImageTask.ShowMapImage{
+public class ActivityRegisterComplaint extends Activity implements OnClickListener, DownloadImageTask.DownloadImage{
 
     TextView category, location_set;
     ImageView upload, takePic, submit;
@@ -117,17 +109,17 @@ public class ActivityRegisterComplaint extends Activity implements OnClickListen
                 startActivityForResult(intent, TAKE_PICTURE);
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
                 break;
-            case R.id.bPickLocation:
-                PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
-                Context context = this;
-                try {
-                    startActivityForResult(builder.build(context), LOCATION);
-                } catch (GooglePlayServicesRepairableException e) {
-                    e.printStackTrace();
-                } catch (GooglePlayServicesNotAvailableException e) {
-                    e.printStackTrace();
-                }
-                break;
+//            case R.id.bPickLocation:
+//                PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+//                Context context = this;
+//                try {
+//                    startActivityForResult(builder.build(context), LOCATION);
+//                } catch (GooglePlayServicesRepairableException e) {
+//                    e.printStackTrace();
+//                } catch (GooglePlayServicesNotAvailableException e) {
+//                    e.printStackTrace();
+//                }
+//                break;
             case R.id.ivSubmit:
                 if (ettitle.getText().toString().matches("")) {
                     Toast.makeText(this, "Title cannot be empty",
@@ -180,27 +172,27 @@ public class ActivityRegisterComplaint extends Activity implements OnClickListen
             Log.d("location", location_string);
             location_set.setVisibility(View.VISIBLE);
         } else if (requestCode == LOCATION && resultCode == RESULT_OK) {
-            Log.d("map", "working");
-            Place place = PlacePicker.getPlace(data, this);
-            LatLng ll = place.getLatLng();
-            double lon = ll.longitude;
-            double lat = ll.latitude;
-            Log.d("location", "lat:" + lat + " lon:" + lon);
-            String url = "https://maps.googleapis.com/maps/api/staticmap?center=" + lat + "," + lon + "&zoom=17&size=600x300&maptype=normal";
-            new DownloadImageTask(ActivityRegisterComplaint.this).execute(url);
+//            Log.d("map", "working");
+//            Place place = PlacePicker.getPlace(data, this);
+//            LatLng ll = place.getLatLng();
+//            double lon = ll.longitude;
+//            double lat = ll.latitude;
+//            Log.d("location", "lat:" + lat + " lon:" + lon);
+//            String url = "https://maps.googleapis.com/maps/api/staticmap?center=" + lat + "," + lon + "&zoom=17&size=600x300&maptype=normal";
+//            new DownloadImageTask(ActivityRegisterComplaint.this).execute(url);
         }
 
     }
 
     @Override
-    public void onResultsReceived(Bitmap result) {
+    public void onImageDownloadCompleted(Bitmap result) {
         staticMap.setImageBitmap(result);
         staticMap.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.GONE);
     }
 
     @Override
-    public void onDownloadStart() {
+    public void onImageDownloadStart() {
         progressBar.setVisibility(View.VISIBLE);
         locMessage.setVisibility(View.GONE);
     }

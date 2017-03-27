@@ -19,20 +19,20 @@ import java.io.InputStream;
 
 public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
 
-    ShowMapImage showMapImage;
+    DownloadImage downloadImage;
 
-    public interface ShowMapImage{
-        void onResultsReceived(Bitmap result);
-        void onDownloadStart();
+    public interface DownloadImage{
+        void onImageDownloadCompleted(Bitmap result);
+        void onImageDownloadStart();
     }
 
     public DownloadImageTask(Activity activity) {
-        showMapImage = (ShowMapImage) activity;
+        downloadImage = (DownloadImage) activity;
     }
 
     @Override
     protected void onPreExecute() {
-        showMapImage.onDownloadStart();
+        downloadImage.onImageDownloadStart();
     }
 
     protected Bitmap doInBackground(String... urls) {
@@ -49,6 +49,6 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
     }
 
     protected void onPostExecute(Bitmap result) {
-        showMapImage.onResultsReceived(result);
+        downloadImage.onImageDownloadCompleted(result);
     }
 }

@@ -84,6 +84,10 @@
     <string name="registercomplaint">Register Complaint</string>
 
     <!--Strings for shared preferences-->
-    <string name="user">user</string>
+    <string name="user_preferences">user preferences</string>
+    <string name="username">username</string>
+    <string name="user_email">user email</string>
+    <string name="user_image">user image</string>
     <string name="database">db</string>
+
 </resources>

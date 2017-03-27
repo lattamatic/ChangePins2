@@ -4,35 +4,6 @@
     android:orientation="vertical"
     android:background="@android:color/white">
 
-    <!--<android.support.v7.widget.Toolbar-->
-        <!--android:id="@+id/toolbar"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="48dp"-->
-        <!--android:background="@android:color/white"-->
-        <!--android:elevation="3dp">-->
-
-        <!--<RelativeLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:gravity="center_vertical">-->
-
-            <!--&lt;!&ndash;<Button&ndash;&gt;-->
-                <!--&lt;!&ndash;android:id="@+id/bContinue"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_centerVertical="true"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_height="30dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_gravity="center"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:background="@drawable/others_background"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_alignParentRight="true"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_marginRight="10dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:text="Save"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:textColor="#FFFFFF"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:textStyle="bold" />&ndash;&gt;-->
-
-        <!--</RelativeLayout>-->
-
-    <!--</android.support.v7.widget.Toolbar>-->
-
     <include layout="@layout/layout_toolbar"/>
 
         <LinearLayout
@@ -49,6 +20,7 @@
                 android:orientation="horizontal"
                 android:gravity="center"
                 android:weightSum="5">
+
                 <ImageView
                     android:id="@+id/ivDP"
                     android:layout_weight="0"
@@ -63,7 +35,6 @@
                     android:layout_height="48dp"
                     android:textColor="@android:color/black"
                     android:hint="Name*"
-                    android:editable="false"
                     android:textColorHint="@android:color/darker_gray"
                     android:padding="10dp"
                     android:background="@drawable/border"/>

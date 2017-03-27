@@ -14,9 +14,6 @@ import sandeep.city.R;
 
 public class ActivityMain extends Activity {
 
-    String Preferences;
-    SharedPreferences.Editor editor;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -24,19 +21,14 @@ public class ActivityMain extends Activity {
         FacebookSdk.sdkInitialize(this); //FB SDK initialization
         setContentView(R.layout.ac_main);
 
-        Preferences = getResources().getString(R.string.user);
-
         Thread splash = new Thread() {
             public void run() {
                 try {
 
                     //instead of this we start background threads here to initiate all packages etc.
-                    sleep(2000);
+                    sleep(1000);
 
                     //
-                    SharedPreferences sharedPreferences = getSharedPreferences(
-                            Preferences, Context.MODE_PRIVATE);
-                    editor = sharedPreferences.edit();
                     if (!isLoggedIn()) {//If user is not logged in open Login Activity
                         Intent i = new Intent(ActivityMain.this, ActivityFBLogin.class);
                         startActivity(i);

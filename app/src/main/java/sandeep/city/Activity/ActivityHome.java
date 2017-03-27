@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
@@ -31,6 +32,7 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import sandeep.city.AnalyticsApplication;
+import sandeep.city.DownloadImageTask;
 import sandeep.city.Fragment.FragmentAbout;
 import sandeep.city.Fragment.FragmentBuzz;
 import sandeep.city.Fragment.FragmentHelp;
@@ -47,19 +49,18 @@ import sandeep.city.R;
  * Created by sandeep on 25/10/15.
  */
 public class ActivityHome extends ActionBarActivity implements View.OnClickListener, FragmentSelectSector.SelectSectorInterface,
-        InterfaceOnClickCategory, FragmentMyReports.OnClickAddReport, ActivityRegisterComplaint.OnSubmitReport {
+        InterfaceOnClickCategory, FragmentMyReports.OnClickAddReport, ActivityRegisterComplaint.OnSubmitReport,
+        DownloadImageTask.DownloadImage{
 
     DrawerLayout mDrawerLayout;
     ActionBarDrawerToggle toggle;
     ListView drawerList;
     public String[] drawer_menu;
-    ImageView report, buzz;
+    ImageView report, buzz, profilePic;
     TextView title;
     Toolbar toolbar;
     Tracker mTracker;
     AnalyticsApplication application;
-    public static TextView userName;
-    public static ImageView userImage;
     public static String category;
     String Preferences;
     SharedPreferences prefs;
@@ -92,7 +93,7 @@ public class ActivityHome extends ActionBarActivity implements View.OnClickListe
         application = (AnalyticsApplication) getApplication();
         mTracker = application.getDefaultTracker();
 
-        Preferences = getResources().getString(R.string.user);
+        Preferences = getResources().getString(R.string.user_preferences);
         prefs = getSharedPreferences(
                 Preferences, Context.MODE_PRIVATE);
         editor = prefs.edit();
@@ -104,6 +105,7 @@ public class ActivityHome extends ActionBarActivity implements View.OnClickListe
         report = (ImageView) findViewById(R.id.ivReport);
         buzz = (ImageView) findViewById(R.id.ivBuzz);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        profilePic = (ImageView) findViewById(R.id.ivProfilepic);
 
         //ActionBar related
         setSupportActionBar(toolbar);
@@ -164,6 +166,9 @@ public class ActivityHome extends ActionBarActivity implements View.OnClickListe
         };
 
         LocalBroadcastManager.getInstance(this).registerReceiver(bcReceiver, new IntentFilter("Intent filter"));
+
+        DownloadImageTask downLoadProfilePic = new DownloadImageTask(this);
+        downLoadProfilePic.execute(prefs.getString(getString(R.string.user_image)," "));
         }
 
 
@@ -340,5 +345,16 @@ public class ActivityHome extends ActionBarActivity implements View.OnClickListe
     protected void onDestroy() {
         super.onDestroy();
         LocalBroadcastManager.getInstance(this).unregisterReceiver(bcReceiver);
+    }
+
+    @Override
+    public void onImageDownloadCompleted(Bitmap result) {
+        profilePic.setImageBitmap(result);
+
+    }
+
+    @Override
+    public void onImageDownloadStart() {
+        Log.d("Image download", "Started");
     }
 }
