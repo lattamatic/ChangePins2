@@ -23,7 +23,7 @@ import sandeep.city.InterfaceOnClickCategory;
 import sandeep.city.R;
 import sandeep.city.Views.ViewIconTitle;
 
-public class FragmentSocialSector extends Fragment implements OnClickListener,OnLongClickListener {
+public class FragmentSocialSector extends Fragment {
 
     ViewIconTitle electricity, waterSupply, housing, education, genderissues, nutrition;
     Button others;
@@ -64,219 +64,146 @@ public class FragmentSocialSector extends Fragment implements OnClickListener,On
         nutrition = (ViewIconTitle) v.findViewById(R.id.iiNutrition);
         others = (Button) v.findViewById(R.id.bSocial);
 
-        electricity.setOnClickListener(this);
-        waterSupply.setOnClickListener(this);
-        housing.setOnClickListener(this);
-        education.setOnClickListener(this);
-        genderissues.setOnClickListener(this);
-        nutrition.setOnClickListener(this);
-        others.setOnClickListener(this);
+        electricity.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+             clickedCategory(getString(R.string.electricity));
+            }
+        });
+        waterSupply.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickedCategory(getString(R.string.watersupply));
+            }
+        });
+        housing.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickedCategory(getString(R.string.housing));
+            }
+        });
+        education.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickedCategory(getString(R.string.education));
+            }
+        });
+        genderissues.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickedCategory(getString(R.string.gender));
+            }
+        });
+        nutrition.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickedCategory(getString(R.string.nutrition));
+            }
+        });
+        others.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                d = new Dialog(getActivity());
+                d.setContentView(R.layout.dialog);
+                d.setTitle("Enter Category");
+
+                final EditText category = (EditText) d.findViewById(R.id.etCat);
+                Button dialogButton = (Button) d.findViewById(R.id.bSetCat);
+                // if button is clicked, close the custom dialog
+                dialogButton.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String gen = "";
+                        string = category.getText().toString();
+                        if (string.equals(gen)) {
+                            d.dismiss();
+                            Toast.makeText(getActivity(), "Category cannot be empty",
+                                    Toast.LENGTH_SHORT).show();
+                        } else {
+                            myInterface.onClickCategory(string);
+                        }
+                        d.dismiss();
+
+                    }
+                });
+
+                d.show();
+            }
+        });
+
+        electricity.setOnLongClickListener(new OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                longClickedCategory(getString(R.string.electricity),
+                        "Document issues related to electricity here.");
+                return true;
+            }
+        });
+        waterSupply.setOnLongClickListener(new OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                longClickedCategory(getString(R.string.watersupply),
+                        "Document issues related to Water and Water Supply here.");
+                return true;
+            }
+        });
+        housing.setOnLongClickListener(new OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                longClickedCategory(getString(R.string.housing),
+                        "Document issues related to Housing here.");
+                return true;
+            }
+        });
+        education.setOnLongClickListener(new OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                longClickedCategory(getString(R.string.education),
+                        "Document issues related to Education here.");
+                return true;
+            }
+        });
+        genderissues.setOnLongClickListener(new OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                longClickedCategory(getString(R.string.gender),
+                        "Document issues related to Trees here.");
+                return true;
+            }
+        });
+        nutrition.setOnLongClickListener(new OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                longClickedCategory(getString(R.string.nutrition),
+                        "Document issues related to Nutrition here.");
+                return true;
+            }
+        });
 
         return v;
     }
 
-    @Override
-    public void onClick(View v) {
-
-        if (v.getId() == R.id.bSocial) {
-
-            d = new Dialog(getActivity());
-            d.setContentView(R.layout.dialog);
-            d.setTitle("Enter Category");
-
-            final EditText category = (EditText) d.findViewById(R.id.etCat);
-            Button dialogButton = (Button) d.findViewById(R.id.bSetCat);
-            // if button is clicked, close the custom dialog
-            dialogButton.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    String gen = "";
-                    string = category.getText().toString();
-                    if (string.equals(gen)) {
-                        d.dismiss();
-                        Toast.makeText(getActivity(), "Category cannot be empty",
-                                Toast.LENGTH_SHORT).show();
-                    } else {
-                        myInterface.onClickCategory(string);
-                    }
-                    d.dismiss();
-
-                }
-            });
-
-            d.show();
-
-        } else {
-
-            String category = "";
-
-            switch (v.getId()) {
-
-                case R.id.iiElectricity:
-                    category = getString(R.string.electricity);
-                    mTracker.send(new HitBuilders.EventBuilder()
-                            .setCategory(getString(R.string.views))
-                            .setAction(getString(R.string.click))
-                            .setLabel(category)
-                            .build());
-                    break;
-
-                case R.id.iiWaterSupply:
-                    category = getString(R.string.watersupply);
-                    mTracker.send(new HitBuilders.EventBuilder()
-                            .setCategory(getString(R.string.views))
-                            .setAction(getString(R.string.click))
-                            .setLabel(category)
-                            .build());
-                    break;
-
-                case R.id.iiHousing:
-                    category = getString(R.string.housing);
-                    mTracker.send(new HitBuilders.EventBuilder()
-                            .setCategory(getString(R.string.views))
-                            .setAction(getString(R.string.click))
-                            .setLabel(category)
-                            .build());
-                    break;
-
-                case R.id.iiEducation:
-                    category = getString(R.string.education);
-                    mTracker.send(new HitBuilders.EventBuilder()
-                            .setCategory(getString(R.string.views))
-                            .setAction(getString(R.string.click))
-                            .setLabel(category)
-                            .build());
-                    break;
-                case R.id.iiGender:
-                    category = getString(R.string.gender);
-                    mTracker.send(new HitBuilders.EventBuilder()
-                            .setCategory(getString(R.string.views))
-                            .setAction(getString(R.string.click))
-                            .setLabel(category)
-                            .build());
-                    break;
-
-                case R.id.iiNutrition:
-                    category = getString(R.string.nutrition);
-                    mTracker.send(new HitBuilders.EventBuilder()
-                            .setCategory(getString(R.string.views))
-                            .setAction(getString(R.string.click))
-                            .setLabel(category)
-                            .build());
-                    break;
-
-            }
-
-            myInterface.onClickCategory(category);
-        }
+    private void clickedCategory(String category){
+        mTracker.send(new HitBuilders.EventBuilder()
+                .setCategory(getString(R.string.views))
+                .setAction(getString(R.string.click))
+                .setLabel(category)
+                .build());
+        myInterface.onClickCategory(category);
     }
 
+    private void longClickedCategory(String category, String content){
+        mTracker.send(new HitBuilders.EventBuilder()
+                .setCategory(getString(R.string.views))
+                .setAction(getString(R.string.longclick))
+                .setLabel(category)
+                .build());
 
-    @Override
-    public boolean onLongClick(View v) {
-        // TODO Auto-generated method stub
-
-        AlertDialog.Builder builder = new Builder(getActivity());
-        String category;
-        switch (v.getId()) {
-            case R.id.iiElectricity:
-                category = getString(R.string.electricity);
-                mTracker.send(new HitBuilders.EventBuilder()
-                        .setCategory(getString(R.string.views))
-                        .setAction(getString(R.string.longclick))
-                        .setLabel(category)
-                        .build());
-
-                builder.setTitle(category);
-                description = new TextView(getActivity());
-                description
-                        .setText("Please document issues or problems related to Electricity here");
-                builder.setView(description);
-
-                builder.show();
-                break;
-
-            case R.id.iiWaterSupply:
-                category = getString(R.string.watersupply);
-                mTracker.send(new HitBuilders.EventBuilder()
-                        .setCategory(getString(R.string.views))
-                        .setAction(getString(R.string.longclick))
-                        .setLabel(category)
-                        .build());
-
-                builder.setTitle(category);
-                description = new TextView(getActivity());
-                description
-                        .setText("Please document issues and problems related to Water or Water Supply here");
-                builder.setView(description);
-
-                builder.show();
-                break;
-
-            case R.id.iiHousing:
-
-                category = getString(R.string.housing);
-                mTracker.send(new HitBuilders.EventBuilder()
-                        .setCategory(getString(R.string.views))
-                        .setAction(getString(R.string.longclick))
-                        .setLabel(category)
-                        .build());
-
-                builder.setTitle(category);
-                description = new TextView(getActivity());
-                description
-                        .setText("Please document issues related to Housing here");
-                builder.setView(description);
-                builder.show();
-                break;
-
-            case R.id.iiEducation:
-                category = getString(R.string.education);
-                mTracker.send(new HitBuilders.EventBuilder()
-                        .setCategory(getString(R.string.views))
-                        .setAction(getString(R.string.longclick))
-                        .setLabel(category)
-                        .build());
-
-                builder.setTitle(category);
-                description = new TextView(getActivity());
-                description
-                        .setText("Please document issues related to Education here");
-                builder.setView(description);
-                builder.show();
-                break;
-
-            case R.id.iiGender:
-                category = getString(R.string.gender);
-                mTracker.send(new HitBuilders.EventBuilder()
-                        .setCategory(getString(R.string.views))
-                        .setAction(getString(R.string.longclick))
-                        .setLabel(category)
-                        .build());
-
-                builder.setTitle(category);
-                description = new TextView(getActivity());
-                description
-                        .setText("Please document issues related to Gender here");
-                builder.setView(description);
-                builder.show();
-                break;
-            case R.id.iiNutrition:
-                category = getString(R.string.nutrition);
-                mTracker.send(new HitBuilders.EventBuilder()
-                        .setCategory(getString(R.string.views))
-                        .setAction(getString(R.string.longclick))
-                        .setLabel(category)
-                        .build());
-
-                builder.setTitle(category);
-                description = new TextView(getActivity());
-                description
-                        .setText("Please document issues related to Nutrition here");
-                builder.setView(description);
-                builder.show();
-                break;
-        }
-        return false;
+        builder.setTitle(category);
+        description = new TextView(getActivity());
+        description
+                .setText(content);
+        builder.setView(description);
+        builder.show();
     }
 }

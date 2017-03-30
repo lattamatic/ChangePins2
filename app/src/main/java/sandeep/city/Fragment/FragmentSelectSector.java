@@ -14,7 +14,7 @@ import sandeep.city.AnalyticsApplication;
 import sandeep.city.R;
 import sandeep.city.Views.ViewIconTitle;
 
-public class FragmentSelectSector extends Fragment implements OnClickListener {
+public class FragmentSelectSector extends Fragment{
 
 	private ViewIconTitle privateSector;
 	private ViewIconTitle publicSector;
@@ -43,39 +43,29 @@ public class FragmentSelectSector extends Fragment implements OnClickListener {
 		View v = inflater.inflate(R.layout.frag_selectsector, container, false);
 		privateSector = (ViewIconTitle) v.findViewById(R.id.ivPrivateSector);
 		publicSector = (ViewIconTitle) v.findViewById(R.id.ivPublicSector);
-		privateSector.setOnClickListener(this);
-		publicSector.setOnClickListener(this);
+		privateSector.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mTracker.send(new HitBuilders.EventBuilder()
+						.setCategory(getString(R.string.views))
+						.setAction(getString(R.string.click))
+						.setLabel(getString(R.string.private_sec))
+						.build());
+
+				myInterface.onClickPrivate();
+			}
+		});
+		publicSector.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mTracker.send(new HitBuilders.EventBuilder()
+						.setCategory(getString(R.string.views))
+						.setAction(getString(R.string.click))
+						.setLabel(getString(R.string.public_sec))
+						.build());
+				myInterface.onClickPublic();
+			}
+		});
 		return v;
 	}
-
-	@Override
-	public void onClick(View v) {
-
-		switch (v.getId()) {
-		case R.id.ivPublicSector:
-
-            mTracker.send(new HitBuilders.EventBuilder()
-                    .setCategory(getString(R.string.views))
-                    .setAction(getString(R.string.click))
-                    .setLabel(getString(R.string.public_sec))
-                    .build());
-
-            myInterface.onClickPublic();
-			break;
-
-		case R.id.ivPrivateSector:
-
-            mTracker.send(new HitBuilders.EventBuilder()
-                    .setCategory(getString(R.string.views))
-                    .setAction(getString(R.string.click))
-                    .setLabel(getString(R.string.private_sec))
-                    .build());
-
-            myInterface.onClickPrivate();
-			break;
-		}
-	}
-
-
-
 }

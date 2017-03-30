@@ -48,7 +48,7 @@ import sandeep.city.R;
 /**
  * Created by sandeep on 25/10/15.
  */
-public class ActivityHome extends ActionBarActivity implements View.OnClickListener, FragmentSelectSector.SelectSectorInterface,
+public class ActivityHome extends ActionBarActivity implements FragmentSelectSector.SelectSectorInterface,
         InterfaceOnClickCategory, FragmentMyReports.OnClickAddReport, ActivityRegisterComplaint.OnSubmitReport{
 
     DrawerLayout mDrawerLayout;
@@ -111,9 +111,38 @@ public class ActivityHome extends ActionBarActivity implements View.OnClickListe
         final ActionBar ab = getSupportActionBar();
         ab.setHomeAsUpIndicator(R.drawable.drawer_icon);
         ab.setDisplayHomeAsUpEnabled(true);
-        title.setOnClickListener(this);
-        report.setOnClickListener(this);
-        buzz.setOnClickListener(this);
+        title.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!getFragmentManager().findFragmentByTag(homeScreen).isVisible()) {
+                    popAFragment(homeScreen);
+                } else {
+
+                }
+            }
+        });
+        report.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mTracker.send(new HitBuilders.EventBuilder()
+                        .setCategory(getString(R.string.views))
+                        .setAction(getString(R.string.click))
+                        .setLabel(getString(R.string.report))
+                        .build());
+                popAFragment(selectSector);
+            }
+        });
+        buzz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mTracker.send(new HitBuilders.EventBuilder()
+                        .setCategory(getString(R.string.views))
+                        .setAction(getString(R.string.click))
+                        .setLabel(getString(R.string.buzz))
+                        .build());
+                popAFragment(buz);
+            }
+        });
 
         //Drawer related
         toggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.app_name, R.string.app_name);
@@ -167,40 +196,6 @@ public class ActivityHome extends ActionBarActivity implements View.OnClickListe
         LocalBroadcastManager.getInstance(this).registerReceiver(bcReceiver, new IntentFilter("Intent filter"));
         }
 
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-
-            case R.id.ivReport:
-                mTracker.send(new HitBuilders.EventBuilder()
-                        .setCategory(getString(R.string.views))
-                        .setAction(getString(R.string.click))
-                        .setLabel(getString(R.string.report))
-                        .build());
-                popAFragment(selectSector);
-                break;
-
-            case R.id.ivBuzz:
-                mTracker.send(new HitBuilders.EventBuilder()
-                        .setCategory(getString(R.string.views))
-                        .setAction(getString(R.string.click))
-                        .setLabel(getString(R.string.buzz))
-                        .build());
-                popAFragment(buz);
-                break;
-            case R.id.tvTitle:
-
-                Log.d("category click", "" + getFragmentManager().findFragmentByTag(homeScreen).isVisible());
-
-                if (!getFragmentManager().findFragmentByTag(homeScreen).isVisible()) {
-                    popAFragment(homeScreen);
-                } else {
-
-                }
-                break;
-        }
-    }
 
     @Override
     public void onStart() {

@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,9 +22,8 @@ import sandeep.city.InterfaceOnClickCategory;
 import sandeep.city.R;
 import sandeep.city.Views.ViewIconTitle;
 
-public class FragmentPublicSector extends Fragment implements OnClickListener, OnLongClickListener{
+public class FragmentPublicSector extends Fragment {
 
-	public static final String TAG = "PubSec";
 	ViewIconTitle transport, publicSpces, wasteManagement, safety, utils, services;
 	Button others;
 	public String text;
@@ -60,197 +58,144 @@ public class FragmentPublicSector extends Fragment implements OnClickListener, O
 		services = (ViewIconTitle) v.findViewById(R.id.iiServices);
 		others = (Button) v.findViewById(R.id.bPublic);
 
-		transport.setOnClickListener(this);
-		publicSpces.setOnClickListener(this);
-		wasteManagement.setOnClickListener(this);
-		safety.setOnClickListener(this);
-		utils.setOnClickListener(this);
-		services.setOnClickListener(this);
-		others.setOnClickListener(this);
+		transport.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				clickedCategory(getString(R.string.transport));
+			}
+		});
+		publicSpces.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				clickedCategory(getString(R.string.publicspaces));
+			}
+		});
+		wasteManagement.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				clickedCategory(getString(R.string.wastemanagement));
+			}
+		});
+		safety.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				clickedCategory(getString(R.string.safety));
+			}
+		});
+		utils.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				clickedCategory(getString(R.string.utilities));
+			}
+		});
+		services.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				clickedCategory(getString(R.string.services));
+			}
+		});
+		others.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				d= new Dialog(getActivity());
+				d.setContentView(R.layout.dialog);
+				d.setTitle("Enter Category");
 
-		transport.setOnLongClickListener(this);
-		publicSpces.setOnLongClickListener(this);
-		wasteManagement.setOnLongClickListener(this);
-		safety.setOnLongClickListener(this);
-		utils.setOnLongClickListener(this);
-		services.setOnLongClickListener(this);
+				final EditText category = (EditText) d.findViewById(R.id.etCat);
+				Button dialogButton = (Button) d.findViewById(R.id.bSetCat);
+				// if button is clicked, close the custom dialog
+				dialogButton.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						String gen = "";
+						string=category.getText().toString();
+						if (string.equals(gen)) {
+							d.dismiss();
+
+							Toast.makeText(getActivity(), "Category cannot be empty",
+									Toast.LENGTH_SHORT).show();
+						} else {
+							myInterface.onClickCategory(string);
+						}
+						d.dismiss();
+					}
+				});
+				d.show();
+			}
+		});
+
+		transport.setOnLongClickListener(new View.OnLongClickListener() {
+			@Override
+			public boolean onLongClick(View v) {
+				longClickedCategory(getString(R.string.transport),
+						"Please document issues related to transport like - crowded buses, violation of rules etc");
+				return true;
+			}
+		});
+		publicSpces.setOnLongClickListener(new View.OnLongClickListener() {
+			@Override
+			public boolean onLongClick(View v) {
+				longClickedCategory(getString(R.string.publicspaces),
+						"Please document issues related to public spaces like - unclean public spaces, too much vehicle occupancy etc");
+				return true;
+			}
+		});
+		wasteManagement.setOnLongClickListener(new View.OnLongClickListener() {
+			@Override
+			public boolean onLongClick(View v) {
+				longClickedCategory(getString(R.string.wastemanagement),
+						"Please document issues related to waste management like - littering, too much usage of plastic etc");
+				return true;
+			}
+		});
+		safety.setOnLongClickListener(new View.OnLongClickListener() {
+			@Override
+			public boolean onLongClick(View v) {
+				longClickedCategory(getString(R.string.safety),
+						"Description about Safety here!Description about Safety here!Description about Safety here!Description about Safety here!Description about Safety here!Description about Safety here!Description about Safety here!Description about Safety here!");
+				return true;
+			}
+		});
+		utils.setOnLongClickListener(new View.OnLongClickListener() {
+			@Override
+			public boolean onLongClick(View v) {
+				longClickedCategory(getString(R.string.utilities),
+						"Please document issues related to utilities like - Street lights not working, lack of proper traffic lights etc");
+				return true;
+			}
+		});
+		services.setOnLongClickListener(new View.OnLongClickListener() {
+			@Override
+			public boolean onLongClick(View v) {
+				longClickedCategory(getString(R.string.services),
+						"Please report issues related to services - lack of response from the municipal authorities, late issue of aadhar card etc");
+				return true;
+			}
+		});
 
 		return v;
 	}
 
-	@Override
-	public void onClick(View v) {
-
-		if (v.getId() == R.id.bPublic) {
-
-            d= new Dialog(getActivity());
-            d.setContentView(R.layout.dialog);
-            d.setTitle("Enter Category");
-
-            final EditText category = (EditText) d.findViewById(R.id.etCat);
-            Button dialogButton = (Button) d.findViewById(R.id.bSetCat);
-            // if button is clicked, close the custom dialog
-            dialogButton.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    String gen = "";
-                    string=category.getText().toString();
-                    if (string.equals(gen)) {
-                        d.dismiss();
-
-                        Toast.makeText(getActivity(), "Category cannot be empty",
-                                Toast.LENGTH_SHORT).show();
-                    } else {
-                        myInterface.onClickCategory(string);
-                    }
-                    d.dismiss();
-                }
-            });
-            d.show();
-        } else {
-			String category="";
-			switch (v.getId()) {
-			case R.id.iiTransport:
-                mTracker.send(new HitBuilders.EventBuilder()
-                        .setCategory(getString(R.string.views))
-                        .setAction(getString(R.string.click))
-                        .setLabel(getString(R.string.transport))
-                        .build());
-				category = "Transport";
-				break;
-			case R.id.iiUtilities:
-                mTracker.send(new HitBuilders.EventBuilder()
-                        .setCategory(getString(R.string.views))
-                        .setAction(getString(R.string.click))
-                        .setLabel(getString(R.string.utilities))
-                        .build());
-				category = "Utilities";
-				break;
-			case R.id.iiWasteManagement:
-                mTracker.send(new HitBuilders.EventBuilder()
-                        .setCategory(getString(R.string.views))
-                        .setAction(getString(R.string.click))
-                        .setLabel(getString(R.string.wastemanagement))
-                        .build());
-				category = "Waste Management";
-				break;
-			case R.id.iiSafety:
-                mTracker.send(new HitBuilders.EventBuilder()
-                        .setCategory(getString(R.string.views))
-                        .setAction(getString(R.string.click))
-                        .setLabel(getString(R.string.safety))
-                        .build());
-				category = "Safety";
-				break;
-			case R.id.iiPublicSpaces:
-                mTracker.send(new HitBuilders.EventBuilder()
-                        .setCategory(getString(R.string.views))
-                        .setAction(getString(R.string.click))
-                        .setLabel(getString(R.string.publicspaces))
-                        .build());
-				category = "Public Spaces";
-				break;
-			case R.id.iiServices:
-                mTracker.send(new HitBuilders.EventBuilder()
-                        .setCategory(getString(R.string.views))
-                        .setAction(getString(R.string.click))
-                        .setLabel(getString(R.string.services))
-                        .build());
-				category = "Services";
-				break;
-			}
-            myInterface.onClickCategory(category);
-		}
-
+	private void clickedCategory(String category){
+		mTracker.send(new HitBuilders.EventBuilder()
+				.setCategory(getString(R.string.views))
+				.setAction(getString(R.string.click))
+				.setLabel(category)
+				.build());
+		myInterface.onClickCategory(category);
 	}
 
-	@Override
-	public boolean onLongClick(View v) {
-		// TODO Auto-generated method stub
+	private void longClickedCategory(String category, String content){
 		AlertDialog.Builder builder = new Builder(getActivity());
-		switch (v.getId()) {
-		case R.id.iiTransport:
-            mTracker.send(new HitBuilders.EventBuilder()
-                    .setCategory(getString(R.string.views))
-                    .setAction(getString(R.string.longclick))
-                    .setLabel(getString(R.string.transport))
-                    .build());
-			builder.setTitle("Transport");
-			description = new TextView(getActivity());
-			description
-					.setText("Please document issues related to transport like - crowded buses, violation of rules etc");
-			builder.setView(description);
-
-			builder.show();
-			break;
-
-		case R.id.iiUtilities:
-            mTracker.send(new HitBuilders.EventBuilder()
-                    .setCategory(getString(R.string.views))
-                    .setAction(getString(R.string.longclick))
-                    .setLabel(getString(R.string.utilities))
-                    .build());
-			builder.setTitle("Utilities");
-			description = new TextView(getActivity());
-			description
-					.setText("Please document issues related to utilities like - Street lights not working, lack of proper traffic lights etc");
-			builder.setView(description);
-			builder.show();
-			break;
-		case R.id.iiWasteManagement:
-            mTracker.send(new HitBuilders.EventBuilder()
-                    .setCategory(getString(R.string.views))
-                    .setAction(getString(R.string.longclick))
-                    .setLabel(getString(R.string.wastemanagement))
-                    .build());
-			builder.setTitle("Waste Management");
-			description = new TextView(getActivity());
-			description
-					.setText("Please document issues related to waste management like - littering, too much usage of plastic etc");
-			builder.setView(description);
-			builder.show();
-			break;
-		case R.id.iiSafety:
-            mTracker.send(new HitBuilders.EventBuilder()
-                    .setCategory(getString(R.string.views))
-                    .setAction(getString(R.string.longclick))
-                    .setLabel(getString(R.string.safety))
-                    .build());
-			builder.setTitle("Safety");
-			description = new TextView(getActivity());
-			description
-					.setText("Description about Safety here!Description about Safety here!Description about Safety here!Description about Safety here!Description about Safety here!Description about Safety here!Description about Safety here!Description about Safety here!");
-			builder.setView(description);
-			builder.show();
-			break;
-		case R.id.iiPublicSpaces:
-            mTracker.send(new HitBuilders.EventBuilder()
-                    .setCategory(getString(R.string.views))
-                    .setAction(getString(R.string.longclick))
-                    .setLabel(getString(R.string.publicspaces))
-                    .build());
-			builder.setTitle("Public Spaces");
-			description = new TextView(getActivity());
-			description
-					.setText("Please document issues related to public spaces like - unclean public spaces, too much vehicle occupancy etc");
-			builder.setView(description);
-			builder.show();
-			break;
-		case R.id.iiServices:
-            mTracker.send(new HitBuilders.EventBuilder()
-                    .setCategory(getString(R.string.views))
-                    .setAction(getString(R.string.longclick))
-                    .setLabel(getString(R.string.services))
-                    .build());
-			builder.setTitle("Services");
-			description = new TextView(getActivity());
-			description
-					.setText("Please report issues related to services - lack of response from the municipal authorities, late issue of aadhar card etc");
-			builder.setView(description);
-			builder.show();
-			break;
-		}
-		return true;
+		mTracker.send(new HitBuilders.EventBuilder()
+				.setCategory(getString(R.string.views))
+				.setAction(getString(R.string.longclick))
+				.setLabel(category)
+				.build());
+		builder.setTitle(category);
+		description = new TextView(getActivity());
+		description.setText(content);
+		builder.setView(description);
+		builder.show();
 	}
-
 }
