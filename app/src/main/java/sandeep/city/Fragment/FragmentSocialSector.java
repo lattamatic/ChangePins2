@@ -1,7 +1,6 @@
 package sandeep.city.Fragment;
 
 import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.app.Fragment;
 import android.os.Bundle;
@@ -25,7 +24,7 @@ import sandeep.city.Views.ViewIconTitle;
 
 public class FragmentSocialSector extends Fragment {
 
-    ViewIconTitle electricity, waterSupply, housing, education, genderissues, nutrition;
+    ViewIconTitle electricity, waterSupply, housing, education, trees, nutrition;
     Button others;
     AlertDialog.Builder builder;
 
@@ -60,7 +59,7 @@ public class FragmentSocialSector extends Fragment {
         waterSupply = (ViewIconTitle) v.findViewById(R.id.iiWaterSupply);
         housing = (ViewIconTitle) v.findViewById(R.id.iiHousing);
         education = (ViewIconTitle) v.findViewById(R.id.iiEducation);
-        genderissues = (ViewIconTitle) v.findViewById(R.id.iiGender);
+        trees = (ViewIconTitle) v.findViewById(R.id.iiTrees);
         nutrition = (ViewIconTitle) v.findViewById(R.id.iiNutrition);
         others = (Button) v.findViewById(R.id.bSocial);
 
@@ -88,10 +87,10 @@ public class FragmentSocialSector extends Fragment {
                 clickedCategory(getString(R.string.education));
             }
         });
-        genderissues.setOnClickListener(new OnClickListener() {
+        trees.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                clickedCategory(getString(R.string.gender));
+                clickedCategory(getString(R.string.trees));
             }
         });
         nutrition.setOnClickListener(new OnClickListener() {
@@ -163,10 +162,10 @@ public class FragmentSocialSector extends Fragment {
                 return true;
             }
         });
-        genderissues.setOnLongClickListener(new OnLongClickListener() {
+        trees.setOnLongClickListener(new OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                longClickedCategory(getString(R.string.gender),
+                longClickedCategory(getString(R.string.trees),
                         "Document issues related to Trees here.");
                 return true;
             }

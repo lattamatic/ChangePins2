@@ -36,12 +36,12 @@
 
 
         <sandeep.city.Views.ViewIconTitle
-            android:id="@+id/iiGender"
+            android:id="@+id/iiTrees"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            app:image_icon="@drawable/genderissues"
-            app:title_name="@string/gender"
+            app:image_icon="@drawable/tree"
+            app:title_name="@string/trees"
             app:titleSize="6sp">
 
         </sandeep.city.Views.ViewIconTitle>
