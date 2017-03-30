@@ -46,11 +46,7 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".Activity.ActivityNoticeBoard"
-            android:label="@string/app_name"
-            android:theme="@style/ThemeHoloLight"
-            android:uiOptions="splitActionBarWhenNarrow"/>
+
 
         <activity
             android:name="com.facebook.FacebookActivity"
