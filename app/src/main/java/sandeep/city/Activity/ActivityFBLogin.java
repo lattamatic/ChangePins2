@@ -53,4 +53,10 @@ public class ActivityFBLogin extends ActionBarActivity implements FragmentFBLogi
         startActivity(i);
         finish();
     }
+
+    @Override
+    public void OnSuccessfulLogin() {
+        Intent i = new Intent(ActivityFBLogin.this,ActivityHome.class);
+        startActivity(i);
+    }
 }

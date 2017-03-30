@@ -58,6 +58,7 @@ public class FragmentFBLogin extends Fragment implements View.OnClickListener {
     public interface FBLoginInterface{
         void OnClickSignUp();
         void OnClickSkip();
+        void OnSuccessfulLogin();
     }
 
 
@@ -83,12 +84,12 @@ public class FragmentFBLogin extends Fragment implements View.OnClickListener {
 
             @Override
             public void onSuccess(LoginResult loginResult) {
+
                 profileTracker = new ProfileTracker() {
                     @Override
                     protected void onCurrentProfileChanged(Profile profil, Profile profile2) {
                         profile = profile2;
                         editor.putString("user_name", profile.getName());
-
                         GraphRequest request = GraphRequest.newMeRequest(
                                 accessToken,
                                 new GraphRequest.GraphJSONObjectCallback() {
@@ -123,6 +124,7 @@ public class FragmentFBLogin extends Fragment implements View.OnClickListener {
                 profileTracker.startTracking();
                 accessToken = loginResult.getAccessToken();
 
+                Log.d("nm",accessToken.toString());
                 if (profile != null) {
                     editor.putString(getString(R.string.username), profile.getName());
                     editor.putString(getString(R.string.user_image),

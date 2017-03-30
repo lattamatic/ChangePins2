@@ -36,12 +36,12 @@ import sandeep.city.DownloadImageTask;
 import sandeep.city.Fragment.FragmentAbout;
 import sandeep.city.Fragment.FragmentBuzz;
 import sandeep.city.Fragment.FragmentHelp;
-import sandeep.city.Fragment.FragmentMyPlaces;
 import sandeep.city.Fragment.FragmentHomeScreen;
+import sandeep.city.Fragment.FragmentMyPlaces;
 import sandeep.city.Fragment.FragmentMyReports;
-import sandeep.city.Fragment.FragmentSocialSector;
 import sandeep.city.Fragment.FragmentPublicSector;
 import sandeep.city.Fragment.FragmentSelectSector;
+import sandeep.city.Fragment.FragmentSocialSector;
 import sandeep.city.InterfaceOnClickCategory;
 import sandeep.city.R;
 
@@ -49,8 +49,7 @@ import sandeep.city.R;
  * Created by sandeep on 25/10/15.
  */
 public class ActivityHome extends ActionBarActivity implements View.OnClickListener, FragmentSelectSector.SelectSectorInterface,
-        InterfaceOnClickCategory, FragmentMyReports.OnClickAddReport, ActivityRegisterComplaint.OnSubmitReport,
-        DownloadImageTask.DownloadImage{
+        InterfaceOnClickCategory, FragmentMyReports.OnClickAddReport, ActivityRegisterComplaint.OnSubmitReport{
 
     DrawerLayout mDrawerLayout;
     ActionBarDrawerToggle toggle;
@@ -166,9 +165,6 @@ public class ActivityHome extends ActionBarActivity implements View.OnClickListe
         };
 
         LocalBroadcastManager.getInstance(this).registerReceiver(bcReceiver, new IntentFilter("Intent filter"));
-
-        DownloadImageTask downLoadProfilePic = new DownloadImageTask(this);
-        downLoadProfilePic.execute(prefs.getString(getString(R.string.user_image)," "));
         }
 
 
@@ -347,14 +343,4 @@ public class ActivityHome extends ActionBarActivity implements View.OnClickListe
         LocalBroadcastManager.getInstance(this).unregisterReceiver(bcReceiver);
     }
 
-    @Override
-    public void onImageDownloadCompleted(Bitmap result) {
-        profilePic.setImageBitmap(result);
-
-    }
-
-    @Override
-    public void onImageDownloadStart() {
-        Log.d("Image download", "Started");
-    }
 }
