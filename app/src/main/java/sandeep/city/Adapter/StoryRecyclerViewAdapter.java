@@ -70,6 +70,19 @@ public class StoryRecyclerViewAdapter extends RecyclerView.Adapter<StoryRecycler
             }
         });
 
+        switch (position%4){
+            case 0:
+                holder.storyImage.setImageResource(R.drawable.storysampleimageone);
+                break;
+            case 1:
+                holder.storyImage.setImageResource(R.drawable.storysampleimagetwo);
+                break;
+            case 2:
+                holder.storyImage.setImageResource(R.drawable.storysampleimagethree);
+                break;
+            case 3:
+                holder.storyImage.setImageResource(R.drawable.storysampleimagefour);
+        }
 
         //Code to set image layout parameters to fit in the screen
         holder.storyImage.post(new Runnable() {
