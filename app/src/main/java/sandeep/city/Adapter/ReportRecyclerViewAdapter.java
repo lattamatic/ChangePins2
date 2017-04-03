@@ -77,7 +77,6 @@ public class ReportRecyclerViewAdapter extends RecyclerView.Adapter<ReportRecycl
             File f=new File(directory, report.getImage_path());
             Uri imageUri = Uri.fromFile(f);
             Glide.with(context).load(imageUri).into(holder.reportThumbnail);
-            holder.reportThumbnail.setImageBitmap(loadImageFromStorage(report.getImage_path()));
         }
     }
 

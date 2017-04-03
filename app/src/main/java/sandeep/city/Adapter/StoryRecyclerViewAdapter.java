@@ -2,6 +2,7 @@ package sandeep.city.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -54,7 +55,7 @@ public class StoryRecyclerViewAdapter extends RecyclerView.Adapter<StoryRecycler
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder h, int position) {
+    public void onBindViewHolder(ViewHolder h, final int position) {
         final ViewHolder holder = h;
         final SingleStory story = storyList.get(position);
         holder.description.setText(story.getDescription());
@@ -69,6 +70,7 @@ public class StoryRecyclerViewAdapter extends RecyclerView.Adapter<StoryRecycler
                 context.startActivity(Intent.createChooser(i,"Share via"));
             }
         });
+
 
         switch (position%4){
             case 0:
