@@ -84,25 +84,4 @@ public class ReportRecyclerViewAdapter extends RecyclerView.Adapter<ReportRecycl
     public int getItemCount() {
         return reportList.size();
     }
-
-
-    private Bitmap loadImageFromStorage(String path)
-    {
-        ContextWrapper cw = new ContextWrapper(context);
-        Bitmap b = null;
-        try {
-            File directory = cw.getDir("report_images", Context.MODE_PRIVATE);
-            // Create imageDir
-
-            File f=new File(directory, path);
-            b = BitmapFactory.decodeStream(new FileInputStream(f));
-        }
-        catch (FileNotFoundException e)
-        {
-            e.printStackTrace();
-        }
-
-        return b;
-
-    }
 }
