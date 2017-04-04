@@ -2,6 +2,7 @@ package sandeep.city.Fragment;
 
 import android.app.Dialog;
 import android.app.Fragment;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -15,10 +16,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import sandeep.city.Adapter.PlaceRecyclerViewAdapter;
 import sandeep.city.POJO.SinglePlace;
 import sandeep.city.R;
+import sandeep.city.SQLiteClasses.PlacesDataSource;
 
 /**
  * Created by sandeep_chi on 2/6/2017.
@@ -28,20 +31,33 @@ public class FragmentMyPlaces extends Fragment {
 
     Dialog d;
     RecyclerView placesRecycler;
-    ArrayList<SinglePlace> placesList;
+    List<SinglePlace> placesList;
     RecyclerView.LayoutManager layoutManager;
+    PlacesDataSource dataSource;
+    PlaceRecyclerViewAdapter adapter;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.frag_myplaces, container, false);
-
-        placesRecycler = (RecyclerView) v.findViewById(R.id.rvPlaces);
-        layoutManager = new LinearLayoutManager(getActivity());
-        placesRecycler.setLayoutManager(layoutManager);
         placesList = new ArrayList<SinglePlace>();
-        placesRecycler.setAdapter(new PlaceRecyclerViewAdapter(placesList));
+
+        dataSource = new PlacesDataSource(getActivity());
+        dataSource.open();
+
+        placesList = dataSource.getAllPlaces();
+        dataSource.close();
+
+        if (placesList.size() > 0) {
+            placesRecycler = (RecyclerView) v.findViewById(R.id.rvPlaces);
+            layoutManager = new LinearLayoutManager(getActivity());
+            placesRecycler.setLayoutManager(layoutManager);
+            adapter =  new PlaceRecyclerViewAdapter(placesList, getActivity());
+            placesRecycler.setAdapter(adapter);
+        }
+
+       // placesRecycler.setAdapter(new PlaceRecyclerViewAdapter(placesList, getActivity()));
 
 
 
@@ -74,7 +90,8 @@ public class FragmentMyPlaces extends Fragment {
                     Toast.makeText(getActivity(), "Location title cannot be empty",
                             Toast.LENGTH_SHORT).show();
                 } else {
-                    //dh.place_insert(string.toUpperCase(),0,0,"Click icon to set location");
+                    AsyncAddPlace addPlace = new AsyncAddPlace();
+                    addPlace.execute(new SinglePlace(string));
                 }
                 d.dismiss();
 
@@ -82,5 +99,31 @@ public class FragmentMyPlaces extends Fragment {
         });
 
         d.show();
+    }
+
+    private class AsyncAddPlace extends AsyncTask<SinglePlace,Void,SinglePlace> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+
+        @Override
+        protected SinglePlace doInBackground(SinglePlace... params) {
+            PlacesDataSource dataSource = new PlacesDataSource(getActivity());
+            dataSource.open();
+            SinglePlace place = dataSource.createPlace(params[0].getTitle(),params[0].getAddress(),
+                    params[0].getLatitute(), params[0].getLongitude());
+            dataSource.close();
+            return place;
+        }
+
+
+        @Override
+        protected void onPostExecute(SinglePlace place) {
+            placesList.add(place);
+//            adapter.notifyAll();
+        }
     }
 }

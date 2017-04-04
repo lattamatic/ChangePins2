@@ -5,15 +5,23 @@ public class SinglePlace {
 
     String title, address;
     long latitute, longitude;
-    int id;
+    long id;
 
 
-    public SinglePlace(int id, String title, String address, long latitute, long longitude) {
+    public SinglePlace(long id, String title, String address, long latitute, long longitude) {
         this.id = id;
         this.title = title;
         this.address = address;
         this.latitute = latitute;
         this.longitude = longitude;
+    }
+
+    public SinglePlace(){
+
+    }
+
+    public SinglePlace(String title){
+        this.title = title;
     }
 
 
@@ -49,11 +57,11 @@ public class SinglePlace {
         this.longitude = longitude;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

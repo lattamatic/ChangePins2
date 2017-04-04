@@ -1,5 +1,6 @@
 package sandeep.city.Adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import sandeep.city.POJO.SinglePlace;
 import sandeep.city.R;
@@ -18,10 +20,12 @@ import sandeep.city.R;
 
 public class PlaceRecyclerViewAdapter extends RecyclerView.Adapter<PlaceRecyclerViewAdapter.ViewHolder> {
 
-    private ArrayList<SinglePlace> placeList;
+    private List<SinglePlace> placeList;
+    private Context context;
 
-    public PlaceRecyclerViewAdapter(ArrayList<SinglePlace> placeList){
+    public PlaceRecyclerViewAdapter(List<SinglePlace> placeList, Context context){
         this.placeList = placeList;
+        this.context = context;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
