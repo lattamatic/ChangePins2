@@ -153,18 +153,21 @@ public class ActivityHome extends ActionBarActivity implements FragmentSelectSec
 
                 switch (position) {
                     case 0:
-                        popAFragment(reports);
+                        popAFragment(homeScreen);
                         break;
                     case 1:
-                        popAFragment(places);
+                        popAFragment(reports);
                         break;
                     case 2:
-                        popAFragment(about);
+                        popAFragment(places);
                         break;
                     case 3:
-                        popAFragment(help);
+                        popAFragment(about);
                         break;
                     case 4:
+                        popAFragment(help);
+                        break;
+                    case 5:
                         Intent i = new Intent(ActivityHome.this, ActivityFBLogin.class);
                         startActivity(i);
                         finish();

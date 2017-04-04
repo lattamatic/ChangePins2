@@ -8,6 +8,7 @@
     <string name="app_id">1101829736603185</string>
 
     <string-array name="nav_drawer_list_menu">
+        <item>Home</item>
         <item>Reports</item>
         <item>Places</item>
         <item>About</item>
