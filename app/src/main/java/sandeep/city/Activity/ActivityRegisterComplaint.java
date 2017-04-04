@@ -22,6 +22,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.android.gms.maps.model.LatLng;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -109,17 +115,19 @@ public class ActivityRegisterComplaint extends Activity implements OnClickListen
                 startActivityForResult(intent, TAKE_PICTURE);
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
                 break;
-//            case R.id.bPickLocation:
-//                PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
-//                Context context = this;
-//                try {
-//                    startActivityForResult(builder.build(context), LOCATION);
-//                } catch (GooglePlayServicesRepairableException e) {
-//                    e.printStackTrace();
-//                } catch (GooglePlayServicesNotAvailableException e) {
-//                    e.printStackTrace();
-//                }
-//                break;
+            case R.id.bPickLocation:
+                PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+                Context context = this;
+                try {
+                    startActivityForResult(builder.build(context), LOCATION);
+                } catch (GooglePlayServicesRepairableException e) {
+                    e.printStackTrace();
+                } catch (GooglePlayServicesNotAvailableException e) {
+                    e.printStackTrace();
+                    Toast.makeText(context, "Google Play Services not available on this device",
+                            Toast.LENGTH_SHORT).show();
+                }
+                break;
             case R.id.ivSubmit:
                 if (ettitle.getText().toString().matches("")) {
                     Toast.makeText(this, "Title cannot be empty",
@@ -172,14 +180,12 @@ public class ActivityRegisterComplaint extends Activity implements OnClickListen
             Log.d("location", location_string);
             location_set.setVisibility(View.VISIBLE);
         } else if (requestCode == LOCATION && resultCode == RESULT_OK) {
-//            Log.d("map", "working");
-//            Place place = PlacePicker.getPlace(data, this);
-//            LatLng ll = place.getLatLng();
-//            double lon = ll.longitude;
-//            double lat = ll.latitude;
-//            Log.d("location", "lat:" + lat + " lon:" + lon);
-//            String url = "https://maps.googleapis.com/maps/api/staticmap?center=" + lat + "," + lon + "&zoom=17&size=600x300&maptype=normal";
-//            new DownloadImageTask(ActivityRegisterComplaint.this).execute(url);
+            Place place = PlacePicker.getPlace(data, this);
+            LatLng ll = place.getLatLng();
+            double lon = ll.longitude;
+            double lat = ll.latitude;
+            String url = "https://maps.googleapis.com/maps/api/staticmap?center=" + lat + "," + lon + "&zoom=17&size=600x300&maptype=normal";
+            new DownloadImageTask(ActivityRegisterComplaint.this).execute(url);
         }
 
     }
