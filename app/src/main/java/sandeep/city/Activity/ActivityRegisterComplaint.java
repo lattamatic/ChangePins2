@@ -56,6 +56,7 @@ public class ActivityRegisterComplaint extends Activity implements OnClickListen
     private ImageView staticMap;
     private ProgressBar progressBar;
     ImageView back;
+    Place place;
 
     private String location_string;
     private Uri picUri;
@@ -180,7 +181,7 @@ public class ActivityRegisterComplaint extends Activity implements OnClickListen
             Log.d("location", location_string);
             location_set.setVisibility(View.VISIBLE);
         } else if (requestCode == LOCATION && resultCode == RESULT_OK) {
-            Place place = PlacePicker.getPlace(data, this);
+            place = PlacePicker.getPlace(data, this);
             LatLng ll = place.getLatLng();
             double lon = ll.longitude;
             double lat = ll.latitude;
@@ -195,6 +196,8 @@ public class ActivityRegisterComplaint extends Activity implements OnClickListen
         staticMap.setImageBitmap(result);
         staticMap.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.GONE);
+        locMessage.setVisibility(View.VISIBLE);
+        locMessage.setText(place.getAddress());
     }
 
     @Override

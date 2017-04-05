@@ -42,24 +42,9 @@ public class FragmentMyPlaces extends Fragment {
 
         View v = inflater.inflate(R.layout.frag_myplaces, container, false);
         placesList = new ArrayList<SinglePlace>();
+        placesRecycler = (RecyclerView) v.findViewById(R.id.rvPlaces);
 
-        dataSource = new PlacesDataSource(getActivity());
-        dataSource.open();
-
-        placesList = dataSource.getAllPlaces();
-        dataSource.close();
-
-        if (placesList.size() > 0) {
-            placesRecycler = (RecyclerView) v.findViewById(R.id.rvPlaces);
-            layoutManager = new LinearLayoutManager(getActivity());
-            placesRecycler.setLayoutManager(layoutManager);
-            adapter =  new PlaceRecyclerViewAdapter(placesList, getActivity());
-            placesRecycler.setAdapter(adapter);
-        }
-
-       // placesRecycler.setAdapter(new PlaceRecyclerViewAdapter(placesList, getActivity()));
-
-
+        new AsyncGetPlaces().execute();
 
         FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.fabAddPlace);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -101,6 +86,35 @@ public class FragmentMyPlaces extends Fragment {
         d.show();
     }
 
+    private class AsyncGetPlaces extends AsyncTask<Void, Void, List<SinglePlace>>{
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected List<SinglePlace> doInBackground(Void... params) {
+            dataSource = new PlacesDataSource(getActivity());
+            dataSource.open();
+
+            placesList = dataSource.getAllPlaces();
+            dataSource.close();
+
+            return placesList;
+        }
+
+        @Override
+        protected void onPostExecute(List<SinglePlace> singlePlaces) {
+            if (placesList.size() > 0) {
+                layoutManager = new LinearLayoutManager(getActivity());
+                placesRecycler.setLayoutManager(layoutManager);
+                adapter =  new PlaceRecyclerViewAdapter(placesList, getActivity());
+                placesRecycler.setAdapter(adapter);
+            }
+        }
+    }
+
     private class AsyncAddPlace extends AsyncTask<SinglePlace,Void,SinglePlace> {
 
         @Override
@@ -123,7 +137,9 @@ public class FragmentMyPlaces extends Fragment {
         @Override
         protected void onPostExecute(SinglePlace place) {
             placesList.add(place);
-//            adapter.notifyAll();
+            synchronized (adapter){
+                adapter.notifyAll();
+            }
         }
     }
 }

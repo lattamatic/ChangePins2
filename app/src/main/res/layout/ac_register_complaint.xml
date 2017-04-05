@@ -101,31 +101,38 @@
                 android:orientation="horizontal"
                 android:weightSum="4">
 
-
-                <ImageView
-                    android:id="@+id/ivStaticMap"
-                    android:layout_width="wrap_content"
-                    android:layout_height="100dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="3"
-                    android:src="@drawable/staticmap"
-                    android:visibility="gone" />
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tvLocMessage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="100dp"
-                    android:layout_weight="3"
-                    android:gravity="center_vertical"
-                    android:text="Click on the icon to select location"
-                    android:visibility="visible" />
+                    <ImageView
+                        android:id="@+id/ivStaticMap"
+                        android:layout_width="wrap_content"
+                        android:layout_height="100dp"
+                        android:layout_weight="3"
+                        android:src="@drawable/staticmap"
+                        android:visibility="gone" />
 
-                <ProgressBar
-                    android:id="@+id/progressBar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="100dp"
-                    android:layout_weight="3"
-                    android:indeterminate="true"
-                    android:visibility="gone" />
+                    <TextView
+                        android:layout_marginLeft="10dp"
+                        android:id="@+id/tvLocMessage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:gravity="center_vertical"
+                        android:text="Click on the icon to select location"
+                        android:visibility="visible" />
+
+                    <ProgressBar
+                        android:id="@+id/progressBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="100dp"
+                        android:layout_weight="3"
+                        android:indeterminate="true"
+                        android:visibility="gone" />
+                </LinearLayout>
 
                 <ImageView
                     android:id="@+id/bPickLocation"
