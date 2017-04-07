@@ -42,18 +42,20 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginRight="24dp"
+                        android:layout_marginRight="16dp"
+                        android:padding="8dp"
                         android:layout_toLeftOf="@+id/ivBuzz"
                         android:src="@drawable/report" />
 
                     <ImageView
                         android:id="@+id/ivBuzz"
+                        android:padding="8dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:src="@drawable/buzz"
-                        android:layout_marginRight="24dp"
+                        android:layout_marginRight="16dp"
                         />
                 </RelativeLayout>
 

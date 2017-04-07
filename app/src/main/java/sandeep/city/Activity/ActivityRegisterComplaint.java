@@ -47,10 +47,10 @@ public class ActivityRegisterComplaint extends Activity implements OnClickListen
     public View layout;
     public ImageView imageView;
     public final int TAKE_PICTURE = 1;
-    public final int SELECT_PIC = 10;
-    private final int CROP_PIC = 100;
-    public final int GET_LOC = 11;
-    public final int LOCATION = 2;
+    public final int SELECT_PIC = 2;
+    private final int CROP_PIC = 3;
+    public final int GET_LOC = 4;
+    public final int LOCATION = 5;
     public Bitmap bitmap;
     private TextView locMessage;
     private ImageView staticMap;
@@ -165,11 +165,9 @@ public class ActivityRegisterComplaint extends Activity implements OnClickListen
             if (bitmap != null) {
                 bitmap.recycle();
             }
-            picUri = data.getData();
-            performCrop();
+            performCrop(data.getData());
         } else if (requestCode == SELECT_PIC && resultCode == RESULT_OK) {
-            picUri = data.getData();
-            performCrop();
+            performCrop(data.getData());
         } else if (requestCode == CROP_PIC && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             Bitmap thePic = extras.getParcelable("data");
@@ -222,7 +220,7 @@ public class ActivityRegisterComplaint extends Activity implements OnClickListen
         }
     }
 
-    private void performCrop() {
+    private void performCrop(Uri picUri) {
         // take care of exceptions
         try {
             Intent cropIntent = new Intent("com.android.camera.action.CROP");

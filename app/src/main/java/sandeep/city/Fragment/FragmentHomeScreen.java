@@ -13,15 +13,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import sandeep.city.R;
-import sandeep.city.POJO.SingleStory;
 import sandeep.city.Adapter.StoryRecyclerViewAdapter;
+import sandeep.city.POJO.SingleStory;
+import sandeep.city.R;
 import sandeep.city.RetrofitTest.AndroidVersion;
 import sandeep.city.RetrofitTest.DataAdapter;
 import sandeep.city.RetrofitTest.JSONResponse;
@@ -61,7 +60,8 @@ public class FragmentHomeScreen extends Fragment{
     //creating dummy data
     private void prepareStoryList(){
         for(int i=1;i<20;i++){
-            storyList.add(new SingleStory("Title - "+i, "Author - "+i,i + "The Domlur Bus Stop getting  spotfixed! It's a shame that residents of Bengaluru tolerate the defacement and vandalism of its well-made bus-stops. Hopefully, things will change now - with this superb work by concerned residents of the area"));
+            storyList.add(new SingleStory("Title - "+i, "Author - "+i,i +
+                    "The Domlur Bus Stop getting  spotfixed! It's a shame that residents of Bengaluru tolerate the defacement and vandalism of its well-made bus-stops. Hopefully, things will change now - with this superb work by concerned residents of the area"));
         }
         storyRV.setAdapter( new StoryRecyclerViewAdapter(storyList, getActivity()));
     }

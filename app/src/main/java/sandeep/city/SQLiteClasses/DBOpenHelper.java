@@ -54,7 +54,6 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        Log.d("Report","oncreate");
         sqLiteDatabase.execSQL(CREATE_REPORTS);
         sqLiteDatabase.execSQL(CREATE_PLACES);
     }

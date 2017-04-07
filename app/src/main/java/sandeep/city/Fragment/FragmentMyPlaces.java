@@ -137,9 +137,6 @@ public class FragmentMyPlaces extends Fragment {
         @Override
         protected void onPostExecute(SinglePlace place) {
             placesList.add(place);
-            synchronized (adapter){
-                adapter.notifyAll();
-            }
         }
     }
 }
