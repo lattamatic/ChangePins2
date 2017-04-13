@@ -113,8 +113,6 @@ public class ActivityHome extends ActionBarActivity implements FragmentSelectSec
             public void onClick(View v) {
                 if (!getFragmentManager().findFragmentByTag(homeScreen).isVisible()) {
                     popAFragment(homeScreen);
-                } else {
-
                 }
             }
         });

@@ -3,6 +3,7 @@ package sandeep.city.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +12,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SizeReadyCallback;
 
 import java.util.List;
 
@@ -25,6 +29,7 @@ public class StoryRecyclerViewAdapter extends RecyclerView.Adapter<StoryRecycler
 
     private List<SingleStory> storyList;
     Context context;
+    LinearLayout.LayoutParams lp;
 
     public StoryRecyclerViewAdapter(List<SingleStory> storyList, Context context) {
         this.storyList = storyList;
@@ -39,6 +44,7 @@ public class StoryRecyclerViewAdapter extends RecyclerView.Adapter<StoryRecycler
 
         public ViewHolder(View v) {
             super(v);
+            Log.d("RCV","View holder");
             description = (TextView) v.findViewById(R.id.tvStoryDesc);
             author = (TextView) v.findViewById(R.id.tvStoryAuthor);
             storyImage = (ImageView) v.findViewById(R.id.ivStoryImage);
@@ -49,6 +55,8 @@ public class StoryRecyclerViewAdapter extends RecyclerView.Adapter<StoryRecycler
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+        Log.d("RCV","On create View holder");
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.single_story, parent, false);
         return new ViewHolder(itemView);
@@ -57,6 +65,7 @@ public class StoryRecyclerViewAdapter extends RecyclerView.Adapter<StoryRecycler
     @Override
     public void onBindViewHolder(ViewHolder h, final int position) {
 
+        Log.d("RCV","on bind View holder");
         final ViewHolder holder = h;
         final SingleStory story = storyList.get(position);
         holder.description.setText(story.getDescription());
@@ -74,29 +83,54 @@ public class StoryRecyclerViewAdapter extends RecyclerView.Adapter<StoryRecycler
 
         switch (position%4){
             case 0:
-                holder.storyImage.setImageResource(R.drawable.storysampleimageone);
+                Glide.with(context)
+                        .load(R.drawable.storysampleimageone).into(holder.storyImage).getSize(new SizeReadyCallback() {
+                    @Override
+                    public void onSizeReady(int width, int height) {
+                        height = (int) (width/1.6);
+                        LinearLayout.LayoutParams lp= new LinearLayout.LayoutParams(width,height);
+                        holder.storyImage.setLayoutParams(lp);
+                        holder.storyImage.requestLayout();
+                    }
+                });
                 break;
             case 1:
-                holder.storyImage.setImageResource(R.drawable.storysampleimagetwo);
+                Glide.with(context)
+                        .load(R.drawable.storysampleimagetwo).into(holder.storyImage).getSize(new SizeReadyCallback() {
+                    @Override
+                    public void onSizeReady(int width, int height) {
+                        height = (int) (width/1.6);
+                        LinearLayout.LayoutParams lp= new LinearLayout.LayoutParams(width,height);
+                        holder.storyImage.setLayoutParams(lp);
+                        holder.storyImage.requestLayout();
+                    }
+                });
                 break;
             case 2:
-                holder.storyImage.setImageResource(R.drawable.storysampleimagethree);
+                Glide.with(context)
+                        .load(R.drawable.storysampleimagethree).into(holder.storyImage).getSize(new SizeReadyCallback() {
+                    @Override
+                    public void onSizeReady(int width, int height) {
+                        height = (int) (width/1.6);
+                        LinearLayout.LayoutParams lp= new LinearLayout.LayoutParams(width,height);
+                        holder.storyImage.setLayoutParams(lp);
+                        holder.storyImage.requestLayout();
+                    }
+                });
                 break;
             case 3:
-                holder.storyImage.setImageResource(R.drawable.storysampleimagefour);
+                Glide.with(context)
+                        .load(R.drawable.storysampleimagefour).into(holder.storyImage).getSize(new SizeReadyCallback() {
+                    @Override
+                    public void onSizeReady(int width, int height) {
+                        height = (int) (width/1.6);
+                        LinearLayout.LayoutParams lp= new LinearLayout.LayoutParams(width,height);
+                        holder.storyImage.setLayoutParams(lp);
+                        holder.storyImage.requestLayout();
+                    }
+                });
+                break;
         }
-
-        //Code to set image layout parameters to fit in the screen
-        holder.storyImage.post(new Runnable() {
-            @Override
-            public void run() {
-                int width = holder.storyImage.getWidth();
-                int height = (int) (width/1.6);
-                LinearLayout.LayoutParams lp= new LinearLayout.LayoutParams(width,height);
-                holder.storyImage.setLayoutParams(lp);
-                holder.storyImage.requestLayout();
-            }
-        });
     }
 
     @Override

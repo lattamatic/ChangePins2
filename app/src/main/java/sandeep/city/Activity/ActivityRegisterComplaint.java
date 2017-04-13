@@ -313,7 +313,7 @@ public class ActivityRegisterComplaint extends Activity implements  DownloadImag
         private LayoutInflater mInflater;
 
         public CropOptionAdapter(Context context, ArrayList<CropOption> options) {
-            super(context, R.layout.crop_selector, options);
+            super(context, R.layout.view_crop_selector, options);
 
             mOptions = options;
 
@@ -323,7 +323,7 @@ public class ActivityRegisterComplaint extends Activity implements  DownloadImag
         @Override
         public View getView(int position, View convertView, ViewGroup group) {
             if (convertView == null)
-                convertView = mInflater.inflate(R.layout.crop_selector, null);
+                convertView = mInflater.inflate(R.layout.view_crop_selector, null);
 
             CropOption item = mOptions.get(position);
 
