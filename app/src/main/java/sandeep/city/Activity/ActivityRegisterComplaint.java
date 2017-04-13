@@ -12,6 +12,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.MediaStore;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.View;
@@ -105,14 +106,12 @@ public class ActivityRegisterComplaint extends Activity implements OnClickListen
         switch (v.getId()) {
             case R.id.ivUploadImage:
                 Intent photoPic = new Intent(
-                        Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(photoPic, SELECT_PIC);
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
                 break;
             case R.id.ivTakePic:
-                Intent intent = new Intent(
-                        android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(intent, TAKE_PICTURE);
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
                 break;

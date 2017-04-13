@@ -16,12 +16,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
 import com.facebook.Profile;
 import com.facebook.ProfileTracker;
 import com.facebook.login.LoginResult;
@@ -38,7 +40,7 @@ import sandeep.city.R;
 /**
  * Created by sandeep on 22/5/15.
  */
-public class FragmentFBLogin extends Fragment implements View.OnClickListener {
+public class FragmentFBLogin extends Fragment{
 
     private TextView tvSkip, signup;
     private CallbackManager callbackManager;
@@ -46,12 +48,9 @@ public class FragmentFBLogin extends Fragment implements View.OnClickListener {
     private Profile profile;
     private FacebookCallback<LoginResult> callback;
     private ProfileTracker profileTracker;
+    private AccessTokenTracker accessTokenTracker;
     Context c;
 
-    SharedPreferences sharedPreferences;
-    String Preferences;
-    SharedPreferences.Editor editor;
-    Uri img_value = null;
     FBLoginInterface fbLoginInterface;
     LoginButton loginButton;
 
@@ -74,65 +73,42 @@ public class FragmentFBLogin extends Fragment implements View.OnClickListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         fbLoginInterface = (FBLoginInterface) getActivity();
-        Preferences = getString(R.string.user_preferences);
         FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
-        sharedPreferences = getActivity().getSharedPreferences(Preferences, Context.MODE_PRIVATE);
-        editor = sharedPreferences.edit();
 
         callbackManager = CallbackManager.Factory.create();
         callback = new FacebookCallback<LoginResult>() {
 
             @Override
             public void onSuccess(LoginResult loginResult) {
+                GraphRequest request = GraphRequest.newMeRequest(
+                        AccessToken.getCurrentAccessToken(),
+                        new GraphRequest.GraphJSONObjectCallback() {
+                            @Override
+                            public void onCompleted(
+                                    JSONObject object,
+                                    GraphResponse response) {
+                                // Application code
+                                Log.d("Graph FB", object.toString()+"\n"+response.toString());
+                            }
+                        });
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "id,name,link, email, location, birthday, gender");
+                request.setParameters(parameters);
+                request.executeAsync();
 
-                profileTracker = new ProfileTracker() {
-                    @Override
-                    protected void onCurrentProfileChanged(Profile profil, Profile profile2) {
-                        profile = profile2;
-                        editor.putString("user_name", profile.getName());
-                        GraphRequest request = GraphRequest.newMeRequest(
-                                accessToken,
-                                new GraphRequest.GraphJSONObjectCallback() {
-                                    @Override
-                                    public void onCompleted(
-                                            JSONObject object,
-                                            GraphResponse response) {
-                                        try {
-                                            if (object.getString("email") != null) {
-                                                editor.putString(getString(R.string.user_email),
-                                                        object.getString("email"));
-                                                //editor.commit();
-                                            }
+                new GraphRequest(
+                        AccessToken.getCurrentAccessToken(),
+                        "/{user-id}/picture",
+                        null,
+                        HttpMethod.GET,
+                        new GraphRequest.Callback() {
+                            public void onCompleted(GraphResponse response) {
+                                /* handle the result */
 
-                                        } catch (JSONException e) {
-                                            editor.putString(getString(R.string.user_email), "");
-                                           // editor.commit();
-                                        }
-                                    }
-                                });
-                        Bundle parameters = new Bundle();
-                        parameters.putString("fields", "id,name,link, email");
-                        request.setParameters(parameters);
-                        request.executeAsync();
-                        img_value = profile.getProfilePictureUri(100, 100);
-                        editor.putString(getString(R.string.user_image),img_value.toString());
-                        editor.commit();
-                        profileTracker.stopTracking();
-                    }
-                };
-
-                profileTracker.startTracking();
-                accessToken = loginResult.getAccessToken();
-
-                Log.d("nm",accessToken.toString());
-                if (profile != null) {
-                    editor.putString(getString(R.string.username), profile.getName());
-                    editor.putString(getString(R.string.user_image),
-                            "https://graph.facebook.com/me/picture?access_token=" + accessToken);
-                    editor.commit();
-                   } else {
-                    Log.d("Login", "Problem with profile");
-                }
+                            }
+                        }
+                ).executeAsync();
+                //fbLoginInterface.OnSuccessfulLogin();
             }
 
             @Override
@@ -145,7 +121,24 @@ public class FragmentFBLogin extends Fragment implements View.OnClickListener {
                 Toast.makeText(c,"An error occured while trying to Login, please trying again.", Toast.LENGTH_SHORT).show();
             }
         };
-        editor.commit();
+
+        accessTokenTracker = new AccessTokenTracker() {
+            @Override
+            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
+                accessToken = currentAccessToken;
+            }
+        };
+
+        profileTracker = new ProfileTracker() {
+            @Override
+            protected void onCurrentProfileChanged(Profile oldProfile, Profile currentProfile) {
+                if(currentProfile==null){
+                    Log.d("FB profile", "problem with current profile");
+                }else{
+                    Log.d("FB profile", currentProfile.getName()+currentProfile.getLinkUri());
+                }
+            }
+        };
     }
 
     @Override
@@ -170,30 +163,31 @@ public class FragmentFBLogin extends Fragment implements View.OnClickListener {
         tvSkip.setText(Html.fromHtml("<p><u>SKIP</u></p>"));
 
         signup = (TextView) view.findViewById(R.id.tvSignup);
-        signup.setOnClickListener(this);
-        tvSkip.setOnClickListener(this);
+        signup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fbLoginInterface.OnClickSignUp();
+            }
+        });
+        tvSkip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fbLoginInterface.OnClickSkip();
+            }
+        });
         return view;
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (callbackManager.onActivityResult(requestCode, resultCode, data))
-            return;
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
-    public void onClick(View v) {
-        Intent i = null;
-        switch (v.getId()){
-            case R.id.tvSignup:
-                fbLoginInterface.OnClickSignUp();
-                break;
-            case R.id.tvSkip:
-                fbLoginInterface.OnClickSkip();
-                break;
-        }
-
+    public void onDestroy() {
+        super.onDestroy();
+        profileTracker.stopTracking();
+        accessTokenTracker.stopTracking();
     }
-
 }

@@ -22,6 +22,7 @@ public class ActivityMain extends Activity {
         setContentView(R.layout.ac_main);
 
         Thread splash = new Thread() {
+
             public void run() {
                 try {
 
