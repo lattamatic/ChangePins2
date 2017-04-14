@@ -16,9 +16,7 @@ public class ActivityFBLogin extends ActionBarActivity implements FragmentFBLogi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.ac_fblogin);
-
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.container, new FragmentFBLogin(this))
@@ -27,8 +25,9 @@ public class ActivityFBLogin extends ActionBarActivity implements FragmentFBLogi
     }
 
     @Override
-    public void onBackPressed() {//If navigated to this screen to logout, on back click go back to homescreen
+    public void onBackPressed() {
         super.onBackPressed();
+        //If navigated to this screen to logout, on back click go back to homescreen
         if(isLoggedIn()){
             Intent i = new Intent(this,ActivityHome.class);
             startActivity(i);

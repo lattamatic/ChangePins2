@@ -16,6 +16,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -23,11 +24,19 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.facebook.AccessToken;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import sandeep.city.AnalyticsApplication;
 import sandeep.city.Fragment.FragmentAbout;
@@ -53,7 +62,7 @@ public class ActivityHome extends ActionBarActivity implements FragmentSelectSec
     ListView drawerList;
     public String[] drawer_menu;
     ImageView report, buzz, profilePic;
-    TextView title;
+    TextView title, profileName;
     Toolbar toolbar;
     Tracker mTracker;
     AnalyticsApplication application;
@@ -102,6 +111,7 @@ public class ActivityHome extends ActionBarActivity implements FragmentSelectSec
         buzz = (ImageView) findViewById(R.id.ivBuzz);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         profilePic = (ImageView) findViewById(R.id.ivProfilepic);
+        profileName = (TextView) findViewById(R.id.tvProfileName);
 
         //ActionBar related
         setSupportActionBar(toolbar);
@@ -191,8 +201,63 @@ public class ActivityHome extends ActionBarActivity implements FragmentSelectSec
             }
         };
 
-        LocalBroadcastManager.getInstance(this).registerReceiver(bcReceiver, new IntentFilter("Intent filter"));
+        LocalBroadcastManager.getInstance(this).
+                registerReceiver(bcReceiver, new IntentFilter(ActivityRegisterComplaint.submitIntent));
+
+        if (AccessToken.getCurrentAccessToken() != null) {
+            GraphRequest request = GraphRequest.newMeRequest(
+                    AccessToken.getCurrentAccessToken(),
+                    new GraphRequest.GraphJSONObjectCallback() {
+                        @Override
+                        public void onCompleted(
+                                JSONObject object,
+                                GraphResponse response) {
+                            // Application code
+                            try {
+                                profileName.setText(object.getString("name"));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+            Bundle parameters = new Bundle();
+            parameters.putString("fields", "id,name,link, email, location, birthday, gender");
+            request.setParameters(parameters);
+            request.executeAsync();
+
+            Bundle params = new Bundle();
+            params.putBoolean("redirect", false);
+            params.putInt("height", 100);
+            params.putInt("width", 100);
+            new GraphRequest(
+                    AccessToken.getCurrentAccessToken(),
+                    "/" + AccessToken.getCurrentAccessToken().getUserId() + "/picture",
+                    params,
+                    HttpMethod.GET,
+                    new GraphRequest.Callback() {
+                        public void onCompleted(GraphResponse response) {
+                                /* handle the result */
+                            if (response != null) {
+                                Log.d("response image", response.toString());
+                                try {
+                                    JSONObject data = response.getJSONObject().getJSONObject("data");
+                                    Log.d("data", data.toString());
+                                    if (data.has("url")) {
+                                        String profilePicUrl = data.getString("url");
+                                        Glide.with(ActivityHome.this).load(profilePicUrl).
+                                                into(profilePic);
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            } else {
+                                Log.d("fb response image", "null");
+                            }
+                        }
+                    }
+            ).executeAsync();
         }
+    }
 
 
     @Override

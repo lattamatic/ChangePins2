@@ -18,7 +18,8 @@ public class ActivityMain extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        FacebookSdk.sdkInitialize(this); //FB SDK initialization
+        //FB SDK initialization
+        FacebookSdk.sdkInitialize(this);
         setContentView(R.layout.ac_main);
 
         Thread splash = new Thread() {
@@ -30,14 +31,14 @@ public class ActivityMain extends Activity {
                     sleep(1000);
 
                     //
-                    if (!isLoggedIn()) {//If user is not logged in open Login Activity
+                    if (!isLoggedIn()) {
+                        //If user is not logged in open Login Activity
                         Intent i = new Intent(ActivityMain.this, ActivityFBLogin.class);
                         startActivity(i);
                         overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
-                    } else {//If the user is logged in open HomeScreen of the app
+                    } else {
+                        //If the user is logged in open HomeScreen of the app
                         Intent i = new Intent(ActivityMain.this, ActivityHome.class);
-                        String value = "Not the first time and logged in";
-                        i.putExtra("Check", value);
                         startActivity(i);
                         overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
                         finish();

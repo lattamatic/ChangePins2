@@ -65,7 +65,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:id="@+id/profilepic_name"
+                    android:id="@+id/tvProfileName"
                     android:layout_marginLeft="10dp"
                     android:clickable="false"
                     android:text="Leopold Butters Stotch"
@@ -85,7 +85,7 @@
                 android:choiceMode="singleChoice"
                 android:divider="#00123456"
                 android:paddingTop="14dp"
-                android:layout_below="@+id/profilepic_name"
+                android:layout_below="@+id/tvProfileName"
                 android:dividerHeight="1dp"
                 android:listSelector="#888888"
                 android:background="#FFFFFF">

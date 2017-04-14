@@ -3,6 +3,8 @@ package sandeep.city.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,9 +14,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
@@ -32,6 +36,8 @@ import com.facebook.login.widget.LoginButton;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,50 +78,27 @@ public class FragmentFBLogin extends Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Interface to pass Login events to Parent Activity
         fbLoginInterface = (FBLoginInterface) getActivity();
         FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
 
         callbackManager = CallbackManager.Factory.create();
         callback = new FacebookCallback<LoginResult>() {
 
+            //On successful Login
             @Override
             public void onSuccess(LoginResult loginResult) {
-                GraphRequest request = GraphRequest.newMeRequest(
-                        AccessToken.getCurrentAccessToken(),
-                        new GraphRequest.GraphJSONObjectCallback() {
-                            @Override
-                            public void onCompleted(
-                                    JSONObject object,
-                                    GraphResponse response) {
-                                // Application code
-                                Log.d("Graph FB", object.toString()+"\n"+response.toString());
-                            }
-                        });
-                Bundle parameters = new Bundle();
-                parameters.putString("fields", "id,name,link, email, location, birthday, gender");
-                request.setParameters(parameters);
-                request.executeAsync();
 
-                new GraphRequest(
-                        AccessToken.getCurrentAccessToken(),
-                        "/{user-id}/picture",
-                        null,
-                        HttpMethod.GET,
-                        new GraphRequest.Callback() {
-                            public void onCompleted(GraphResponse response) {
-                                /* handle the result */
-
-                            }
-                        }
-                ).executeAsync();
-                //fbLoginInterface.OnSuccessfulLogin();
+                fbLoginInterface.OnSuccessfulLogin();
             }
 
+            //if user clicks back or closes the app
             @Override
             public void onCancel() {
                 Toast.makeText(c,"Login Canceled", Toast.LENGTH_SHORT).show();
             }
 
+            //if no internet or other errors
             @Override
             public void onError(FacebookException e) {
                 Toast.makeText(c,"An error occured while trying to Login, please trying again.", Toast.LENGTH_SHORT).show();
@@ -128,6 +111,7 @@ public class FragmentFBLogin extends Fragment{
                 accessToken = currentAccessToken;
             }
         };
+        accessTokenTracker.startTracking();
 
         profileTracker = new ProfileTracker() {
             @Override
@@ -139,7 +123,9 @@ public class FragmentFBLogin extends Fragment{
                 }
             }
         };
+        profileTracker.startTracking();
     }
+
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -175,6 +161,7 @@ public class FragmentFBLogin extends Fragment{
                 fbLoginInterface.OnClickSkip();
             }
         });
+
         return view;
     }
 

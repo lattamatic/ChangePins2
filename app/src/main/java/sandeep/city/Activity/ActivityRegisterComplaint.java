@@ -69,6 +69,7 @@ public class ActivityRegisterComplaint extends Activity implements  DownloadImag
     private ProgressBar progressBar;
     ImageView back;
     Place place;
+    public static String submitIntent = "Submit Intent";
 
     private String location_string;
     private Uri mImageCaptureUri;
@@ -240,24 +241,6 @@ public class ActivityRegisterComplaint extends Activity implements  DownloadImag
         locMessage.setVisibility(View.GONE);
     }
 
-    private class GeocoderHandler extends Handler {
-        @Override
-        public void handleMessage(Message message) {
-            String locationAddress;
-            switch (message.what) {
-                case 1:
-                    Bundle bundle = message.getData();
-                    locationAddress = bundle.getString("address");
-                    break;
-                default:
-                    locationAddress = null;
-            }
-            location_set.setText(locationAddress);
-        }
-    }
-
-
-
     private String saveImageInMobile(Bitmap bitmapImage) {
         ContextWrapper cw = new ContextWrapper(getApplicationContext());
         // path to the directory where images are saved
@@ -302,7 +285,7 @@ public class ActivityRegisterComplaint extends Activity implements  DownloadImag
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            LocalBroadcastManager.getInstance(ActivityRegisterComplaint.this).sendBroadcast(new Intent("Intent filter"));
+            LocalBroadcastManager.getInstance(ActivityRegisterComplaint.this).sendBroadcast(new Intent(submitIntent));
             Toast.makeText(ActivityRegisterComplaint.this,"Report submitted successfully!", Toast.LENGTH_SHORT).show();
             finish();
         }
@@ -441,7 +424,6 @@ public class ActivityRegisterComplaint extends Activity implements  DownloadImag
                 });
 
                 AlertDialog alert = builder.create();
-
                 alert.show();
             }
         }

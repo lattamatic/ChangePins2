@@ -44,7 +44,6 @@ public class StoryRecyclerViewAdapter extends RecyclerView.Adapter<StoryRecycler
 
         public ViewHolder(View v) {
             super(v);
-            Log.d("RCV","View holder");
             description = (TextView) v.findViewById(R.id.tvStoryDesc);
             author = (TextView) v.findViewById(R.id.tvStoryAuthor);
             storyImage = (ImageView) v.findViewById(R.id.ivStoryImage);
@@ -55,8 +54,6 @@ public class StoryRecyclerViewAdapter extends RecyclerView.Adapter<StoryRecycler
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
-        Log.d("RCV","On create View holder");
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.single_story, parent, false);
         return new ViewHolder(itemView);
@@ -64,8 +61,6 @@ public class StoryRecyclerViewAdapter extends RecyclerView.Adapter<StoryRecycler
 
     @Override
     public void onBindViewHolder(ViewHolder h, final int position) {
-
-        Log.d("RCV","on bind View holder");
         final ViewHolder holder = h;
         final SingleStory story = storyList.get(position);
         holder.description.setText(story.getDescription());

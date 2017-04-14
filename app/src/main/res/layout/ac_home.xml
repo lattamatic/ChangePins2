@@ -107,7 +107,7 @@
                     android:src="@drawable/profile_pic" />
 
                 <TextView
-                    android:id="@+id/profilepic_name"
+                    android:id="@+id/tvProfileName"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_alignTop="@+id/ivProfilepic"
@@ -126,7 +126,7 @@
                 android:id="@+id/list_slidermenu"
                 android:layout_width="240dp"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/profilepic_name"
+                android:layout_below="@+id/tvProfileName"
                 android:layout_gravity="start"
                 android:background="#FFFFFF"
                 android:choiceMode="singleChoice"
