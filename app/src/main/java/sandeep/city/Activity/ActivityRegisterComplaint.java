@@ -16,8 +16,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
-import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
@@ -32,6 +30,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
@@ -45,12 +47,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import sandeep.city.DownloadImageTask;
 import sandeep.city.POJO.SingleReport;
 import sandeep.city.R;
 import sandeep.city.SQLiteClasses.ReportsDataSource;
 
-public class ActivityRegisterComplaint extends Activity implements  DownloadImageTask.DownloadImage{
+public class ActivityRegisterComplaint extends Activity{
 
     TextView category, location_set;
     ImageView upload, takePic, submit;
@@ -221,24 +222,25 @@ public class ActivityRegisterComplaint extends Activity implements  DownloadImag
             LatLng ll = place.getLatLng();
             double lat = ll.latitude;
             double lon = ll.longitude;
+            progressBar.setVisibility(View.VISIBLE);
+            locMessage.setVisibility(View.GONE);
             String url = "https://maps.googleapis.com/maps/api/staticmap?center=" + lat + "," + lon + "&zoom=19&size=600x300&maptype=normal";
-            new DownloadImageTask(ActivityRegisterComplaint.this).execute(url);
+            Glide.with(this).load(url).listener(new RequestListener<String, GlideDrawable>() {
+                @Override
+                public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                    return false;
+                }
+
+                @Override
+                public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                    staticMap.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.GONE);
+                    locMessage.setVisibility(View.VISIBLE);
+                    locMessage.setText(place.getAddress());
+                    return false;
+                }
+            }).into(staticMap);
         }
-    }
-
-    @Override
-    public void onImageDownloadCompleted(Bitmap result) {
-        staticMap.setImageBitmap(result);
-        staticMap.setVisibility(View.VISIBLE);
-        progressBar.setVisibility(View.GONE);
-        locMessage.setVisibility(View.VISIBLE);
-        locMessage.setText(place.getAddress());
-    }
-
-    @Override
-    public void onImageDownloadStart() {
-        progressBar.setVisibility(View.VISIBLE);
-        locMessage.setVisibility(View.GONE);
     }
 
     private String saveImageInMobile(Bitmap bitmapImage) {
