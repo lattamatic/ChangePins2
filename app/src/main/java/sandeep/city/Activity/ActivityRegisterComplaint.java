@@ -1,29 +1,18 @@
 package sandeep.city.Activity;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.ContextWrapper;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -43,15 +32,13 @@ import com.google.android.gms.maps.model.LatLng;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import sandeep.city.POJO.SingleReport;
 import sandeep.city.R;
 import sandeep.city.SQLiteClasses.ReportsDataSource;
 
-public class ActivityRegisterComplaint extends Activity{
+public class ActivityRegisterComplaint extends Activity {
 
     TextView category, location_set;
     ImageView upload, takePic, submit;
@@ -64,19 +51,17 @@ public class ActivityRegisterComplaint extends Activity{
     private final int CROP_PIC = 3;
     public final int GET_LOC = 4;
     public final int LOCATION = 5;
-    public Bitmap bitmap;
     private TextView locMessage;
     private ImageView staticMap;
     private ProgressBar progressBar;
     ImageView back;
     Place place;
-    public static String submitIntent = "Submit Intent";
 
     private String location_string;
-    private Uri mImageCaptureUri;
+    private Uri uri;
 
 
-    public interface OnSubmitReport{
+    public interface OnSubmitReport {
         void onSubmitReport();
     }
 
@@ -104,45 +89,17 @@ public class ActivityRegisterComplaint extends Activity{
         upload.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
+                Intent GalIntent = new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-
-                startActivityForResult(Intent.createChooser(intent,
-                        "Complete action using"), SELECT_PIC);
+                startActivityForResult(Intent.createChooser(GalIntent, "Select Image From Gallery"), SELECT_PIC);
             }
         });
         takePic.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                /**
-                 * To take a photo from camera, pass intent action
-                 * ‘MediaStore.ACTION_IMAGE_CAPTURE‘ to open the camera app.
-                 */
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-                /**
-                 * Also specify the Uri to save the image on specified path
-                 * and file name. Note that this Uri variable also used by
-                 * gallery app to hold the selected image path.
-                 */
-                mImageCaptureUri = Uri.fromFile(new File(Environment
-                        .getExternalStorageDirectory(), "tmp_avatar_"
-                        + String.valueOf(System.currentTimeMillis())
-                        + ".jpg"));
-
-                intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT,
-                        mImageCaptureUri);
-
-                try {
-                    intent.putExtra("return-data", true);
-
-                    startActivityForResult(intent, TAKE_PICTURE);
-                } catch (ActivityNotFoundException e) {
-                    e.printStackTrace();
-                }
-            }
+                Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(cameraIntent, TAKE_PICTURE);             }
         });
         submit.setOnClickListener(new OnClickListener() {
             @Override
@@ -156,13 +113,13 @@ public class ActivityRegisterComplaint extends Activity{
                 } else if (imageView.getBackground() != null) {
                     AsyncSubmitReport async = new AsyncSubmitReport();
                     SingleReport report = new SingleReport(category.getText().toString(), ettitle.getText().toString(),
-                            description.getText().toString(), "NoImage",0);
+                            description.getText().toString(), "NoImage", 0);
                     async.execute(report);
                 } else {
                     String saveImage = saveImageInMobile(((BitmapDrawable) imageView.getDrawable()).getBitmap());
                     AsyncSubmitReport async = new AsyncSubmitReport();
                     SingleReport report = new SingleReport(category.getText().toString(), ettitle.getText().toString(),
-                            description.getText().toString(), saveImage,0);
+                            description.getText().toString(), saveImage, 0);
                     async.execute(report);
                 }
             }
@@ -200,18 +157,26 @@ public class ActivityRegisterComplaint extends Activity{
         // TODO Auto-generated method stub
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == TAKE_PICTURE && resultCode == RESULT_OK) {
-            if (bitmap != null) {
-                bitmap.recycle();
+            if (data != null) {
+                imageView.setImageURI((Uri) data.getExtras().get("data"));
+            }else{
+                Toast.makeText(ActivityRegisterComplaint.this,"NULL",Toast.LENGTH_SHORT).show();
             }
-            doCrop();
         } else if (requestCode == SELECT_PIC && resultCode == RESULT_OK) {
-            mImageCaptureUri = data.getData();
-            doCrop();
+            if (data != null) {
+                ImageCropFunction(data.getData());
+            }
         } else if (requestCode == CROP_PIC && resultCode == RESULT_OK) {
-            Bundle extras = data.getExtras();
-            Bitmap thePic = extras.getParcelable("data");
-            imageView.setImageBitmap(thePic);
-            imageView.setBackground(null);
+            if (data != null) {
+
+                Bundle bundle = data.getExtras();
+
+                Bitmap bitmap = bundle.getParcelable("data");
+
+                imageView.setImageBitmap(bitmap);
+
+            }
+
         } else if (requestCode == GET_LOC && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             location_string = (String) extras.get("location");
@@ -228,6 +193,9 @@ public class ActivityRegisterComplaint extends Activity{
             Glide.with(this).load(url).listener(new RequestListener<String, GlideDrawable>() {
                 @Override
                 public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                    progressBar.setVisibility(View.GONE);
+                    locMessage.setVisibility(View.VISIBLE);
+                    locMessage.setText("Error retrieving location Map\n\n" + place.getAddress());
                     return false;
                 }
 
@@ -265,7 +233,7 @@ public class ActivityRegisterComplaint extends Activity{
         return currentDateTimeString + ".jpg";
     }
 
-    private class AsyncSubmitReport extends AsyncTask<SingleReport,Void,Void>{
+    private class AsyncSubmitReport extends AsyncTask<SingleReport, Void, Void> {
 
         @Override
         protected void onPreExecute() {
@@ -277,7 +245,7 @@ public class ActivityRegisterComplaint extends Activity{
         protected Void doInBackground(SingleReport... params) {
             ReportsDataSource dataSource = new ReportsDataSource(getApplicationContext());
             dataSource.open();
-            SingleReport report = dataSource.createReport(params[0].getCategory(),params[0].getTitle(),
+            SingleReport report = dataSource.createReport(params[0].getCategory(), params[0].getTitle(),
                     params[0].getDescription(), params[0].getImage_path());
             dataSource.close();
             return null;
@@ -287,147 +255,33 @@ public class ActivityRegisterComplaint extends Activity{
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            LocalBroadcastManager.getInstance(ActivityRegisterComplaint.this).sendBroadcast(new Intent(submitIntent));
-            Toast.makeText(ActivityRegisterComplaint.this,"Report submitted successfully!", Toast.LENGTH_SHORT).show();
+            Intent returnIntent = new Intent();
+            returnIntent.putExtra("result","submitted");
+            setResult(Activity.RESULT_OK,returnIntent);
+            Toast.makeText(ActivityRegisterComplaint.this, "Report submitted successfully!", Toast.LENGTH_SHORT).show();
             finish();
         }
     }
 
-    public class CropOptionAdapter extends ArrayAdapter<CropOption> {
-        private ArrayList<CropOption> mOptions;
-        private LayoutInflater mInflater;
+    private void ImageCropFunction(Uri uri) {
+        // Image Crop Code
+        try {
+            Intent CropIntent = new Intent("com.android.camera.action.CROP");
 
-        public CropOptionAdapter(Context context, ArrayList<CropOption> options) {
-            super(context, R.layout.view_crop_selector, options);
+            CropIntent.setDataAndType(uri, "image/*");
 
-            mOptions = options;
+            CropIntent.putExtra("crop", "true");
+//            CropIntent.putExtra("outputX", 180);
+//            CropIntent.putExtra("outputY", 180);
+//            CropIntent.putExtra("aspectX", 3);
+//            CropIntent.putExtra("aspectY", 4);
+            CropIntent.putExtra("scaleUpIfNeeded", true);
+            CropIntent.putExtra("return-data", true);
 
-            mInflater = LayoutInflater.from(context);
-        }
+            startActivityForResult(CropIntent, CROP_PIC);
 
-        @Override
-        public View getView(int position, View convertView, ViewGroup group) {
-            if (convertView == null)
-                convertView = mInflater.inflate(R.layout.view_crop_selector, null);
+        } catch (ActivityNotFoundException e) {
 
-            CropOption item = mOptions.get(position);
-
-            if (item != null) {
-                ((ImageView) convertView.findViewById(R.id.iv_icon))
-                        .setImageDrawable(item.icon);
-                ((TextView) convertView.findViewById(R.id.tv_name))
-                        .setText(item.title);
-
-                return convertView;
-            }
-
-            return null;
-        }
-    }
-
-    public class CropOption {
-        public CharSequence title;
-        public Drawable icon;
-        public Intent appIntent;
-    }
-    private void doCrop() {
-        final ArrayList<CropOption> cropOptions = new ArrayList<CropOption>();
-        /**
-         * Open image crop app by starting an intent
-         * ‘com.android.camera.action.CROP‘.
-         */
-        Intent intent = new Intent("com.android.camera.action.CROP");
-        intent.setType("image/*");
-
-        /**
-         * Check if there is image cropper app installed.
-         */
-        List<ResolveInfo> list = getPackageManager().queryIntentActivities(
-                intent, 0);
-
-        int size = list.size();
-
-        /**
-         * If there is no image cropper app, display warning message
-         */
-        if (size == 0) {
-
-            Toast.makeText(this, "Can not find image crop app",
-                    Toast.LENGTH_SHORT).show();
-
-            return;
-        } else {
-            /**
-             * Specify the image path, crop dimension and scale
-             */
-            intent.setData(mImageCaptureUri);
-            intent.putExtra("scale", true);
-            intent.putExtra("return-data", true);
-            /**
-             * There is posibility when more than one image cropper app exist,
-             * so we have to check for it first. If there is only one app, open
-             * then app.
-             */
-
-            if (size == 1) {
-                Intent i = new Intent(intent);
-                ResolveInfo res = list.get(0);
-
-                i.setComponent(new ComponentName(res.activityInfo.packageName,
-                        res.activityInfo.name));
-
-                startActivityForResult(i, CROP_PIC);
-            } else {
-                /**
-                 * If there are several app exist, create a custom chooser to
-                 * let user selects the app.
-                 */
-                for (ResolveInfo res : list) {
-                    final CropOption co = new CropOption();
-
-                    co.title = getPackageManager().getApplicationLabel(
-                            res.activityInfo.applicationInfo);
-                    co.icon = getPackageManager().getApplicationIcon(
-                            res.activityInfo.applicationInfo);
-                    co.appIntent = new Intent(intent);
-
-                    co.appIntent
-                            .setComponent(new ComponentName(
-                                    res.activityInfo.packageName,
-                                    res.activityInfo.name));
-
-                    cropOptions.add(co);
-                }
-
-                CropOptionAdapter adapter = new CropOptionAdapter(
-                        getApplicationContext(), cropOptions);
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("Choose Crop App");
-                builder.setAdapter(adapter,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int item) {
-                                startActivityForResult(
-                                        cropOptions.get(item).appIntent,
-                                        TAKE_PICTURE);
-                            }
-                        });
-
-                builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                    @Override
-                    public void onCancel(DialogInterface dialog) {
-
-                        if (mImageCaptureUri != null) {
-                            getContentResolver().delete(mImageCaptureUri, null,
-                                    null);
-                            mImageCaptureUri = null;
-                        }
-                    }
-                });
-
-                AlertDialog alert = builder.create();
-                alert.show();
-            }
         }
     }
 }

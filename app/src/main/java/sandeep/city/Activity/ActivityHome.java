@@ -23,6 +23,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.facebook.AccessToken;
@@ -81,6 +82,7 @@ public class ActivityHome extends ActionBarActivity implements FragmentSelectSec
     static final String buz = "Buzz";
     static final String publicSector = "Public Sector";
     static final String privateSector = "Private Sector";
+    static final int REPORTED_COMPLAINT = 100;
 
 
     /**
@@ -194,16 +196,6 @@ public class ActivityHome extends ActionBarActivity implements FragmentSelectSec
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
 
-        bcReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                popAFragment(homeScreen);
-            }
-        };
-
-        LocalBroadcastManager.getInstance(this).
-                registerReceiver(bcReceiver, new IntentFilter(ActivityRegisterComplaint.submitIntent));
-
         if (AccessToken.getCurrentAccessToken() != null) {
             GraphRequest request = GraphRequest.newMeRequest(
                     AccessToken.getCurrentAccessToken(),
@@ -256,6 +248,9 @@ public class ActivityHome extends ActionBarActivity implements FragmentSelectSec
                         }
                     }
             ).executeAsync();
+        }
+        else{
+            Toast.makeText(this,"Not logged into FB",Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -326,6 +321,15 @@ public class ActivityHome extends ActionBarActivity implements FragmentSelectSec
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==REPORTED_COMPLAINT&&resultCode==RESULT_OK){
+            Log.d("Activity result", "Success yo");
+            popAFragment(homeScreen);
+        }
+    }
+
+    @Override
     public void onClickPublic() {
         //This is onclick listener from the fragment choosing sector
         popAFragment(publicSector);
@@ -342,7 +346,7 @@ public class ActivityHome extends ActionBarActivity implements FragmentSelectSec
         //This is onclick listener from the fragments public/private sectors
         Intent intent = new Intent(this, ActivityRegisterComplaint.class);
         intent.putExtra("category", category);
-        startActivity(intent);
+        startActivityForResult(intent, REPORTED_COMPLAINT);
     }
 
     @Override

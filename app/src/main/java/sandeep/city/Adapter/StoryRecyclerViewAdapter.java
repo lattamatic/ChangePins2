@@ -14,7 +14,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.SizeReadyCallback;
+import com.bumptech.glide.request.target.Target;
 
 import java.util.List;
 
@@ -78,8 +81,8 @@ public class StoryRecyclerViewAdapter extends RecyclerView.Adapter<StoryRecycler
 
         switch (position%4){
             case 0:
-                Glide.with(context)
-                        .load(R.drawable.storysampleimageone).into(holder.storyImage).getSize(new SizeReadyCallback() {
+                Glide.with(context).load("http://pulitzercenter.org/sites/pulitzercenter.org/files/styles/project_hero_768_x_480/public/nigerscene.jpg?itok=dBfu71Hp").
+                        into(holder.storyImage).getSize(new SizeReadyCallback() {
                     @Override
                     public void onSizeReady(int width, int height) {
                         height = (int) (width/1.6);
@@ -88,6 +91,16 @@ public class StoryRecyclerViewAdapter extends RecyclerView.Adapter<StoryRecycler
                         holder.storyImage.requestLayout();
                     }
                 });
+//                Glide.with(context)
+//                        .load(R.drawable.storysampleimageone).into(holder.storyImage).getSize(new SizeReadyCallback() {
+//                    @Override
+//                    public void onSizeReady(int width, int height) {
+//                        height = (int) (width/1.6);
+//                        LinearLayout.LayoutParams lp= new LinearLayout.LayoutParams(width,height);
+//                        holder.storyImage.setLayoutParams(lp);
+//                        holder.storyImage.requestLayout();
+//                    }
+//                });
                 break;
             case 1:
                 Glide.with(context)

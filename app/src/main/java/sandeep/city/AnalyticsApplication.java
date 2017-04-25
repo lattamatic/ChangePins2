@@ -27,4 +27,10 @@ public class AnalyticsApplication extends Application {
         }
         return mTracker;
     }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+    }
 }
