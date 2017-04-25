@@ -23,11 +23,11 @@ import sandeep.city.SQLiteClasses.ReportsDataSource;
 
 public class FragmentMyReports extends Fragment {
 
-    RecyclerView reportsRecycler;
-    List<SingleReport> reportList;
-    RecyclerView.LayoutManager layoutManager;
-    OnClickAddReport onClickAddReport;
-    ReportsDataSource dataSource;
+    private RecyclerView reportsRecycler;
+    private List<SingleReport> reportList;
+    private RecyclerView.LayoutManager layoutManager;
+    private OnClickAddReport onClickAddReport;
+    private ReportsDataSource dataSource;
 
     public interface OnClickAddReport{
         void onClickAddReport();
@@ -39,20 +39,16 @@ public class FragmentMyReports extends Fragment {
         View v = inflater.inflate(R.layout.frag_myreports,container,false);
 
         onClickAddReport = (OnClickAddReport) getActivity();
-
         dataSource = new ReportsDataSource(getActivity());
         dataSource.open();
 
         reportList = dataSource.getAllReports();
 
         if (reportList.size() > 0) {
-
             reportsRecycler = (RecyclerView) v.findViewById(R.id.rvReports);
             layoutManager = new LinearLayoutManager(getActivity());
             reportsRecycler.setLayoutManager(layoutManager);
-
             reportsRecycler.setAdapter( new ReportRecyclerViewAdapter(reportList, getActivity()));
-
         }
 
         FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.fabAddReport);

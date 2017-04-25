@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
-import sandeep.city.AnalyticsApplication;
+import sandeep.city.ChangePinsApplication;
 import sandeep.city.R;
 import sandeep.city.Views.ViewIconTitle;
 
@@ -19,7 +19,7 @@ public class FragmentSelectSector extends Fragment{
 	private ViewIconTitle privateSector;
 	private ViewIconTitle publicSector;
     Tracker mTracker;
-    AnalyticsApplication application;
+    ChangePinsApplication application;
 	SelectSectorInterface myInterface;
 
 	public interface SelectSectorInterface{
@@ -32,7 +32,7 @@ public class FragmentSelectSector extends Fragment{
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-        application = (AnalyticsApplication) getActivity().getApplication();
+        application = (ChangePinsApplication) getActivity().getApplication();
         mTracker = application.getDefaultTracker();
 		myInterface = (SelectSectorInterface) getActivity();
 	}

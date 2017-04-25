@@ -19,7 +19,7 @@ import sandeep.city.R;
 
 public class FragmentBuzz extends Fragment {
 
-    ListView buzz;
+    private ListView buzz;
     private ArrayList<String> list;
 
     @Nullable

@@ -3,6 +3,8 @@ package sandeep.city.Activity;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.facebook.AccessToken;
 
@@ -10,7 +12,7 @@ import sandeep.city.Fragment.FragmentFBLogin;
 import sandeep.city.R;
 
 
-public class ActivityFBLogin extends ActionBarActivity implements FragmentFBLogin.FBLoginInterface {
+public class ActivityFBLogin extends AppCompatActivity implements FragmentFBLogin.FBLoginInterface {
 
 
     @Override
@@ -19,7 +21,7 @@ public class ActivityFBLogin extends ActionBarActivity implements FragmentFBLogi
         setContentView(R.layout.ac_fblogin);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new FragmentFBLogin(this))
+                    .add(R.id.container, new FragmentFBLogin())
                     .commit();
         }
     }
@@ -57,5 +59,16 @@ public class ActivityFBLogin extends ActionBarActivity implements FragmentFBLogi
     public void OnSuccessfulLogin() {
         Intent i = new Intent(ActivityFBLogin.this,ActivityHome.class);
         startActivity(i);
+    }
+
+    @Override
+    public void OnCancelLogin() {
+        Toast.makeText(this,"Login Canceled", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void OnLoginError() {
+        Toast.makeText(this,"An error occured while trying to Login, please trying again.", Toast.LENGTH_SHORT).show();
+
     }
 }

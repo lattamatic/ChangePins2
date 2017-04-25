@@ -1,11 +1,11 @@
 package sandeep.city.Activity;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,8 +13,8 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -39,7 +39,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import sandeep.city.AnalyticsApplication;
+import sandeep.city.ChangePinsApplication;
 import sandeep.city.Fragment.FragmentAbout;
 import sandeep.city.Fragment.FragmentBuzz;
 import sandeep.city.Fragment.FragmentHelp;
@@ -55,40 +55,33 @@ import sandeep.city.R;
 /**
  * Created by sandeep on 25/10/15.
  */
-public class ActivityHome extends ActionBarActivity implements FragmentSelectSector.SelectSectorInterface,
-        InterfaceOnClickCategory, FragmentMyReports.OnClickAddReport, ActivityRegisterComplaint.OnSubmitReport{
+public class ActivityHome extends AppCompatActivity implements FragmentSelectSector.SelectSectorInterface,
+        InterfaceOnClickCategory, FragmentMyReports.OnClickAddReport{
 
-    DrawerLayout mDrawerLayout;
-    ActionBarDrawerToggle toggle;
-    ListView drawerList;
-    public String[] drawer_menu;
-    ImageView report, buzz, profilePic;
-    TextView title, profileName;
-    Toolbar toolbar;
-    Tracker mTracker;
-    AnalyticsApplication application;
-    public static String category;
-    String Preferences;
-    SharedPreferences prefs;
-    SharedPreferences.Editor editor;
-    BroadcastReceiver bcReceiver;
+    private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle toggle;
+    private ListView drawerList;
+    private String drawer_menu[], Preferences;
+    private ImageView report, buzz, profilePic;
+    private TextView title, profileName, categoryDescription;
+    private Toolbar toolbar;
+    private Tracker mTracker;
+    private ChangePinsApplication application;
+    private SharedPreferences prefs;
+    private SharedPreferences.Editor editor;
 
-    static final String homeScreen = "Home Screen";
-    static final String reports = "Reports";
-    static final String places = "Places";
-    static final String about = "About";
-    static final String help = "Help";
-    static final String selectSector = "Select Sector";
-    static final String buz = "Buzz";
-    static final String publicSector = "Public Sector";
-    static final String privateSector = "Private Sector";
-    static final int REPORTED_COMPLAINT = 100;
+    private static final String homeScreen = "Home Screen",
+            reports = "Reports",
+            places = "Places",
+            about = "About",
+            help = "Help",
+            selectSector = "Select Sector",
+            buz = "Buzz",
+            publicSector = "Public Sector",
+            privateSector = "Private Sector";
 
+    private static final int REPORTED_COMPLAINT = 100;
 
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
     private GoogleApiClient client;
 
 
@@ -96,25 +89,14 @@ public class ActivityHome extends ActionBarActivity implements FragmentSelectSec
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ac_home);
-
-        application = (AnalyticsApplication) getApplication();
+        application = (ChangePinsApplication) getApplication();
         mTracker = application.getDefaultTracker();
-
         Preferences = getResources().getString(R.string.user_preferences);
         prefs = getSharedPreferences(
                 Preferences, Context.MODE_PRIVATE);
         editor = prefs.edit();
 
-        //instatiating the views
-        drawerList = (ListView) findViewById(R.id.list_slidermenu);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        title = (TextView) findViewById(R.id.tvTitle);
-        report = (ImageView) findViewById(R.id.ivReport);
-        buzz = (ImageView) findViewById(R.id.ivBuzz);
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        profilePic = (ImageView) findViewById(R.id.ivProfilepic);
-        profileName = (TextView) findViewById(R.id.tvProfileName);
-
+        initializeViews(); //instatiating the views
         //ActionBar related
         setSupportActionBar(toolbar);
         final ActionBar ab = getSupportActionBar();
@@ -295,14 +277,12 @@ public class ActivityHome extends ActionBarActivity implements FragmentSelectSec
         client.disconnect();
     }
 
+    //Closes if Navigation Drawer is in open state
+    //If the current fragment is homescreen, closes the activity
+    //If the current fragment is either private or public sector category screen, takes back to the previous fragment(which is Choosing Sector)
+    //If the current fragment is anything else takes back to homescreen
     @Override
     public void onBackPressed() {
-
-        //Closes if Navigation Drawer is in open state
-        //If the current fragment is homescreen, closes the activity
-        //If the current fragment is either private or public sector category screen, takes back to the previous fragment(which is Choosing Sector)
-        //If the current fragment is anything else takes back to homescreen
-
         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             mDrawerLayout.closeDrawers();
         } else {
@@ -320,38 +300,48 @@ public class ActivityHome extends ActionBarActivity implements FragmentSelectSec
         }
     }
 
+    //OnActivity result to see if the report is posted properly
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==REPORTED_COMPLAINT&&resultCode==RESULT_OK){
-            Log.d("Activity result", "Success yo");
             popAFragment(homeScreen);
         }
     }
 
+    //This is onclick listener from the fragment choosing sector
     @Override
     public void onClickPublic() {
-        //This is onclick listener from the fragment choosing sector
         popAFragment(publicSector);
     }
 
+    //This is onclick listener from the fragment choosing sector
     @Override
     public void onClickPrivate() {
-        //This is onclick listener from the fragment choosing sector
         popAFragment(privateSector);
     }
 
+    //This is onclick listener from the fragments public/private sectors
     @Override
     public void onClickCategory(String category) {
-        //This is onclick listener from the fragments public/private sectors
         Intent intent = new Intent(this, ActivityRegisterComplaint.class);
         intent.putExtra("category", category);
         startActivityForResult(intent, REPORTED_COMPLAINT);
     }
 
     @Override
+    public void onLongClickCategory(String category, String content) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(category);
+        categoryDescription = new TextView(this);
+        categoryDescription.setText(content);
+        builder.setView(categoryDescription);
+        builder.show();
+    }
+
+    //onclick listener to add a new report from Reports fragment
+    @Override
     public void onClickAddReport() {
-        //onclick listener to add a new report from Reports fragment
         popAFragment(selectSector);
     }
 
@@ -388,21 +378,21 @@ public class ActivityHome extends ActionBarActivity implements FragmentSelectSec
                 fragment1 = new FragmentPublicSector();
                 break;
         }
-
         transaction.replace(R.id.fragment,fragment1,fragment);
         transaction.addToBackStack(fragment);
         transaction.commitAllowingStateLoss();
     }
 
-    @Override
-    public void onSubmitReport() {
-        popAFragment(ActivityHome.homeScreen);
-    }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(bcReceiver);
+    //initializes UI elements
+    private void initializeViews(){
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerList = (ListView) findViewById(R.id.list_slidermenu);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        report = (ImageView) findViewById(R.id.ivReport);
+        buzz = (ImageView) findViewById(R.id.ivBuzz);
+        profilePic = (ImageView) findViewById(R.id.ivProfilepic);
+        title = (TextView) findViewById(R.id.tvTitle);
+        profileName = (TextView) findViewById(R.id.tvProfileName);
     }
-
 }

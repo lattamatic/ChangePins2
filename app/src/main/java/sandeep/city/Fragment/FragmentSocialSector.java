@@ -17,7 +17,7 @@ import android.widget.Toast;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
-import sandeep.city.AnalyticsApplication;
+import sandeep.city.ChangePinsApplication;
 import sandeep.city.InterfaceOnClickCategory;
 import sandeep.city.R;
 import sandeep.city.Views.ViewIconTitle;
@@ -34,7 +34,7 @@ public class FragmentSocialSector extends Fragment {
     Dialog d;
 
     Tracker mTracker;
-    AnalyticsApplication application;
+    ChangePinsApplication application;
 
     InterfaceOnClickCategory myInterface;
 
@@ -45,7 +45,7 @@ public class FragmentSocialSector extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        application = (AnalyticsApplication) getActivity().getApplication();
+        application = (ChangePinsApplication) getActivity().getApplication();
         mTracker = application.getDefaultTracker();
         myInterface = (InterfaceOnClickCategory) getActivity();
     }

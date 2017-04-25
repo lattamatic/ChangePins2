@@ -32,11 +32,11 @@ import sandeep.city.RetrofitTest.RetrofitInterface;
  */
 public class FragmentHomeScreen extends Fragment{
 
-    RecyclerView storyRV;
-    RecyclerView.LayoutManager layoutManager;
-    List<SingleStory> storyList;
-    ArrayList<AndroidVersion> data;
-    DataAdapter adapter;
+    private RecyclerView storyRV;
+    private RecyclerView.LayoutManager layoutManager;
+    private List<SingleStory> storyList;
+    private ArrayList<AndroidVersion> data;
+    private DataAdapter adapter;
 
 
     @Override
@@ -66,6 +66,7 @@ public class FragmentHomeScreen extends Fragment{
         storyRV.setAdapter( new StoryRecyclerViewAdapter(storyList, getActivity()));
     }
 
+    //Sample function which gets JSON from Web
     private void loadJSON(){
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://api.learn2crack.com")

@@ -29,12 +29,12 @@ import sandeep.city.SQLiteClasses.PlacesDataSource;
 
 public class FragmentMyPlaces extends Fragment {
 
-    Dialog d;
-    RecyclerView placesRecycler;
-    List<SinglePlace> placesList;
-    RecyclerView.LayoutManager layoutManager;
-    PlacesDataSource dataSource;
-    PlaceRecyclerViewAdapter adapter;
+    private Dialog d;
+    private RecyclerView placesRecycler;
+    private List<SinglePlace> placesList;
+    private RecyclerView.LayoutManager layoutManager;
+    private PlacesDataSource dataSource;
+    private PlaceRecyclerViewAdapter adapter;
 
     @Nullable
     @Override
@@ -44,7 +44,7 @@ public class FragmentMyPlaces extends Fragment {
         placesList = new ArrayList<SinglePlace>();
         placesRecycler = (RecyclerView) v.findViewById(R.id.rvPlaces);
 
-        new AsyncGetPlaces().execute();
+        new AsyncGetPlaces().execute(); //Fetching places from Internal DB
 
         FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.fabAddPlace);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -60,7 +60,7 @@ public class FragmentMyPlaces extends Fragment {
     private void showDialog(){
         d= new Dialog(getActivity());
         d.setContentView(R.layout.dialog_location_name);
-        d.setTitle("Location name:");
+        d.setTitle("Enter Place name");
 
         final EditText editText = (EditText) d.findViewById(R.id.etCat);
         Button dialogButton = (Button) d.findViewById(R.id.bSetCat);
@@ -86,6 +86,7 @@ public class FragmentMyPlaces extends Fragment {
         d.show();
     }
 
+    //AsyncTask to fetch all the places from Internal DB
     private class AsyncGetPlaces extends AsyncTask<Void, Void, List<SinglePlace>>{
 
         @Override
@@ -97,7 +98,6 @@ public class FragmentMyPlaces extends Fragment {
         protected List<SinglePlace> doInBackground(Void... params) {
             dataSource = new PlacesDataSource(getActivity());
             dataSource.open();
-
             placesList = dataSource.getAllPlaces();
             dataSource.close();
 
@@ -115,13 +115,13 @@ public class FragmentMyPlaces extends Fragment {
         }
     }
 
+    //AsyncTask to post a place to Internal DB
     private class AsyncAddPlace extends AsyncTask<SinglePlace,Void,SinglePlace> {
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
         }
-
 
         @Override
         protected SinglePlace doInBackground(SinglePlace... params) {
@@ -132,7 +132,6 @@ public class FragmentMyPlaces extends Fragment {
             dataSource.close();
             return place;
         }
-
 
         @Override
         protected void onPostExecute(SinglePlace place) {

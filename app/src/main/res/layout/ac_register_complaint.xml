@@ -141,18 +141,6 @@
                     android:layout_centerHorizontal="true"
                     android:layout_margin="8dp"
                     android:src="@drawable/location" />
-
-                <TextView
-                    android:id="@+id/tvLocationText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/etDescription"
-                    android:layout_centerVertical="true"
-                    android:layout_marginTop="16dp"
-                    android:layout_toRightOf="@id/bPickLocation"
-                    android:gravity="center"
-                    android:text=""
-                    android:visibility="gone" />
             </LinearLayout>
 
             <TextView
@@ -165,8 +153,10 @@
 
             <ImageView
                 android:id="@+id/ivPreview"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/tvImage"
                 android:layout_centerHorizontal="true"
                 android:background="@drawable/frame"/>
@@ -189,14 +179,21 @@
                 android:layout_marginRight="56dp"
                 android:src="@drawable/take_pic" />
 
-            <ImageView
-                android:id="@+id/ivSubmit"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+            <Button
+                android:id="@+id/bSubmit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/ivPreview"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="64dp"
-                android:src="@drawable/send" />
+                android:layout_marginTop="80dp"
+                android:text="SUBMIT"
+                android:background="@drawable/others_background"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:layout_gravity="center"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold" />
+
         </RelativeLayout>
 
     </ScrollView>

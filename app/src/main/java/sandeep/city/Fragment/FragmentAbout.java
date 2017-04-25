@@ -30,7 +30,6 @@ public class FragmentAbout extends Fragment {
                 " Our vision is to provide the citizens with a platform to participate and contribute for improving their lifestyle and standards of living. A data driven approach is taken to identify the key issues of relevance pertaining to public infrastructure as perceived by the public.<br></br><br></br>" +
                 "Local action Groups will be initiated and formed to encourage participation from the public on a very regional scale. Local action groups will play a key role in engaging public to tackle issues which might not be high on government priority.<br></br><br></br>" +
                 "Successfully completed initiatives of Local action groups will be documented as an evidence of positive change due to public participation.<br></br>"));
-
         return v;
     }
 }

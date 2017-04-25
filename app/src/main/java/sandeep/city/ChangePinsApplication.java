@@ -5,6 +5,7 @@ package sandeep.city;
  */
 import android.app.Application;
 
+import com.facebook.FacebookSdk;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 
@@ -12,7 +13,7 @@ import com.google.android.gms.analytics.Tracker;
  * This is a subclass of {@link Application} used to provide shared objects for this app, such as
  * the {@link Tracker}.
  */
-public class AnalyticsApplication extends Application {
+public class ChangePinsApplication extends Application {
     private Tracker mTracker;
 
     /**
@@ -31,6 +32,6 @@ public class AnalyticsApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
+        FacebookSdk.sdkInitialize(getApplicationContext());
     }
 }

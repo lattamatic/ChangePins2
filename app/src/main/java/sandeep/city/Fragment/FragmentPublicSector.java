@@ -17,30 +17,27 @@ import android.widget.Toast;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
-import sandeep.city.AnalyticsApplication;
+import sandeep.city.ChangePinsApplication;
 import sandeep.city.InterfaceOnClickCategory;
 import sandeep.city.R;
 import sandeep.city.Views.ViewIconTitle;
 
 public class FragmentPublicSector extends Fragment {
 
-	ViewIconTitle transport, publicSpces, wasteManagement, safety, utils, services;
-	Button others;
-	public String text;
-    public String string;
-    Dialog d;
-	public TextView description;
-    Tracker mTracker;
-    AnalyticsApplication application;
-	InterfaceOnClickCategory myInterface;
-
-
+	private ViewIconTitle transport, publicSpces, wasteManagement, safety, utils, services;
+	private Button others;
+    private String string;
+    private Dialog d;
+	private TextView description;
+    private Tracker mTracker;
+    private ChangePinsApplication application;
+	private InterfaceOnClickCategory myInterface;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-        application = (AnalyticsApplication) getActivity().getApplication();
+        application = (ChangePinsApplication) getActivity().getApplication();
         mTracker = application.getDefaultTracker();
 		myInterface = (InterfaceOnClickCategory) getActivity();
 	}
@@ -49,7 +46,33 @@ public class FragmentPublicSector extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.frag_publiccategories, container, false);
+		initializeViews(v);
+		setOnIconClickListener();
+		setOnIconLongClickListener();
+		return v;
+	}
 
+	//Calls the method in HomeActivity to which this fragment is attached
+	private void clickedCategory(String category){
+		mTracker.send(new HitBuilders.EventBuilder()
+				.setCategory(getString(R.string.views))
+				.setAction(getString(R.string.click))
+				.setLabel(category)
+				.build());
+		myInterface.onClickCategory(category);
+	}
+
+
+	private void longClickedCategory(String category, String content){
+		mTracker.send(new HitBuilders.EventBuilder()
+				.setCategory(getString(R.string.views))
+				.setAction(getString(R.string.longclick))
+				.setLabel(category)
+				.build());
+		myInterface.onLongClickCategory(category,content);
+	}
+
+	private void initializeViews(View v){
 		transport = (ViewIconTitle) v.findViewById(R.id.iiTransport);
 		publicSpces = (ViewIconTitle) v.findViewById(R.id.iiPublicSpaces);
 		wasteManagement = (ViewIconTitle) v.findViewById(R.id.iiWasteManagement);
@@ -57,7 +80,9 @@ public class FragmentPublicSector extends Fragment {
 		utils = (ViewIconTitle) v.findViewById(R.id.iiUtilities);
 		services = (ViewIconTitle) v.findViewById(R.id.iiServices);
 		others = (Button) v.findViewById(R.id.bPublic);
+	}
 
+	private void setOnIconClickListener(){
 		transport.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -124,6 +149,9 @@ public class FragmentPublicSector extends Fragment {
 			}
 		});
 
+	}
+
+	private void setOnIconLongClickListener(){
 		transport.setOnLongClickListener(new View.OnLongClickListener() {
 			@Override
 			public boolean onLongClick(View v) {
@@ -173,29 +201,5 @@ public class FragmentPublicSector extends Fragment {
 			}
 		});
 
-		return v;
-	}
-
-	private void clickedCategory(String category){
-		mTracker.send(new HitBuilders.EventBuilder()
-				.setCategory(getString(R.string.views))
-				.setAction(getString(R.string.click))
-				.setLabel(category)
-				.build());
-		myInterface.onClickCategory(category);
-	}
-
-	private void longClickedCategory(String category, String content){
-		AlertDialog.Builder builder = new Builder(getActivity());
-		mTracker.send(new HitBuilders.EventBuilder()
-				.setCategory(getString(R.string.views))
-				.setAction(getString(R.string.longclick))
-				.setLabel(category)
-				.build());
-		builder.setTitle(category);
-		description = new TextView(getActivity());
-		description.setText(content);
-		builder.setView(description);
-		builder.show();
 	}
 }
