@@ -7,10 +7,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import sandeep.city.Activity.ActivityRegisterComplaint;
 import sandeep.city.POJO.SinglePlace;
 import sandeep.city.R;
 
@@ -22,6 +34,11 @@ public class PlaceRecyclerViewAdapter extends RecyclerView.Adapter<PlaceRecycler
 
     private List<SinglePlace> placeList;
     private Context context;
+    private PlaceRCVInterface placeRCVInterface;
+
+    public interface PlaceRCVInterface {
+        void OnClickPickPlace();
+    }
 
     public PlaceRecyclerViewAdapter(List<SinglePlace> placeList, Context context){
         this.placeList = placeList;
@@ -58,7 +75,8 @@ public class PlaceRecyclerViewAdapter extends RecyclerView.Adapter<PlaceRecycler
         holder.setLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Open Maps to pick a location
+                //Open Maps to pick a locatio
+
             }
         });
     }
@@ -66,5 +84,15 @@ public class PlaceRecyclerViewAdapter extends RecyclerView.Adapter<PlaceRecycler
     @Override
     public int getItemCount() {
         return placeList.size();
+    }
+
+    public void addItem(int position, SinglePlace place){
+        placeList.add(position,place);
+        notifyItemInserted(position);
+    }
+
+    public void removeItem(int position){
+        placeList.remove(position);
+        notifyItemRemoved(position);
     }
 }

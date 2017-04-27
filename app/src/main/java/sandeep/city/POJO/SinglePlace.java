@@ -4,7 +4,7 @@ public class SinglePlace {
 
 
     String title, address;
-    long latitute, longitude;
+    double latitute, longitude;
     long id;
 
 
@@ -24,6 +24,12 @@ public class SinglePlace {
         this.title = title;
     }
 
+    public SinglePlace(String title, double latitute, double longitude){
+        this.title = title;
+        this.latitute = latitute;
+        this.longitude = longitude;
+    }
+
 
     public String getTitle() {
         return title;
@@ -41,7 +47,7 @@ public class SinglePlace {
         this.address = address;
     }
 
-    public long getLatitute() {
+    public double getLatitute() {
         return latitute;
     }
 
@@ -49,7 +55,7 @@ public class SinglePlace {
         this.latitute = latitute;
     }
 
-    public long getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 

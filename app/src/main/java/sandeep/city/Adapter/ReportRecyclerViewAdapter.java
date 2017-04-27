@@ -33,7 +33,7 @@ import sandeep.city.R;
 public class ReportRecyclerViewAdapter extends RecyclerView.Adapter<ReportRecyclerViewAdapter.ViewHolder> {
 
     private List<SingleReport> reportList;
-    Context context;
+    private Context context;
 
     public ReportRecyclerViewAdapter(List<SingleReport> reportList, Context context) {
         this.reportList = reportList;
@@ -42,8 +42,8 @@ public class ReportRecyclerViewAdapter extends RecyclerView.Adapter<ReportRecycl
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView description, title;
-        public ImageView reportThumbnail;
+        private TextView description, title;
+        private ImageView reportThumbnail;
 
         public ViewHolder(View v) {
             super(v);
@@ -52,7 +52,6 @@ public class ReportRecyclerViewAdapter extends RecyclerView.Adapter<ReportRecycl
             reportThumbnail = (ImageView) v.findViewById(R.id.ivReportThumbnail);
         }
     }
-
 
     @Override
     public ReportRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

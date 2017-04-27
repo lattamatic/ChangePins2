@@ -36,12 +36,12 @@ public class PlacesDataSource {
         helper.close();
     }
 
-    public SinglePlace createPlace(String title, String address, long latitude, long longitude) {
+    public SinglePlace createPlace(SinglePlace place) {
         ContentValues values = new ContentValues();
-        values.put(DBOpenHelper.PLACE_TITLE, title);
-        values.put(DBOpenHelper.PLACE_ADDRESS, address);
-        values.put(DBOpenHelper.PLACE_LAT, latitude);
-        values.put(DBOpenHelper.PLACE_LONG, longitude);
+        values.put(DBOpenHelper.PLACE_TITLE, place.getTitle());
+        values.put(DBOpenHelper.PLACE_ADDRESS, place.getAddress());
+        values.put(DBOpenHelper.PLACE_LAT, place.getLatitute());
+        values.put(DBOpenHelper.PLACE_LONG, place.getLongitude());
 
         long insertId = database.insert(DBOpenHelper.PLACES_TABLE, null,
                 values);
@@ -49,7 +49,7 @@ public class PlacesDataSource {
                 allColumns, DBOpenHelper.PLACE_ID + " = " + insertId, null,
                 null, null, null);
         cursor.moveToFirst();
-        SinglePlace  newPlace = cursorToPlace(cursor);
+        SinglePlace newPlace = cursorToPlace(cursor);
         cursor.close();
         return newPlace;
     }
@@ -71,18 +71,18 @@ public class PlacesDataSource {
         return allPlaces;
     }
 
-    public SinglePlace updatePlace(long id, String title, String address, long latitute, long longitude) {
+    public SinglePlace updatePlace(SinglePlace place) {
         ContentValues values = new ContentValues();
 
-        values.put(DBOpenHelper.PLACE_TITLE, title);
-        values.put(DBOpenHelper.PLACE_ADDRESS, address);
-        values.put(DBOpenHelper.PLACE_LAT, latitute);
-        values.put(DBOpenHelper.PLACE_LONG, longitude);
+        values.put(DBOpenHelper.PLACE_TITLE, place.getTitle());
+        values.put(DBOpenHelper.PLACE_ADDRESS, place.getAddress());
+        values.put(DBOpenHelper.PLACE_LAT, place.getLatitute());
+        values.put(DBOpenHelper.PLACE_LONG, place.getLongitude());
 
-        database.update(DBOpenHelper.PLACES_TABLE, values, DBOpenHelper.PLACE_ID + "=" + id, null);
+        database.update(DBOpenHelper.PLACES_TABLE, values, DBOpenHelper.PLACE_ID + "=" + place.getId(), null);
 
         Cursor cursor = database.query(DBOpenHelper.PLACES_TABLE,
-                allColumns, DBOpenHelper.PLACE_ID + " = " + id, null,
+                allColumns, DBOpenHelper.PLACE_ID + " = " + place.getId(), null,
                 null, null, null);
         cursor.moveToFirst();
         SinglePlace updatedPlace = cursorToPlace(cursor);

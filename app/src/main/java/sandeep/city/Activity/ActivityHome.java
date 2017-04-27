@@ -26,6 +26,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
@@ -34,7 +37,12 @@ import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -56,7 +64,7 @@ import sandeep.city.R;
  * Created by sandeep on 25/10/15.
  */
 public class ActivityHome extends AppCompatActivity implements FragmentSelectSector.SelectSectorInterface,
-        InterfaceOnClickCategory, FragmentMyReports.OnClickAddReport{
+        InterfaceOnClickCategory, FragmentMyReports.OnClickAddReport, FragmentMyPlaces.PlacesInterface{
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle toggle;
@@ -69,6 +77,7 @@ public class ActivityHome extends AppCompatActivity implements FragmentSelectSec
     private ChangePinsApplication application;
     private SharedPreferences prefs;
     private SharedPreferences.Editor editor;
+    private final int LOCATION = 1;
 
     private static final String homeScreen = "Home Screen",
             reports = "Reports",
@@ -304,8 +313,19 @@ public class ActivityHome extends AppCompatActivity implements FragmentSelectSec
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==REPORTED_COMPLAINT&&resultCode==RESULT_OK){
-            popAFragment(homeScreen);
+        if(resultCode==RESULT_OK){
+            switch (requestCode){
+                case REPORTED_COMPLAINT:
+                    popAFragment(homeScreen);
+                    break;
+                case LOCATION:
+                    Place place = PlacePicker.getPlace(data, this);
+                    LatLng ll = place.getLatLng();
+                    double lat = ll.latitude;
+                    double lon = ll.longitude;
+
+                    break;
+            }
         }
     }
 
@@ -394,5 +414,19 @@ public class ActivityHome extends AppCompatActivity implements FragmentSelectSec
         profilePic = (ImageView) findViewById(R.id.ivProfilepic);
         title = (TextView) findViewById(R.id.tvTitle);
         profileName = (TextView) findViewById(R.id.tvProfileName);
+    }
+
+    @Override
+    public void openPlaces() {
+        PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+        try {
+            startActivityForResult(builder.build(this),LOCATION );
+        } catch (GooglePlayServicesRepairableException e) {
+            e.printStackTrace();
+        } catch (GooglePlayServicesNotAvailableException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Google Play Services not available on this device",
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 }

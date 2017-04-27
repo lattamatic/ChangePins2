@@ -31,8 +31,7 @@ import sandeep.city.R;
 public class StoryRecyclerViewAdapter extends RecyclerView.Adapter<StoryRecyclerViewAdapter.ViewHolder> {
 
     private List<SingleStory> storyList;
-    Context context;
-    LinearLayout.LayoutParams lp;
+    private Context context;
 
     public StoryRecyclerViewAdapter(List<SingleStory> storyList, Context context) {
         this.storyList = storyList;
@@ -42,15 +41,15 @@ public class StoryRecyclerViewAdapter extends RecyclerView.Adapter<StoryRecycler
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView description, author, share;
-        public ImageView storyImage;
+        private TextView description, author, share;
+        private ImageView storyImage;
 
         public ViewHolder(View v) {
             super(v);
             description = (TextView) v.findViewById(R.id.tvStoryDesc);
             author = (TextView) v.findViewById(R.id.tvStoryAuthor);
-            storyImage = (ImageView) v.findViewById(R.id.ivStoryImage);
             share = (TextView) v.findViewById(R.id.tvShareStory);
+            storyImage = (ImageView) v.findViewById(R.id.ivStoryImage);
         }
     }
 
@@ -91,16 +90,6 @@ public class StoryRecyclerViewAdapter extends RecyclerView.Adapter<StoryRecycler
                         holder.storyImage.requestLayout();
                     }
                 });
-//                Glide.with(context)
-//                        .load(R.drawable.storysampleimageone).into(holder.storyImage).getSize(new SizeReadyCallback() {
-//                    @Override
-//                    public void onSizeReady(int width, int height) {
-//                        height = (int) (width/1.6);
-//                        LinearLayout.LayoutParams lp= new LinearLayout.LayoutParams(width,height);
-//                        holder.storyImage.setLayoutParams(lp);
-//                        holder.storyImage.requestLayout();
-//                    }
-//                });
                 break;
             case 1:
                 Glide.with(context)
