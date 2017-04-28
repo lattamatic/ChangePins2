@@ -16,7 +16,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <ImageView
-            android:id="@+id/ivPlaceSetLocation"
+            android:id="@+id/ivEditPlace"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -29,16 +29,11 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/ivPlaceMap"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
         <TextView
             android:id="@+id/tvPlaceAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Address:" />
+            android:text="Address not yet added" />
 
     </LinearLayout>
 

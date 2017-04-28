@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.google.android.gms.location.places.Place;
 
@@ -102,11 +103,13 @@ public class PlacesDataSource {
 
     private SinglePlace cursorToPlace(Cursor cursor) {
         SinglePlace place = new SinglePlace();
-        place.setId(cursor.getLong(0));
-        place.setTitle(cursor.getString(1));
-        place.setAddress(cursor.getString(2));
-        place.setLatitute(cursor.getLong(3));
-        place.setLongitude(cursor.getLong(4));
+        if(cursor!=null){
+            place.setId(cursor.getLong(0));
+            place.setTitle(cursor.getString(1));
+            place.setAddress(cursor.getString(2));
+            place.setLatitute(cursor.getLong(3));
+            place.setLongitude(cursor.getLong(4));
+        }
         return place;
     }
 }

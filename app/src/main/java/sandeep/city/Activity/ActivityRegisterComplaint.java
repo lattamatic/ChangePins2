@@ -10,6 +10,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -28,6 +29,7 @@ import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
+import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -41,9 +43,9 @@ import sandeep.city.SQLiteClasses.ReportsDataSource;
 public class ActivityRegisterComplaint extends Activity {
 
     private TextView category, locMessage;
-    private ImageView upload, takePic, but_location, back, staticMap, imageView;
+    private ImageView takePic, but_location, back, staticMap, imageView;
     private EditText title, description;
-    private final int TAKE_PICTURE = 1, SELECT_PIC = 2, CROP_PIC = 3, LOCATION = 4;
+    private final int LOCATION = 4;
     private ProgressBar progressBar;
     private Place place;
     private Button submit;
@@ -64,29 +66,20 @@ public class ActivityRegisterComplaint extends Activity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         // TODO Auto-generated method stub
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode==RESULT_OK){//Checks if the result of the Activity started is OK and proceeds
-            switch (requestCode){
-                case TAKE_PICTURE:
-                    if (data != null) {
-                        imageView.setImageBitmap((Bitmap) data.getExtras().get("data"));
-                        imageView.setBackground(null);
-                    }else{
-                        Toast.makeText(ActivityRegisterComplaint.this,"NULL",Toast.LENGTH_SHORT).show();
-                    }
+        if (resultCode == RESULT_OK) {//Checks if the result of the Activity started is OK and proceeds
+            switch (requestCode) {
+                //Opens Cropping activity after selecting a pic from Camera or Gallery
+                case CropImage.PICK_IMAGE_CHOOSER_REQUEST_CODE:
+                    Uri imageUri = CropImage.getPickImageResultUri(this, data);
+                    startCropImageActivity(imageUri);
                     break;
-                case SELECT_PIC:
-                    if (data != null) {
-                        ImageCropFunction(data.getData());
-                    }
+                //Posts the image in the image preview in the complaint form after cropping
+                case CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE:
+                    CropImage.ActivityResult result = CropImage.getActivityResult(data);
+                    imageView.setImageURI(result.getUri());
+                    imageView.setBackground(null);
                     break;
-                case CROP_PIC:
-                    if (data != null) {
-                        Bundle bundle = data.getExtras();
-                        Bitmap bitmap = bundle.getParcelable("data");
-                        imageView.setImageBitmap(bitmap);
-                        imageView.setBackground(null);
-                    }
-                    break;
+                //Shows the location in the Complaint form after choosing a place
                 case LOCATION:
                     place = PlacePicker.getPlace(data, this);
                     LatLng ll = place.getLatLng();
@@ -103,6 +96,7 @@ public class ActivityRegisterComplaint extends Activity {
                             locMessage.setText("Error retrieving location Map\n\n" + place.getAddress());
                             return false;
                         }
+
                         @Override
                         public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
                             staticMap.setVisibility(View.VISIBLE);
@@ -162,35 +156,21 @@ public class ActivityRegisterComplaint extends Activity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             Intent returnIntent = new Intent();
-            returnIntent.putExtra("result","submitted");
-            setResult(Activity.RESULT_OK,returnIntent);
+            returnIntent.putExtra("result", "submitted");
+            setResult(Activity.RESULT_OK, returnIntent);
             Toast.makeText(ActivityRegisterComplaint.this, "Report submitted successfully!",
                     Toast.LENGTH_SHORT).show();
             finish();
         }
     }
 
-    //Starts Image Cropping Activity
-    private void ImageCropFunction(Uri uri) {
-        // Image Crop Code
-        try {
-            Intent CropIntent = new Intent("com.android.camera.action.CROP");
-            CropIntent.setDataAndType(uri, "image/*");
-            CropIntent.putExtra("crop", "true");
-            CropIntent.putExtra("return-data", true);
-            startActivityForResult(CropIntent, CROP_PIC);
-        } catch (ActivityNotFoundException e) {
-
-        }
-    }
-
     //Initialize all the UI elements for Dynamic action
-    private void initializeViews(){
+    private void initializeViews() {
         category = (TextView) findViewById(R.id.tvCategory);
         locMessage = (TextView) findViewById(R.id.tvLocMessage);
 
         back = (ImageView) findViewById(R.id.ivBack);
-        upload = (ImageView) findViewById(R.id.ivUploadImage);
+//        upload = (ImageView) findViewById(R.id.ivUploadImage);
         takePic = (ImageView) findViewById(R.id.ivTakePic);
         imageView = (ImageView) findViewById(R.id.ivPreview);
         staticMap = (ImageView) findViewById(R.id.ivStaticMap);
@@ -205,21 +185,13 @@ public class ActivityRegisterComplaint extends Activity {
     }
 
     //Sets on click listeners to those views needs to be clickable
-    private void initializeOnClicks(){
-        upload.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent GalIntent = new Intent(Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+    private void initializeOnClicks() {
 
-                startActivityForResult(Intent.createChooser(GalIntent, "Select Image From Gallery"), SELECT_PIC);
-            }
-        });
         takePic.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(cameraIntent, TAKE_PICTURE);             }
+                CropImage.startPickImageActivity(ActivityRegisterComplaint.this);
+            }
         });
         submit.setOnClickListener(new OnClickListener() {
             @Override
@@ -266,5 +238,10 @@ public class ActivityRegisterComplaint extends Activity {
                 finish();
             }
         });
+    }
+
+    private void startCropImageActivity(Uri uri) {
+        CropImage.activity(uri)
+                .start(this);
     }
 }

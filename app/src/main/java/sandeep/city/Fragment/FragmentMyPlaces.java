@@ -8,13 +8,10 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
-
-import com.google.android.gms.location.places.Place;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,15 +33,23 @@ public class FragmentMyPlaces extends Fragment implements PlaceRecyclerViewAdapt
     private RecyclerView.LayoutManager layoutManager;
     private PlacesDataSource dataSource;
     private PlaceRecyclerViewAdapter adapter;
-    private Button selectLocation, done, cancel;
-    private TextView placeAddress;
-    private Place place;
 
-    private PlacesInterface placesInterface;
 
-    public interface PlacesInterface{
-        void openPlaces();
+    @Override
+    public void OnClickEditPlace(SinglePlace place, int position) {
+        Intent intent = new Intent(getActivity(), ActivityPlaceDialog.class);
+        Log.d("place","id:"+place.getId()+" title:"+place.getTitle()+" address:"+place.getAddress()+
+        " lat:"+place.getLatitute()+" lon:"+place.getLongitude()+" pos:"+position);
+        intent.putExtra("id",place.getId());
+        intent.putExtra("title",place.getTitle());
+        intent.putExtra("address",place.getAddress());
+        intent.putExtra("lat",place.getLatitute());
+        intent.putExtra("lon",place.getLongitude());
+        intent.putExtra("position",position);
+        intent.putExtra("state", 2);
+        startActivityForResult(intent, 2);
     }
+
 
     @Nullable
     @Override
@@ -54,16 +59,14 @@ public class FragmentMyPlaces extends Fragment implements PlaceRecyclerViewAdapt
         placesList = new ArrayList<SinglePlace>();
         placesRecycler = (RecyclerView) v.findViewById(R.id.rvPlaces);
 
-        placesInterface = (PlacesInterface) getActivity();
-
         new AsyncGetPlaces().execute(); //Fetching places from Internal DB
 
         FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.fabAddPlace);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),ActivityPlaceDialog.class);
-                intent.putExtra("state",1);
+                Intent intent = new Intent(getActivity(), ActivityPlaceDialog.class);
+                intent.putExtra("state", 1);
                 startActivityForResult(intent, 1);
             }
         });
@@ -71,13 +74,8 @@ public class FragmentMyPlaces extends Fragment implements PlaceRecyclerViewAdapt
         return v;
     }
 
-    @Override
-    public void OnClickPickPlace() {
-        placesInterface.openPlaces();
-    }
-
     //AsyncTask to fetch all the places from Internal DB
-    private class AsyncGetPlaces extends AsyncTask<Void, Void, List<SinglePlace>>{
+    private class AsyncGetPlaces extends AsyncTask<Void, Void, List<SinglePlace>> {
 
         @Override
         protected void onPreExecute() {
@@ -99,7 +97,7 @@ public class FragmentMyPlaces extends Fragment implements PlaceRecyclerViewAdapt
             if (placesList.size() > 0) {
                 layoutManager = new LinearLayoutManager(getActivity());
                 placesRecycler.setLayoutManager(layoutManager);
-                adapter =  new PlaceRecyclerViewAdapter(placesList, getActivity());
+                adapter = new PlaceRecyclerViewAdapter(placesList, getActivity(), FragmentMyPlaces.this);
                 placesRecycler.setAdapter(adapter);
             }
         }
@@ -109,15 +107,24 @@ public class FragmentMyPlaces extends Fragment implements PlaceRecyclerViewAdapt
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode==getActivity().RESULT_OK){
-            if (requestCode==1){
+        if (resultCode == getActivity().RESULT_OK) {
+            if (requestCode == 1) {
                 SinglePlace place = new SinglePlace();
                 place.setId(data.getExtras().getLong("place_id"));
-                place.setTitle(data.getExtras().getString("place_title",place.getTitle()));
+                place.setTitle(data.getExtras().getString("place_title", place.getTitle()));
                 place.setLatitute(data.getExtras().getLong("place_lat"));
                 place.setLongitude(data.getExtras().getLong("place_lon"));
                 place.setAddress(data.getExtras().getString("place_address"));
-                adapter.addItem(0,place);
+                adapter.addItem(0, place);
+            } else {
+                SinglePlace place = new SinglePlace();
+                place.setId(data.getExtras().getLong("place_id"));
+                place.setTitle(data.getExtras().getString("place_title", place.getTitle()));
+                place.setLatitute(data.getExtras().getLong("place_lat"));
+                place.setLongitude(data.getExtras().getLong("place_lon"));
+                place.setAddress(data.getExtras().getString("place_address"));
+                Log.d("index",data.getExtras().getInt("position",0)+" "+adapter.getItemCount());
+                adapter.updateItem(data.getExtras().getInt("position"), place);
             }
         }
     }

@@ -1,5 +1,6 @@
 package sandeep.city.Adapter;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,22 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
-import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
-import com.google.android.gms.common.GooglePlayServicesRepairableException;
-import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.ui.PlacePicker;
-import com.google.android.gms.maps.model.LatLng;
-
-import java.util.ArrayList;
 import java.util.List;
 
-import sandeep.city.Activity.ActivityRegisterComplaint;
 import sandeep.city.POJO.SinglePlace;
 import sandeep.city.R;
 
@@ -37,27 +25,27 @@ public class PlaceRecyclerViewAdapter extends RecyclerView.Adapter<PlaceRecycler
     private PlaceRCVInterface placeRCVInterface;
 
     public interface PlaceRCVInterface {
-        void OnClickPickPlace();
+        void OnClickEditPlace(SinglePlace place, int position);
     }
 
-    public PlaceRecyclerViewAdapter(List<SinglePlace> placeList, Context context){
+    public PlaceRecyclerViewAdapter(List<SinglePlace> placeList, Context context, Fragment placesFragment) {
         this.placeList = placeList;
         this.context = context;
+        this.placeRCVInterface = (PlaceRCVInterface) placesFragment;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         public TextView title, address;
-        public ImageView setLocation;
+        public ImageView editPlace;
+
         public ViewHolder(View v) {
             super(v);
             title = (TextView) v.findViewById(R.id.tvPlaceTitle);
             address = (TextView) v.findViewById(R.id.tvPlaceAddress);
-            setLocation = (ImageView) v.findViewById(R.id.ivPlaceSetLocation);
+            editPlace = (ImageView) v.findViewById(R.id.ivEditPlace);
         }
     }
-
-
 
 
     @Override
@@ -68,15 +56,15 @@ public class PlaceRecyclerViewAdapter extends RecyclerView.Adapter<PlaceRecycler
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        SinglePlace place = placeList.get(position);
+    public void onBindViewHolder(ViewHolder holder, final int position) {
+        final SinglePlace place = placeList.get(position);
         holder.title.setText(place.getTitle());
         holder.address.setText(place.getAddress());
-        holder.setLocation.setOnClickListener(new View.OnClickListener() {
+        holder.editPlace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Open Maps to pick a locatio
-
+                //Open dialog with actual data
+                placeRCVInterface.OnClickEditPlace(placeList.get(position), position);
             }
         });
     }
@@ -86,13 +74,22 @@ public class PlaceRecyclerViewAdapter extends RecyclerView.Adapter<PlaceRecycler
         return placeList.size();
     }
 
-    public void addItem(int position, SinglePlace place){
-        placeList.add(position,place);
+    //adds an item to the recyclerview
+    public void addItem(int position, SinglePlace place) {
+        placeList.add(position, place);
         notifyItemInserted(position);
     }
 
-    public void removeItem(int position){
+    //removes the Item from recyclerview
+    public void removeItem(int position) {
         placeList.remove(position);
         notifyItemRemoved(position);
+    }
+
+    //Updates the recyclerView UI
+    public void updateItem(int position, SinglePlace place){
+        placeList.remove(position);
+        placeList.add(position,place);
+        notifyItemChanged(position);
     }
 }

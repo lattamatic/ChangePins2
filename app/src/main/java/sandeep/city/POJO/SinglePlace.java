@@ -24,10 +24,18 @@ public class SinglePlace {
         this.title = title;
     }
 
-    public SinglePlace(String title, double latitute, double longitude){
+    public SinglePlace(String title, String address, double latitute, double longitude){
         this.title = title;
         this.latitute = latitute;
         this.longitude = longitude;
+        this.address = address;
+    }
+    public SinglePlace(long id, String title, String address, double latitute, double longitude){
+        this.id = id;
+        this.title = title;
+        this.latitute = latitute;
+        this.longitude = longitude;
+        this.address = address;
     }
 
 

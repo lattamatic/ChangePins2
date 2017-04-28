@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -29,8 +30,9 @@ public class ActivityPlaceDialog extends AppCompatActivity implements View.OnCli
     private Button pickLocation, done, cancel;
     private TextView placeAddress;
     private Place place;
+    private SinglePlace singlePlace;
     private EditText placeName;
-    private int state;
+    private int state, position;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,12 +46,25 @@ public class ActivityPlaceDialog extends AppCompatActivity implements View.OnCli
         placeAddress = (TextView) findViewById(R.id.tvPlaceAddress);
         placeName = (EditText) findViewById(R.id.etPlaceName);
 
-        state  = getIntent().getIntExtra("state",0);
+        position = getIntent().getIntExtra("position",0);
+        state = getIntent().getIntExtra("state", 0);
+        singlePlace = new SinglePlace();
 
         pickLocation.setOnClickListener(this);
         done.setOnClickListener(this);
         cancel.setOnClickListener(this);
+
+        if (state == 2) {
+            placeName.setText(getIntent().getStringExtra("title"));
+            placeAddress.setText(getIntent().getStringExtra("address"));
+            singlePlace.setId(getIntent().getLongExtra("id",0));
+            singlePlace.setTitle(getIntent().getStringExtra("title"));
+            singlePlace.setAddress(getIntent().getStringExtra("address"));
+            singlePlace.setLatitute(getIntent().getLongExtra("lat",0));
+            singlePlace.setLongitude(getIntent().getLongExtra("lon",0));
+        }
     }
+
 
     @Override
     public void onClick(View v) {
@@ -74,17 +89,19 @@ public class ActivityPlaceDialog extends AppCompatActivity implements View.OnCli
                             Toast.LENGTH_SHORT).show();
                     finish();
                 } else {
-                    if(state==1){
-                        if(place!=null) {
+                    if (state == 1) {
+                        if (place != null) {
                             new AsyncAddPlace().execute
-                                    (new SinglePlace(string, place.getLatLng().latitude, place.getLatLng().longitude));
-                        }
-                        else {
+                                    (new SinglePlace(string, place.getAddress().toString(),
+                                            place.getLatLng().latitude, place.getLatLng().longitude));
+                        } else {
                             new AsyncAddPlace().execute(new SinglePlace(string));
                         }
-                    }else if (state==2){
+                    } else if (state == 2) {
                         new AsyncUpdatePlace().execute
-                                (new SinglePlace(string, place.getLatLng().latitude, place.getLatLng().longitude));
+                                (new SinglePlace(singlePlace.getId(), string,
+                                        singlePlace.getAddress(), singlePlace.getLatitute(),
+                                        singlePlace.getLongitude()));
                     }
                 }
                 break;
@@ -99,7 +116,10 @@ public class ActivityPlaceDialog extends AppCompatActivity implements View.OnCli
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == 1) {
             place = PlacePicker.getPlace(data, this);
-            placeAddress.setText("Location:\n"+place.getAddress());
+            placeAddress.setText("Location:\n" + place.getAddress());
+            singlePlace.setAddress(place.getAddress().toString());
+            singlePlace.setLatitute((long) place.getLatLng().latitude);
+            singlePlace.setLongitude((long) place.getLatLng().longitude);
         }
     }
 
@@ -123,12 +143,12 @@ public class ActivityPlaceDialog extends AppCompatActivity implements View.OnCli
         @Override
         protected void onPostExecute(SinglePlace place) {
             Intent intent = new Intent();
-            intent.putExtra("place_title",place.getTitle() );
-            intent.putExtra("place_lat",place.getLatitute());
-            intent.putExtra("place_lon",place.getLongitude());
-            intent.putExtra("place_address",place.getAddress());
+            intent.putExtra("place_title", place.getTitle());
+            intent.putExtra("place_lat", place.getLatitute());
+            intent.putExtra("place_lon", place.getLongitude());
+            intent.putExtra("place_address", place.getAddress());
             intent.putExtra("place_id", place.getId());
-            setResult(RESULT_OK,intent);
+            setResult(RESULT_OK, intent);
             finish();
         }
     }
@@ -145,6 +165,7 @@ public class ActivityPlaceDialog extends AppCompatActivity implements View.OnCli
         protected SinglePlace doInBackground(SinglePlace... params) {
             PlacesDataSource dataSource = new PlacesDataSource(ActivityPlaceDialog.this);
             dataSource.open();
+            Log.d("place:",params[0].getId()+"");
             SinglePlace place = dataSource.updatePlace(params[0]);
             dataSource.close();
             return place;
@@ -153,12 +174,13 @@ public class ActivityPlaceDialog extends AppCompatActivity implements View.OnCli
         @Override
         protected void onPostExecute(SinglePlace place) {
             Intent intent = new Intent();
-            intent.putExtra("place_title",place.getTitle() );
-            intent.putExtra("place_lat",place.getLatitute());
-            intent.putExtra("place_lon",place.getLongitude());
-            intent.putExtra("place_address",place.getAddress());
+            intent.putExtra("place_title", place.getTitle());
+            intent.putExtra("place_lat", place.getLatitute());
+            intent.putExtra("place_lon", place.getLongitude());
+            intent.putExtra("place_address", place.getAddress());
             intent.putExtra("place_id", place.getId());
-            setResult(RESULT_OK,intent);
+            intent.putExtra("position",position);
+            setResult(RESULT_OK, intent);
             finish();
         }
     }

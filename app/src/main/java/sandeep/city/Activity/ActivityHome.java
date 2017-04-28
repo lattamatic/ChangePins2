@@ -64,7 +64,7 @@ import sandeep.city.R;
  * Created by sandeep on 25/10/15.
  */
 public class ActivityHome extends AppCompatActivity implements FragmentSelectSector.SelectSectorInterface,
-        InterfaceOnClickCategory, FragmentMyReports.OnClickAddReport, FragmentMyPlaces.PlacesInterface{
+        InterfaceOnClickCategory, FragmentMyReports.OnClickAddReport{
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle toggle;
@@ -416,17 +416,4 @@ public class ActivityHome extends AppCompatActivity implements FragmentSelectSec
         profileName = (TextView) findViewById(R.id.tvProfileName);
     }
 
-    @Override
-    public void openPlaces() {
-        PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
-        try {
-            startActivityForResult(builder.build(this),LOCATION );
-        } catch (GooglePlayServicesRepairableException e) {
-            e.printStackTrace();
-        } catch (GooglePlayServicesNotAvailableException e) {
-            e.printStackTrace();
-            Toast.makeText(this, "Google Play Services not available on this device",
-                    Toast.LENGTH_SHORT).show();
-        }
-    }
 }
