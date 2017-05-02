@@ -53,23 +53,23 @@ public class FragmentPublicSector extends Fragment {
 	}
 
 	//Calls the method in HomeActivity to which this fragment is attached
-	private void clickedCategory(String category){
+	private void clickedCategory(String category, String description){
 		mTracker.send(new HitBuilders.EventBuilder()
 				.setCategory(getString(R.string.views))
 				.setAction(getString(R.string.click))
 				.setLabel(category)
 				.build());
-		myInterface.onClickCategory(category);
+		myInterface.onClickCategory(category, description);
 	}
 
 
-	private void longClickedCategory(String category, String content){
+	private void longClickedCategory(String category, String description){
 		mTracker.send(new HitBuilders.EventBuilder()
 				.setCategory(getString(R.string.views))
 				.setAction(getString(R.string.longclick))
 				.setLabel(category)
 				.build());
-		myInterface.onLongClickCategory(category,content);
+		myInterface.onLongClickCategory(category,description);
 	}
 
 	private void initializeViews(View v){
@@ -86,37 +86,37 @@ public class FragmentPublicSector extends Fragment {
 		transport.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				clickedCategory(getString(R.string.transport));
+				clickedCategory(getString(R.string.transport), getString(R.string.transportDescription));
 			}
 		});
 		publicSpces.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				clickedCategory(getString(R.string.publicspaces));
+				clickedCategory(getString(R.string.publicspaces), getString(R.string.publicspaceDescription));
 			}
 		});
 		wasteManagement.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				clickedCategory(getString(R.string.wastemanagement));
+				clickedCategory(getString(R.string.wastemanagement), getString(R.string.wastemanagementDescription));
 			}
 		});
 		safety.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				clickedCategory(getString(R.string.safety));
+				clickedCategory(getString(R.string.safety), getString(R.string.safetyDescription)) ;
 			}
 		});
 		utils.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				clickedCategory(getString(R.string.utilities));
+				clickedCategory(getString(R.string.utilities), getString(R.string.utilitiesDescription));
 			}
 		});
 		services.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				clickedCategory(getString(R.string.services));
+				clickedCategory(getString(R.string.services), getString(R.string.servicesDescription));
 			}
 		});
 		others.setOnClickListener(new OnClickListener() {
@@ -156,31 +156,28 @@ public class FragmentPublicSector extends Fragment {
 			@Override
 			public boolean onLongClick(View v) {
 				longClickedCategory(getString(R.string.transport),
-						"Please document issues related to transport like - crowded buses, violation of rules etc");
+						getString(R.string.transportDescription));
 				return true;
 			}
 		});
 		publicSpces.setOnLongClickListener(new View.OnLongClickListener() {
 			@Override
 			public boolean onLongClick(View v) {
-				longClickedCategory(getString(R.string.publicspaces),
-						"Please document issues related to public spaces like - unclean public spaces, too much vehicle occupancy etc");
+				longClickedCategory(getString(R.string.publicspaces), getString(R.string.publicspaceDescription));
 				return true;
 			}
 		});
 		wasteManagement.setOnLongClickListener(new View.OnLongClickListener() {
 			@Override
 			public boolean onLongClick(View v) {
-				longClickedCategory(getString(R.string.wastemanagement),
-						"Please document issues related to waste management like - littering, too much usage of plastic etc");
+				longClickedCategory(getString(R.string.wastemanagement), getString(R.string.wastemanagementDescription));
 				return true;
 			}
 		});
 		safety.setOnLongClickListener(new View.OnLongClickListener() {
 			@Override
 			public boolean onLongClick(View v) {
-				longClickedCategory(getString(R.string.safety),
-						"Description about Safety here!Description about Safety here!Description about Safety here!Description about Safety here!Description about Safety here!Description about Safety here!Description about Safety here!Description about Safety here!");
+				longClickedCategory(getString(R.string.safety), getString(R.string.safetyDescription));
 				return true;
 			}
 		});
@@ -188,7 +185,7 @@ public class FragmentPublicSector extends Fragment {
 			@Override
 			public boolean onLongClick(View v) {
 				longClickedCategory(getString(R.string.utilities),
-						"Please document issues related to utilities like - Street lights not working, lack of proper traffic lights etc");
+						getString(R.string.utilitiesDescription));
 				return true;
 			}
 		});
@@ -196,7 +193,7 @@ public class FragmentPublicSector extends Fragment {
 			@Override
 			public boolean onLongClick(View v) {
 				longClickedCategory(getString(R.string.services),
-						"Please report issues related to services - lack of response from the municipal authorities, late issue of aadhar card etc");
+	getString(R.string.servicesDescription));
 				return true;
 			}
 		});

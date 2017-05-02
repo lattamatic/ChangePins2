@@ -42,13 +42,14 @@ import sandeep.city.SQLiteClasses.ReportsDataSource;
 
 public class ActivityRegisterComplaint extends Activity {
 
-    private TextView category, locMessage;
+    private TextView category, locMessage, catDescription;
     private ImageView takePic, but_location, back, staticMap, imageView;
     private EditText title, description;
     private final int LOCATION = 4;
     private ProgressBar progressBar;
     private Place place;
     private Button submit;
+    private int locationFlag=0;
 
 
     @Override
@@ -59,6 +60,8 @@ public class ActivityRegisterComplaint extends Activity {
         initializeOnClicks(); //Sets on click listeners
         //Setting category from the data sent from previous activity
         category.setText(getIntent().getStringExtra("category"));
+        catDescription.setText(getIntent().getStringExtra("categoryDescription"));
+
     }
 
 
@@ -82,30 +85,34 @@ public class ActivityRegisterComplaint extends Activity {
                 //Shows the location in the Complaint form after choosing a place
                 case LOCATION:
                     place = PlacePicker.getPlace(data, this);
-                    LatLng ll = place.getLatLng();
-                    double lat = ll.latitude;
-                    double lon = ll.longitude;
-                    progressBar.setVisibility(View.VISIBLE);
-                    locMessage.setVisibility(View.GONE);
-                    String url = "https://maps.googleapis.com/maps/api/staticmap?center=" + lat + "," + lon + "&zoom=19&size=600x300&maptype=normal";
-                    Glide.with(this).load(url).listener(new RequestListener<String, GlideDrawable>() {
-                        @Override
-                        public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                            progressBar.setVisibility(View.GONE);
-                            locMessage.setVisibility(View.VISIBLE);
-                            locMessage.setText("Error retrieving location Map\n\n" + place.getAddress());
-                            return false;
-                        }
+                    if(place!=null){
+                        locationFlag=1;
+                        LatLng ll = place.getLatLng();
+                        double lat = ll.latitude;
+                        double lon = ll.longitude;
+                        progressBar.setVisibility(View.VISIBLE);
+                        locMessage.setVisibility(View.GONE);
+                        String url = "https://maps.googleapis.com/maps/api/staticmap?center=" + lat + "," + lon + "&zoom=19&size=600x300&maptype=normal";
+                        Glide.with(this).load(url).listener(new RequestListener<String, GlideDrawable>() {
+                            @Override
+                            public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                                progressBar.setVisibility(View.GONE);
+                                locMessage.setVisibility(View.VISIBLE);
+                                locMessage.setText("Error retrieving location Map\n\n" + place.getAddress());
+                                return false;
+                            }
 
-                        @Override
-                        public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                            staticMap.setVisibility(View.VISIBLE);
-                            progressBar.setVisibility(View.GONE);
-                            locMessage.setVisibility(View.VISIBLE);
-                            locMessage.setText(place.getAddress());
-                            return false;
-                        }
-                    }).into(staticMap);
+                            @Override
+                            public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                                staticMap.setVisibility(View.VISIBLE);
+                                progressBar.setVisibility(View.GONE);
+                                locMessage.setVisibility(View.VISIBLE);
+                                locMessage.setText(place.getAddress());
+                                return false;
+                            }
+                        }).into(staticMap);
+
+                    }
                     break;
             }
         }
@@ -167,6 +174,7 @@ public class ActivityRegisterComplaint extends Activity {
     //Initialize all the UI elements for Dynamic action
     private void initializeViews() {
         category = (TextView) findViewById(R.id.tvCategory);
+        catDescription = (TextView) findViewById(R.id.tvCategoryDescription);
         locMessage = (TextView) findViewById(R.id.tvLocMessage);
 
         back = (ImageView) findViewById(R.id.ivBack);
@@ -197,12 +205,15 @@ public class ActivityRegisterComplaint extends Activity {
             @Override
             public void onClick(View v) {
                 if (title.getText().toString().matches("")) {
-                    Toast.makeText(ActivityRegisterComplaint.this, "Title cannot be empty",
+                    Toast.makeText(ActivityRegisterComplaint.this, "Give a Title to your complaint",
                             Toast.LENGTH_SHORT).show();
                 } else if (description.getText().toString().matches("")) {
-                    Toast.makeText(ActivityRegisterComplaint.this, "Description cannot be empty",
+                    Toast.makeText(ActivityRegisterComplaint.this, "Please give description to the issue",
                             Toast.LENGTH_SHORT).show();
-                } else if (imageView.getBackground() != null) {
+                }else if(locationFlag!=1){
+                    Toast.makeText(ActivityRegisterComplaint.this, "Tell us where the issue is by choosing a location",
+                            Toast.LENGTH_SHORT).show();
+                }else if (imageView.getBackground() != null) {
                     AsyncSubmitReport async = new AsyncSubmitReport();
                     SingleReport report = new SingleReport(category.getText().toString(), title.getText().toString(),
                             description.getText().toString(), "NoImage", 0);

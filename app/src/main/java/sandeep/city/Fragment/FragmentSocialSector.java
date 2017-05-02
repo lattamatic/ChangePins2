@@ -66,37 +66,37 @@ public class FragmentSocialSector extends Fragment {
         electricity.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-             clickedCategory(getString(R.string.electricity));
+             clickedCategory(getString(R.string.electricity), getString(R.string.electricityDescription));
             }
         });
         waterSupply.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                clickedCategory(getString(R.string.watersupply));
+                clickedCategory(getString(R.string.watersupply), getString(R.string.watersupplyDescription));
             }
         });
         housing.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                clickedCategory(getString(R.string.housing));
+                clickedCategory(getString(R.string.housing), getString(R.string.housingDescription));
             }
         });
         education.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                clickedCategory(getString(R.string.education));
+                clickedCategory(getString(R.string.education), getString(R.string.educationDescription));
             }
         });
         trees.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                clickedCategory(getString(R.string.trees));
+                clickedCategory(getString(R.string.trees), getString(R.string.treesDescription));
             }
         });
         nutrition.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                clickedCategory(getString(R.string.nutrition));
+                clickedCategory(getString(R.string.nutrition), getString(R.string.nutritionDescription));
             }
         });
         others.setOnClickListener(new OnClickListener() {
@@ -133,8 +133,7 @@ public class FragmentSocialSector extends Fragment {
         electricity.setOnLongClickListener(new OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                longClickedCategory(getString(R.string.electricity),
-                        "Document issues related to electricity here.");
+                longClickedCategory(getString(R.string.electricity), getString(R.string.electricityDescription));
                 return true;
             }
         });
@@ -142,39 +141,35 @@ public class FragmentSocialSector extends Fragment {
             @Override
             public boolean onLongClick(View v) {
                 longClickedCategory(getString(R.string.watersupply),
-                        "Document issues related to Water and Water Supply here.");
+                        getString(R.string.watersupplyDescription));
                 return true;
             }
         });
         housing.setOnLongClickListener(new OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                longClickedCategory(getString(R.string.housing),
-                        "Document issues related to Housing here.");
+                longClickedCategory(getString(R.string.housing),getString(R.string.housingDescription));
                 return true;
             }
         });
         education.setOnLongClickListener(new OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                longClickedCategory(getString(R.string.education),
-                        "Document issues related to Education here.");
+                longClickedCategory(getString(R.string.education), getString(R.string.educationDescription));
                 return true;
             }
         });
         trees.setOnLongClickListener(new OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                longClickedCategory(getString(R.string.trees),
-                        "Document issues related to Trees here.");
+                longClickedCategory(getString(R.string.trees), getString(R.string.treesDescription));
                 return true;
             }
         });
         nutrition.setOnLongClickListener(new OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                longClickedCategory(getString(R.string.nutrition),
-                        "Document issues related to Nutrition here.");
+                longClickedCategory(getString(R.string.nutrition), getString(R.string.nutritionDescription));
                 return true;
             }
         });
@@ -182,27 +177,22 @@ public class FragmentSocialSector extends Fragment {
         return v;
     }
 
-    private void clickedCategory(String category){
+    private void clickedCategory(String category, String description){
         mTracker.send(new HitBuilders.EventBuilder()
                 .setCategory(getString(R.string.views))
                 .setAction(getString(R.string.click))
                 .setLabel(category)
                 .build());
-        myInterface.onClickCategory(category);
+        myInterface.onClickCategory(category, description);
     }
 
-    private void longClickedCategory(String category, String content){
+    private void longClickedCategory(String category, String desc){
         mTracker.send(new HitBuilders.EventBuilder()
                 .setCategory(getString(R.string.views))
                 .setAction(getString(R.string.longclick))
                 .setLabel(category)
                 .build());
 
-        builder.setTitle(category);
-        description = new TextView(getActivity());
-        description
-                .setText(content);
-        builder.setView(description);
-        builder.show();
+       myInterface.onLongClickCategory(category,desc);
     }
 }

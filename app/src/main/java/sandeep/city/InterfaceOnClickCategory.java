@@ -6,6 +6,7 @@ package sandeep.city;
 
 public interface InterfaceOnClickCategory {
 
+    void onClickCategory(String category, String description);
     void onClickCategory(String category);
     void onLongClickCategory(String category, String content);
 }

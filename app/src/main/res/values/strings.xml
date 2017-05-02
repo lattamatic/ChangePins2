@@ -57,6 +57,13 @@
     <string name="trees">Trees</string>
     <string name="nutrition">Nutrition</string>
 
+    <string name="electricityDescription">Tell us about issues like lack of power or misuse of energy etc.</string>
+    <string name="watersupplyDescription"> Tell us about issues like lack of water or misuse of water etc.</string>
+    <string name="treesDescription">Tell us about issues like cutting of trees or lack of tree cover etc.</string>
+    <string name="housingDescription">Tell us about issues like poor construction, illegal buildings etc.</string>
+    <string name="educationDescription">Tell us about issues like lack of resources at schools etc.</string>
+    <string name="nutritionDescription">Tell us about issues like food wastage, bad quality of food etc.</string>
+
                 <!--public-->
     <string name="transport">Transport</string>
     <string name="utilities">Utilities</string>
@@ -64,6 +71,14 @@
     <string name="safety">Safety</string>
     <string name="publicspaces">Public Spaces</string>
     <string name="services">Services</string>
+
+
+    <string name="transportDescription">Tell us about issues like crowded public transport etc.</string>
+    <string name="utilitiesDescription">Tell us about issues like malfunctioning of street lights etc.</string>
+    <string name="wastemanagementDescription">Tell us about garbage dumping, public littering etc.</string>
+    <string name="publicspaceDescription">Tell us about unclean public spaces, undesignated parking etc.</string>
+    <string name="safetyDescription">Tell us about potential crime, violations, dangers etc.</string>
+    <string name="servicesDescription">Tell us about issues related to lack of services and response</string>
 
                 <!--Actionbar icons-->
     <string name="report">Report</string>

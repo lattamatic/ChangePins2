@@ -48,6 +48,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import sandeep.city.ChangePinsApplication;
+import sandeep.city.DialogCategoryDescription;
 import sandeep.city.Fragment.FragmentAbout;
 import sandeep.city.Fragment.FragmentBuzz;
 import sandeep.city.Fragment.FragmentHelp;
@@ -341,6 +342,14 @@ public class ActivityHome extends AppCompatActivity implements FragmentSelectSec
         popAFragment(privateSector);
     }
 
+    @Override
+    public void onClickCategory(String category, String description) {
+        Intent intent = new Intent(this, ActivityRegisterComplaint.class);
+        intent.putExtra("category", category);
+        intent.putExtra("categoryDescription", description);
+        startActivityForResult(intent, REPORTED_COMPLAINT);
+    }
+
     //This is onclick listener from the fragments public/private sectors
     @Override
     public void onClickCategory(String category) {
@@ -351,12 +360,8 @@ public class ActivityHome extends AppCompatActivity implements FragmentSelectSec
 
     @Override
     public void onLongClickCategory(String category, String content) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(category);
-        categoryDescription = new TextView(this);
-        categoryDescription.setText(content);
-        builder.setView(categoryDescription);
-        builder.show();
+        DialogCategoryDescription dcd = new DialogCategoryDescription(this, category,content);
+        dcd.show();
     }
 
     //onclick listener to add a new report from Reports fragment
