@@ -10,6 +10,8 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -42,7 +44,7 @@ import sandeep.city.SQLiteClasses.ReportsDataSource;
 
 public class ActivityRegisterComplaint extends Activity {
 
-    private TextView category, locMessage, catDescription;
+    private TextView category, locMessage, catDescription, titleText, descriptionText, locationText, imageText, imageHelptext;
     private ImageView takePic, but_location, back, staticMap, imageView;
     private EditText title, description;
     private final int LOCATION = 4;
@@ -58,6 +60,7 @@ public class ActivityRegisterComplaint extends Activity {
         setContentView(R.layout.ac_register_complaint);
         initializeViews(); //Instantiating views
         initializeOnClicks(); //Sets on click listeners
+        setUnderLines();
         //Setting category from the data sent from previous activity
         category.setText(getIntent().getStringExtra("category"));
         catDescription.setText(getIntent().getStringExtra("categoryDescription"));
@@ -81,6 +84,8 @@ public class ActivityRegisterComplaint extends Activity {
                     CropImage.ActivityResult result = CropImage.getActivityResult(data);
                     imageView.setImageURI(result.getUri());
                     imageView.setBackground(null);
+                    imageView.setVisibility(View.VISIBLE);
+                    imageHelptext.setVisibility(View.GONE);
                     break;
                 //Shows the location in the Complaint form after choosing a place
                 case LOCATION:
@@ -176,6 +181,11 @@ public class ActivityRegisterComplaint extends Activity {
         category = (TextView) findViewById(R.id.tvCategory);
         catDescription = (TextView) findViewById(R.id.tvCategoryDescription);
         locMessage = (TextView) findViewById(R.id.tvLocMessage);
+        titleText = (TextView) findViewById(R.id.tvComplaintTitle);
+        descriptionText = (TextView) findViewById(R.id.tvComplaintDescription);
+        imageText = (TextView) findViewById(R.id.tvComplaintImage);
+        locationText = (TextView) findViewById(R.id.tvComplaintLocation );
+        imageHelptext = (TextView) findViewById(R.id.tvImagePreview);
 
         back = (ImageView) findViewById(R.id.ivBack);
 //        upload = (ImageView) findViewById(R.id.ivUploadImage);
@@ -254,5 +264,20 @@ public class ActivityRegisterComplaint extends Activity {
     private void startCropImageActivity(Uri uri) {
         CropImage.activity(uri)
                 .start(this);
+    }
+
+    private void setUnderLines(){
+        SpannableString spannableString = new SpannableString("*Title");
+        spannableString.setSpan(new UnderlineSpan(), 1, 6, 0);
+        titleText.setText(spannableString);
+        spannableString = new SpannableString("*Description");
+        spannableString.setSpan(new UnderlineSpan(), 1, 12, 0);
+        descriptionText.setText(spannableString);
+        spannableString = new SpannableString("*Location");
+        spannableString.setSpan(new UnderlineSpan(), 1 , 9, 0);
+        locationText.setText(spannableString);
+        spannableString = new SpannableString("Image");
+        spannableString.setSpan(new UnderlineSpan(),0,5,0);
+        imageText.setText(spannableString);
     }
 }

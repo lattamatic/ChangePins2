@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Html;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -94,7 +96,9 @@ public class FragmentFBLogin extends Fragment{
         View view = inflater.inflate(R.layout.frag_fblogin, container, false);
 
         tvSkip = (TextView) view.findViewById(R.id.tvSkip);
-        tvSkip.setText(Html.fromHtml("<p><u>SKIP</u></p>"));
+        SpannableString content = new SpannableString("SKIP");
+        content.setSpan(new UnderlineSpan(), 0, 4, 0);
+        tvSkip.setText(content);
 
         signup = (TextView) view.findViewById(R.id.tvSignup);
         signup.setOnClickListener(new View.OnClickListener() {
