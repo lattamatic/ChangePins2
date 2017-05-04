@@ -18,7 +18,7 @@
         <ImageView
             android:id="@+id/ivStoryImage"
             android:layout_width="wrap_content"
-            android:layout_height="200dp"
+            android:layout_height="253dp"
             android:src="@drawable/storysampleimageone" />
 
         <TextView
@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:text="Sandeep posted a story"
             android:layout_margin="8dp"
-            android:textSize="25sp"/>
+            android:textSize="20sp"/>
 
         <TextView
             android:id="@+id/tvStoryDesc"
@@ -38,7 +38,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:text="The Domlur Bus Stop getting  spotfixed! It's a shame that residents of Bengaluru tolerate the defacement and vandalism of its well-made bus-stops. Hopefully, things will change now - with this superb work by concerned residents of the area"
-            android:textSize="15sp"/>
+            android:textSize="14sp"/>
 
 
         <LinearLayout
@@ -46,8 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:gravity="right"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="16dp">
+            android:layout_margin="16dp">
 
             <TextView
                 android:id="@+id/tvShareStory"

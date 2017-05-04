@@ -12,9 +12,9 @@
         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:alpha="1"
             android:background="@android:color/white"
-            android:orientation="vertical"
-            android:alpha="1">
+            android:orientation="vertical">
 
 
             <android.support.v7.widget.Toolbar
@@ -33,30 +33,27 @@
                         android:id="@+id/tvTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:gravity="center"
                         android:text="@string/app_name"
-                        android:textSize="25sp"
-                        android:gravity="center"/>
+                        android:textSize="25sp" />
 
                     <ImageView
                         android:id="@+id/ivReport"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginRight="16dp"
-                        android:padding="8dp"
                         android:layout_toLeftOf="@+id/ivBuzz"
+                        android:padding="16dp"
                         android:src="@drawable/report" />
 
                     <ImageView
                         android:id="@+id/ivBuzz"
-                        android:padding="8dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/buzz"
-                        android:layout_marginRight="16dp"
-                        />
+                        android:padding="16dp"
+                        android:src="@drawable/buzz" />
                 </RelativeLayout>
 
 

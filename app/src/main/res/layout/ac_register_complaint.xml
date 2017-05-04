@@ -8,7 +8,7 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="wrap_content"
         android:background="@android:color/white"
         android:elevation="1dp">
 
@@ -20,7 +20,7 @@
             <ImageView
                 android:id="@+id/ivBack"
                 android:layout_width="24dp"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:layout_centerVertical="true"
                 android:src="@drawable/back" />
 
@@ -28,15 +28,19 @@
                 android:id="@+id/tvCategory"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:layout_marginLeft="16dp"
                 android:layout_toRightOf="@+id/ivBack"
                 android:text="Electricity"
-                android:textSize="25sp" />
-
+                android:textSize="24sp" />
+            <TextView
+                android:layout_alignLeft="@+id/tvCategory"
+                android:id="@+id/tvCategoryDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:layout_below="@+id/tvCategory"/>
 
         </RelativeLayout>
-
 
     </android.support.v7.widget.Toolbar>
 
@@ -53,19 +57,13 @@
             android:padding="16dp">
 
             <TextView
-                android:id="@+id/tvCategoryDescription"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"/>
-
-            <TextView
-                android:layout_below="@+id/tvCategoryDescription"
                 android:id="@+id/tvComplaintTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="*Title (max 100 char.)"
-                android:textSize="15sp" />
+                android:textStyle="bold"
+                android:textSize="14sp" />
 
             <EditText
                 android:id="@+id/etComplaintTitle"
@@ -77,13 +75,16 @@
                 android:maxLength="100"
                 android:maxLines="1"></EditText>
 
+
             <TextView
                 android:id="@+id/tvCompDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/etComplaintTitle"
                 android:layout_marginTop="16dp"
-                android:text="*Description" />
+                android:text="*Description"
+                android:textStyle="bold"
+                android:textSize="14sp"/>
 
             <EditText
                 android:id="@+id/etDescription"
@@ -94,6 +95,7 @@
                 android:background="@drawable/border_all_sides_black"
                 android:ems="10"
                 android:gravity="top"
+                android:layout_marginBottom="16dp"
                 android:lines="5" />
 
             <TextView
@@ -102,7 +104,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="*Location"
-                android:layout_marginTop="16dp"/>
+                android:textStyle="bold"
+                android:layout_marginTop="16dp"
+                android:textSize="14sp"/>
 
 
             <LinearLayout
@@ -136,7 +140,8 @@
                         android:layout_weight="3"
                         android:gravity="center_vertical"
                         android:text="Click on the icon to select location"
-                        android:visibility="visible" />
+                        android:visibility="visible"
+                        android:textSize="14sp"/>
 
                     <ProgressBar
                         android:id="@+id/progressBar"
@@ -147,6 +152,7 @@
                         android:visibility="gone" />
                 </LinearLayout>
 
+
                 <ImageView
                     android:id="@+id/bPickLocation"
                     android:layout_width="50dp"
@@ -156,12 +162,14 @@
                     android:src="@drawable/location" />
             </LinearLayout>
 
+
             <TextView
                 android:id="@+id/tvImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/location_layout"
                 android:layout_marginTop="16dp"
+                android:textStyle="bold"
                 android:text="Image" />
 
 
@@ -190,11 +198,10 @@
 
                 <ImageView
                     android:id="@+id/ivPreview"
-                    android:layout_width="192dp"
-                    android:layout_height="192dp"
+                    android:layout_width="196dp"
+                    android:layout_height="196dp"
                     android:layout_marginLeft="24dp"
-                    android:layout_marginRight="24dp"
-                    android:background="@drawable/gallery"/>
+                    android:layout_marginRight="24dp"/>
 
                 <ImageView
                     android:id="@+id/ivTakePic"
