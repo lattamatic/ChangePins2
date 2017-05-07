@@ -85,10 +85,9 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
         public ViewHolder(View v) {
             super(v);
             description = (TextView) v.findViewById(R.id.tvStoryDesc);
-            author = (TextView) v.findViewById(R.id.tvStoryAuthor);
+            author = (TextView) v.findViewById(R.id.tvStoryTitle);
             storyImage = (ImageView) v.findViewById(R.id.ivStoryImage);
             share = (TextView) v.findViewById(R.id.tvShareStory);
-
         }
     }
 

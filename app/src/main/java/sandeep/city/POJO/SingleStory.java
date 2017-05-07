@@ -10,12 +10,24 @@ public class SingleStory {
     String title;
     String author;
     String description;
+    String date;
 
-    public SingleStory(String title, String author, String description){
+
+    public SingleStory(String title, String author, String description, String date){
         this.title = title;
         this.author = author;
         this.description = description;
+        this.date = date;
     }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
 
     public int getId() {
         return id;

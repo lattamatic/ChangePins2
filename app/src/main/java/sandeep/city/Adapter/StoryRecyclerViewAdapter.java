@@ -2,10 +2,7 @@ package sandeep.city.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
-import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.SizeReadyCallback;
-import com.bumptech.glide.request.target.Target;
 
 import java.util.List;
 
@@ -41,14 +35,16 @@ public class StoryRecyclerViewAdapter extends RecyclerView.Adapter<StoryRecycler
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView description, author, share;
+        private TextView author, title, description, share, date;
         private ImageView storyImage;
 
         public ViewHolder(View v) {
             super(v);
+            title = (TextView) v.findViewById(R.id.tvStoryTitle);
             description = (TextView) v.findViewById(R.id.tvStoryDesc);
             author = (TextView) v.findViewById(R.id.tvStoryAuthor);
             share = (TextView) v.findViewById(R.id.tvShareStory);
+            date = (TextView) v.findViewById(R.id.tvStoryDate);
             storyImage = (ImageView) v.findViewById(R.id.ivStoryImage);
         }
     }
@@ -77,6 +73,8 @@ public class StoryRecyclerViewAdapter extends RecyclerView.Adapter<StoryRecycler
                 context.startActivity(Intent.createChooser(i,"Share via"));
             }
         });
+        holder.title.setText(story.getTitle());
+        holder.date.setText(story.getDate());
 
         switch (position%4){
             case 0:

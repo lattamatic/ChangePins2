@@ -72,7 +72,6 @@
     <string name="publicspaces">Public Spaces</string>
     <string name="services">Services</string>
 
-
     <string name="transportDescription">Tell us about issues like crowded public transport etc.</string>
     <string name="utilitiesDescription">Tell us about issues like malfunctioning of street lights etc.</string>
     <string name="wastemanagementDescription">Tell us about garbage dumping, public littering etc.</string>
@@ -94,7 +93,6 @@
 
                 <!--Reporting page-->
     <string name="succesfulreport">Reported Successfully</string>
-
 
     <string name="createprofile">Create Profile</string>
     <string name="registercomplaint">Register Complaint</string>

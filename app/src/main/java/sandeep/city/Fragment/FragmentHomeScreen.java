@@ -37,7 +37,8 @@ public class FragmentHomeScreen extends Fragment{
     private List<SingleStory> storyList;
     private ArrayList<AndroidVersion> data;
     private DataAdapter adapter;
-    private String [] names = {"Area Cleaned", "No Security for developed nations", "Hello World", "Italian protest"};
+    private String [] titles = {"Area Cleaned", "No Security for developed nations", "Hello World", "Italian protest"};
+    private String [] names = {"Sai Tejo Kiran", "Srinath K", "Sandeep C", "Iota Kodali"};
 
 
     @Override
@@ -61,8 +62,8 @@ public class FragmentHomeScreen extends Fragment{
     //creating dummy data
     private void prepareStoryList(){
         for(int i=1;i<20;i++){
-            storyList.add(new SingleStory("Title - "+i, names[i%4],i +
-                    "The Domlur Bus Stop getting  spotfixed! It's a shame that residents of Bengaluru tolerate the defacement and vandalism of its well-made bus-stops. Hopefully, things will change now - with this superb work by concerned residents of the area"));
+            storyList.add(new SingleStory(titles[i%4], names[i%4],i +
+                    "The Domlur Bus Stop getting  spotfixed! It's a shame that residents of Bengaluru tolerate the defacement and vandalism of its well-made bus-stops. Hopefully, things will change now - with this superb work by concerned residents of the area", "May "+i));
         }
         storyRV.setAdapter( new StoryRecyclerViewAdapter(storyList, getActivity()));
     }

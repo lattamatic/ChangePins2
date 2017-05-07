@@ -1,33 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/tools"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_view_homescree"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    card_view:cardCornerRadius="2dp"
+    android:layout_margin="4dp"
     app:cardUseCompatPadding="true"
-    android:layout_margin="4dp">
+    card_view:cardCornerRadius="2dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/tvStoryAuthor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sai Tejo Kiran"
+                android:textSize="15sp"
+                android:layout_alignParentLeft="true"/>
+
+            <TextView
+                android:id="@+id/tvStoryDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="May 4th"
+                android:textSize="12sp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"/>
+
+        </RelativeLayout>
 
         <ImageView
             android:id="@+id/ivStoryImage"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="253dp"
+            android:scaleType="fitXY"
             android:src="@drawable/storysampleimageone" />
 
         <TextView
-            android:id="@+id/tvStoryAuthor"
+            android:id="@+id/tvStoryTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sandeep posted a story"
             android:layout_margin="8dp"
-            android:textSize="20sp"/>
+            android:text="Sandeep posted a story"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/tvStoryDesc"
@@ -38,15 +63,15 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:text="The Domlur Bus Stop getting  spotfixed! It's a shame that residents of Bengaluru tolerate the defacement and vandalism of its well-made bus-stops. Hopefully, things will change now - with this superb work by concerned residents of the area"
-            android:textSize="14sp"/>
+            android:textSize="14sp" />
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:gravity="right"
-            android:layout_margin="16dp">
+            android:layout_margin="16dp"
+            android:gravity="right">
 
             <TextView
                 android:id="@+id/tvShareStory"
@@ -54,10 +79,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:background="@drawable/others_background"
-                android:text="Share"
                 android:padding="5dp"
+                android:text="Share"
                 android:textColor="#FFFFFF"
-                android:textSize="15sp"/>
+                android:textSize="15sp" />
         </LinearLayout>
     </LinearLayout>
 </android.support.v7.widget.CardView>

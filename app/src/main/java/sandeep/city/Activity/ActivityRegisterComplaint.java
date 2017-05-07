@@ -26,6 +26,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.facebook.AccessToken;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
@@ -36,13 +37,29 @@ import com.theartofdev.edmodo.cropper.CropImage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 import sandeep.city.POJO.SingleReport;
 import sandeep.city.R;
+import sandeep.city.RetrofitInterfaces.ApiInterface;
+import sandeep.city.RetrofitTest.DataAdapter;
+import sandeep.city.RetrofitTest.JSONResponse;
+import sandeep.city.RetrofitTest.RetrofitInterface;
 import sandeep.city.SQLiteClasses.ReportsDataSource;
 
+import static android.R.attr.data;
+
 public class ActivityRegisterComplaint extends Activity {
+
 
     private TextView category, locMessage, catDescription, titleText, descriptionText, locationText, imageText, imageHelptext;
     private ImageView takePic, but_location, back, staticMap, imageView;
@@ -53,14 +70,13 @@ public class ActivityRegisterComplaint extends Activity {
     private Button submit;
     private int locationFlag=0;
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ac_register_complaint);
         initializeViews(); //Instantiating views
         initializeOnClicks(); //Sets on click listeners
-        setUnderLines();
+//        setUnderLines();
         //Setting category from the data sent from previous activity
         category.setText(getIntent().getStringExtra("category"));
         catDescription.setText(getIntent().getStringExtra("categoryDescription"));
@@ -161,6 +177,30 @@ public class ActivityRegisterComplaint extends Activity {
             SingleReport report = dataSource.createReport(params[0].getCategory(), params[0].getTitle(),
                     params[0].getDescription(), params[0].getImage_path());
             dataSource.close();
+
+//            Retrofit retrofit = new Retrofit.Builder()
+//                    .baseUrl("http://changepins")
+//                    .addConverterFactory(GsonConverterFactory.create())
+//                    .build();
+//            ApiInterface client = retrofit.create(ApiInterface.class);
+//            File file = new File(params[0].getImage_path());
+//            RequestBody image = RequestBody.create(MediaType.parse("image/*"), file);
+//            RequestBody category = RequestBody.create(MediaType.parse("text/plain"), params[0].getCategory());
+//            RequestBody title = RequestBody.create(MediaType.parse("text/plain"), params[0].getTitle());
+//            RequestBody description = RequestBody.create(MediaType.parse("text/plain"), params[0].getDescription());
+//            Call<SingleReport> call = client.submitReport("0", image, category, title, description);
+//            call.enqueue(new Callback<SingleReport>() {
+//                @Override
+//                public void onResponse(Call<SingleReport> call, Response<SingleReport> response) {
+//
+//                }
+//
+//                @Override
+//                public void onFailure(Call<SingleReport> call, Throwable t) {
+//
+//                }
+//            });
+
             return null;
         }
 
@@ -181,8 +221,8 @@ public class ActivityRegisterComplaint extends Activity {
         category = (TextView) findViewById(R.id.tvCategory);
         catDescription = (TextView) findViewById(R.id.tvCategoryDescription);
         locMessage = (TextView) findViewById(R.id.tvLocMessage);
-        titleText = (TextView) findViewById(R.id.tvComplaintTitle);
-        descriptionText = (TextView) findViewById(R.id.tvComplaintDescription);
+//        titleText = (TextView) findViewById(R.id.tvComplaintTitle);
+//        descriptionText = (TextView) findViewById(R.id.tvComplaintDescription);
         imageText = (TextView) findViewById(R.id.tvComplaintImage);
         locationText = (TextView) findViewById(R.id.tvComplaintLocation );
         imageHelptext = (TextView) findViewById(R.id.tvImagePreview);
@@ -223,7 +263,7 @@ public class ActivityRegisterComplaint extends Activity {
                 }else if(locationFlag!=1){
                     Toast.makeText(ActivityRegisterComplaint.this, "Tell us where the issue is by choosing a location",
                             Toast.LENGTH_SHORT).show();
-                }else if (imageView.getBackground() != null) {
+                }else if (imageView.getVisibility() != View.VISIBLE) {
                     AsyncSubmitReport async = new AsyncSubmitReport();
                     SingleReport report = new SingleReport(category.getText().toString(), title.getText().toString(),
                             description.getText().toString(), "NoImage", 0);
