@@ -1,111 +1,74 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@android:color/white">
+    android:background="@android:color/white"
+    android:orientation="vertical">
 
-    <include layout="@layout/layout_toolbar"/>
+    <include layout="@layout/layout_toolbar" />
 
-        <LinearLayout
-            android:id="@+id/relLay"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:padding="15dp"
-            android:orientation="vertical"
-            android:layout_marginTop="25dp">
+    <LinearLayout
+        android:id="@+id/relLay"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-            <LinearLayout
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp">
+
+            <EditText
+                android:id="@+id/etUserName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:weightSum="5">
+                android:hint="*Name"
+                android:inputType="textPersonName" />
+        </android.support.design.widget.TextInputLayout>
 
-                <ImageView
-                    android:id="@+id/ivDP"
-                    android:layout_weight="0"
-                    android:layout_width="40dp"
-                    android:layout_height="48dp"
-                    android:src="@drawable/person"/>
-                <EditText
-                    android:id="@+id/etName"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="5"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:textColor="@android:color/black"
-                    android:hint="Name*"
-                    android:textColorHint="@android:color/darker_gray"
-                    android:padding="10dp"
-                    android:background="@drawable/border"/>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp">
 
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_marginTop="10dp"
+            <EditText
+                android:id="@+id/etUserEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:weightSum="5">
-                <ImageView
-                    android:layout_weight="0"
-                    android:layout_width="40dp"
-                    android:layout_height="48dp"
-                    android:src="@drawable/notif_unread"/>
-                <EditText
-                    android:id="@+id/etEmail"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="5"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:textColor="@android:color/black"
-                    android:hint="Email*"
-                    android:inputType="textEmailAddress"
-                    android:textColorHint="@android:color/darker_gray"
-                    android:padding="10dp"
-                    android:background="@drawable/border"/>
-            </LinearLayout>
+                android:gravity="top"
+                android:hint="*Email"
+                android:inputType="textEmailAddress" />
+        </android.support.design.widget.TextInputLayout>
 
-            <LinearLayout
-                android:layout_marginTop="10dp"
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp">
+
+            <EditText
+                android:id="@+id/etUserMobile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:weightSum="5">
-                <ImageView
-                    android:layout_weight="0"
-                    android:layout_width="40dp"
-                    android:layout_height="48dp"
-                    android:src="@drawable/mobile"/>
-                <EditText
-                    android:id="@+id/etPhone"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="5"
-                    android:inputType="phone"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:textColor="@android:color/black"
-                    android:hint="Mobile. No"
-                    android:textColorHint="@android:color/darker_gray"
-                    android:padding="10dp"
-                    android:background="@drawable/border"/>
-            </LinearLayout>
+                android:hint="*Mobile"
+                android:inputType="phone" />
 
-            <Button
-                android:layout_margin="16dp"
-                android:id="@+id/bContinue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@drawable/others_background"
-                android:text="Save and Proceed"
-                android:textColor="#FFFFFF"
-                android:textStyle="bold"
-                android:padding="4dp"/>
+        </android.support.design.widget.TextInputLayout>
 
-        </LinearLayout>
+        <Button
+            android:id="@+id/bContinue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="16dp"
+            android:background="@drawable/others_background"
+            android:padding="8dp"
+            android:text="Save and Proceed"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold" />
+
+    </LinearLayout>
 
 </LinearLayout>

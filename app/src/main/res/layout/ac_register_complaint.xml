@@ -54,7 +54,7 @@
                 android:id="@+id/cvDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:elevation="10dp">
+                android:elevation="8dp">
 
                 <TextView
                     android:id="@+id/tvCategoryDescription"

@@ -24,7 +24,6 @@ public class ActivityCreateProfile extends ChangePinsActivity {
 
     private EditText name, email, phone;
     private Button next;
-    private ImageView dp;
     private SharedPreferences preferences;
 
     @Override
@@ -32,23 +31,11 @@ public class ActivityCreateProfile extends ChangePinsActivity {
         super.onCreate(savedInstanceState);
         initializeViews(); //instantiating the views
 
-        preferences=getSharedPreferences("user", Context.MODE_PRIVATE);
-        name.setText(preferences.getString("user_name",""));
-        if(getIntent().getStringExtra("email")!=""){
-            email.setText(getIntent().getStringExtra("email"));
-        }
-        File imgFile = new File("/sdcard/ChangePins/changepins_dp.png");
-        if(imgFile.exists()){
-            Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-            dp.setImageBitmap(myBitmap);
-
-        }else{
-            Toast.makeText(getApplicationContext(), "No image", Toast.LENGTH_SHORT).show();
-        }
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ActivityCreateProfile.this,ActivityHome.class));
+                finish();
             }
         });
     }
@@ -64,10 +51,9 @@ public class ActivityCreateProfile extends ChangePinsActivity {
     }
 
     private void initializeViews(){
-        email = (EditText) findViewById(R.id.etEmail);
-        phone = (EditText) findViewById(R.id.etPhone);
+        name = (EditText) findViewById(R.id.etUserName);
+        email = (EditText) findViewById(R.id.etUserEmail);
+        phone = (EditText) findViewById(R.id.etUserMobile);
         next = (Button) findViewById(R.id.bContinue);
-        dp = (ImageView) findViewById(R.id.ivDP);
-        name = (EditText) findViewById(R.id.etName);
     }
 }

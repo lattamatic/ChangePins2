@@ -69,6 +69,5 @@ public class ActivityFBLogin extends AppCompatActivity implements FragmentFBLogi
     @Override
     public void OnLoginError() {
         Toast.makeText(this,"An error occured while trying to Login, please trying again.", Toast.LENGTH_SHORT).show();
-
     }
 }

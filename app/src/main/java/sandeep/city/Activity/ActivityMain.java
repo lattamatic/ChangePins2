@@ -26,7 +26,8 @@ public class ActivityMain extends AppCompatActivity {
             public void run() {
                 try {
 
-                    //instead of this we start background threads here to initiate all packages etc.
+                    //instead of this we start background threads here to initiate all packages etc in Application
+                    // File and handle it's finish here.
                     sleep(1000);
 
                     //
