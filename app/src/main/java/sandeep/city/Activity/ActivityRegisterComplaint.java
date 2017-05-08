@@ -61,7 +61,8 @@ import static android.R.attr.data;
 public class ActivityRegisterComplaint extends Activity {
 
 
-    private TextView category, locMessage, catDescription, titleText, descriptionText, locationText, imageText, imageHelptext;
+    private TextView category, locMessage, catDescription, imageHelptext;
+//    private TextView titleText, descriptionText, locationText, imageText;
     private ImageView takePic, but_location, back, staticMap, imageView;
     private EditText title, description;
     private final int LOCATION = 4;
@@ -223,8 +224,8 @@ public class ActivityRegisterComplaint extends Activity {
         locMessage = (TextView) findViewById(R.id.tvLocMessage);
 //        titleText = (TextView) findViewById(R.id.tvComplaintTitle);
 //        descriptionText = (TextView) findViewById(R.id.tvComplaintDescription);
-        imageText = (TextView) findViewById(R.id.tvComplaintImage);
-        locationText = (TextView) findViewById(R.id.tvComplaintLocation );
+//        imageText = (TextView) findViewById(R.id.tvComplaintImage);
+//        locationText = (TextView) findViewById(R.id.tvComplaintLocation );
         imageHelptext = (TextView) findViewById(R.id.tvImagePreview);
 
         back = (ImageView) findViewById(R.id.ivBack);
@@ -305,19 +306,19 @@ public class ActivityRegisterComplaint extends Activity {
         CropImage.activity(uri)
                 .start(this);
     }
-
-    private void setUnderLines(){
-        SpannableString spannableString = new SpannableString("*Title");
-        spannableString.setSpan(new UnderlineSpan(), 1, 6, 0);
-        titleText.setText(spannableString);
-        spannableString = new SpannableString("*Description");
-        spannableString.setSpan(new UnderlineSpan(), 1, 12, 0);
-        descriptionText.setText(spannableString);
-        spannableString = new SpannableString("*Location");
-        spannableString.setSpan(new UnderlineSpan(), 1 , 9, 0);
-        locationText.setText(spannableString);
-        spannableString = new SpannableString("Image");
-        spannableString.setSpan(new UnderlineSpan(),0,5,0);
-        imageText.setText(spannableString);
-    }
+//
+//    private void setUnderLines(){
+//        SpannableString spannableString = new SpannableString("*Title");
+//        spannableString.setSpan(new UnderlineSpan(), 1, 6, 0);
+//        titleText.setText(spannableString);
+//        spannableString = new SpannableString("*Description");
+//        spannableString.setSpan(new UnderlineSpan(), 1, 12, 0);
+//        descriptionText.setText(spannableString);
+//        spannableString = new SpannableString("*Location");
+//        spannableString.setSpan(new UnderlineSpan(), 1 , 9, 0);
+//        locationText.setText(spannableString);
+//        spannableString = new SpannableString("Image");
+//        spannableString.setSpan(new UnderlineSpan(),0,5,0);
+//        imageText.setText(spannableString);
+//    }
 }
