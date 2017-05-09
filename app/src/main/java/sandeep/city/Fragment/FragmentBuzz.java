@@ -30,8 +30,8 @@ public class FragmentBuzz extends Fragment {
 
         //Adding static content as notifications
         list.add("Welcome to ChangePins. SingleReport a problem or create a group!");
-        list.add("A new group is formed in you locality");
-        list.add("A user has requested to  your group");
+        list.add("A new group is formed in your locality");
+        list.add("A user has requested to join your group");
         list.add("A group in your locality has finished their task");
 
         buzz = (ListView) v.findViewById(R.id.lvBuzz);
