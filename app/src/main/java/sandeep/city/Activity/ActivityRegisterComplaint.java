@@ -62,6 +62,7 @@ public class ActivityRegisterComplaint extends Activity {
 
 
     private TextView category, locMessage, catDescription, imageHelptext;
+    private TextView urgent, canWait;
 //    private TextView titleText, descriptionText, locationText, imageText;
     private ImageView takePic, but_location, back, staticMap, imageView;
     private EditText title, description;
@@ -228,6 +229,9 @@ public class ActivityRegisterComplaint extends Activity {
 //        locationText = (TextView) findViewById(R.id.tvComplaintLocation );
         imageHelptext = (TextView) findViewById(R.id.tvImagePreview);
 
+        urgent = (TextView) findViewById(R.id.tvUrgent);
+        canWait = (TextView) findViewById(R.id.tvCanWait);
+
         back = (ImageView) findViewById(R.id.ivBack);
 //        upload = (ImageView) findViewById(R.id.ivUploadImage);
         takePic = (ImageView) findViewById(R.id.ivTakePic);
@@ -298,6 +302,38 @@ public class ActivityRegisterComplaint extends Activity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+
+        urgent.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int pL = urgent.getPaddingLeft();
+                int pT = urgent.getPaddingTop();
+                int pR = urgent.getPaddingRight();
+                int pB = urgent.getPaddingBottom();
+                urgent.setBackgroundResource(R.drawable.background_lines);
+                canWait.setBackgroundResource(R.drawable.border);
+                urgent.setTextColor(getResources().getColor(R.color.white));
+                canWait.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+               urgent.setPadding(pL, pT, pR, pB);
+                canWait.setPadding(pL, pT, pR, pB);
+            }
+        });
+
+        canWait.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int pL = urgent.getPaddingLeft();
+                int pT = urgent.getPaddingTop();
+                int pR = urgent.getPaddingRight();
+                int pB = urgent.getPaddingBottom();
+                canWait.setBackgroundResource(R.drawable.background_lines);
+                urgent.setBackgroundResource(R.drawable.border);
+                canWait.setTextColor(getResources().getColor(R.color.white));
+                urgent.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                urgent.setPadding(pL, pT, pR, pB);
+                canWait.setPadding(pL, pT, pR, pB);
             }
         });
     }

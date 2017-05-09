@@ -8,5 +8,6 @@
     <color name="colorPrimaryDark">#000</color>
     <color name="colorAccent">#999</color>
 
+    <color name="white">#FFF</color>
 
 </resources>
