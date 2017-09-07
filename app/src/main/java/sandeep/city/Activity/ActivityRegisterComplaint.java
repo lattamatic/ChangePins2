@@ -180,28 +180,28 @@ public class ActivityRegisterComplaint extends Activity {
                     params[0].getDescription(), params[0].getImage_path());
             dataSource.close();
 
-//            Retrofit retrofit = new Retrofit.Builder()
-//                    .baseUrl("http://changepins")
-//                    .addConverterFactory(GsonConverterFactory.create())
-//                    .build();
-//            ApiInterface client = retrofit.create(ApiInterface.class);
-//            File file = new File(params[0].getImage_path());
-//            RequestBody image = RequestBody.create(MediaType.parse("image/*"), file);
-//            RequestBody category = RequestBody.create(MediaType.parse("text/plain"), params[0].getCategory());
-//            RequestBody title = RequestBody.create(MediaType.parse("text/plain"), params[0].getTitle());
-//            RequestBody description = RequestBody.create(MediaType.parse("text/plain"), params[0].getDescription());
-//            Call<SingleReport> call = client.submitReport("0", image, category, title, description);
-//            call.enqueue(new Callback<SingleReport>() {
-//                @Override
-//                public void onResponse(Call<SingleReport> call, Response<SingleReport> response) {
-//
-//                }
-//
-//                @Override
-//                public void onFailure(Call<SingleReport> call, Throwable t) {
-//
-//                }
-//            });
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl("http://changepins")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+            ApiInterface client = retrofit.create(ApiInterface.class);
+            File file = new File(params[0].getImage_path());
+            RequestBody image = RequestBody.create(MediaType.parse("image/*"), file);
+            RequestBody category = RequestBody.create(MediaType.parse("text/plain"), params[0].getCategory());
+            RequestBody title = RequestBody.create(MediaType.parse("text/plain"), params[0].getTitle());
+            RequestBody description = RequestBody.create(MediaType.parse("text/plain"), params[0].getDescription());
+            Call<SingleReport> call = client.submitReport("0", image, category, title, description);
+            call.enqueue(new Callback<SingleReport>() {
+                @Override
+                public void onResponse(Call<SingleReport> call, Response<SingleReport> response) {
+
+                }
+
+                @Override
+                public void onFailure(Call<SingleReport> call, Throwable t) {
+
+                }
+            });
 
             return null;
         }
@@ -269,10 +269,10 @@ public class ActivityRegisterComplaint extends Activity {
                     Toast.makeText(ActivityRegisterComplaint.this, "Tell us where the issue is by choosing a location",
                             Toast.LENGTH_SHORT).show();
                 }else if (imageView.getVisibility() != View.VISIBLE) {
-                    AsyncSubmitReport async = new AsyncSubmitReport();
-                    SingleReport report = new SingleReport(category.getText().toString(), title.getText().toString(),
-                            description.getText().toString(), "NoImage", 0);
-                    async.execute(report);
+//                    AsyncSubmitReport async = new AsyncSubmitReport();
+//                    SingleReport report = new SingleReport(category.getText().toString(), title.getText().toString(),
+//                            description.getText().toString(), "NoImage", 0);
+//                    async.execute(report);
                 } else {
                     String saveImage = saveImageInMobile(((BitmapDrawable) imageView.getDrawable()).getBitmap());
                     AsyncSubmitReport async = new AsyncSubmitReport();
@@ -342,19 +342,4 @@ public class ActivityRegisterComplaint extends Activity {
         CropImage.activity(uri)
                 .start(this);
     }
-//
-//    private void setUnderLines(){
-//        SpannableString spannableString = new SpannableString("*Title");
-//        spannableString.setSpan(new UnderlineSpan(), 1, 6, 0);
-//        titleText.setText(spannableString);
-//        spannableString = new SpannableString("*Description");
-//        spannableString.setSpan(new UnderlineSpan(), 1, 12, 0);
-//        descriptionText.setText(spannableString);
-//        spannableString = new SpannableString("*Location");
-//        spannableString.setSpan(new UnderlineSpan(), 1 , 9, 0);
-//        locationText.setText(spannableString);
-//        spannableString = new SpannableString("Image");
-//        spannableString.setSpan(new UnderlineSpan(),0,5,0);
-//        imageText.setText(spannableString);
-//    }
 }

@@ -82,7 +82,7 @@ public class StoryRecyclerViewAdapter extends RecyclerView.Adapter<StoryRecycler
                         into(holder.storyImage).getSize(new SizeReadyCallback() {
                     @Override
                     public void onSizeReady(int width, int height) {
-                        height = (int) (width/1.6);
+//                        height = (int) (width/1.6);
                         LinearLayout.LayoutParams lp= new LinearLayout.LayoutParams(width,height);
                         holder.storyImage.setLayoutParams(lp);
                         holder.storyImage.requestLayout();
