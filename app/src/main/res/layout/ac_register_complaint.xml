@@ -1,7 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
     android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
@@ -38,8 +37,10 @@
     </android.support.v7.widget.Toolbar>
 
     <ScrollView
+        android:background="#ededed"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="fill_parent"
+        >
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -52,7 +53,6 @@
                 android:id="@+id/tvCategoryDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
                 android:padding="8dp"
                 android:text="@string/watersupplyDescription"
                 android:textSize="12sp" />
@@ -62,7 +62,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:background="@drawable/underline"
                 android:text="*Title"
                 android:textStyle="bold" />
 
@@ -71,7 +70,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:background="@null"
+                android:background="@drawable/edittext_bg"
                 android:hint="Give a Title"
                 android:maxLength="100"
                 android:maxLines="1"
@@ -80,8 +79,12 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/border_bottom_line"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:background="@drawable/underline"
                 android:text="*Description"
                 android:textStyle="bold" />
 
@@ -90,19 +93,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:background="@drawable/edittext_border"
-                android:gravity="top"
+                android:background="@drawable/edittext_bg"
                 android:hint="Describe your Grievance"
                 android:maxLines="5"
                 android:minLines="5"
-                android:padding="4dp"
                 android:textSize="16sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_bottom_line"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:background="@drawable/underline"
                 android:text="*Location"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -155,12 +159,15 @@
                     android:layout_margin="8dp"
                     android:src="@drawable/location" />
             </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_bottom_line"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:background="@drawable/underline"
                 android:text="Image"
                 android:textStyle="bold" />
 
@@ -198,13 +205,17 @@
                     android:foregroundGravity="center_vertical"
                     android:src="@drawable/take_pic" />
             </RelativeLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_bottom_line"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:background="@drawable/underline"
                 android:text="Priority"
+                android:id="@+id/tvPriority"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -221,7 +232,7 @@
                     android:layout_gravity="right"
                     android:background="@drawable/border"
                     android:padding="10dp"
-                    android:text="URGENT" />
+                    android:text="URGENT"/>
 
                 <TextView
                     android:id="@+id/tvCanWait"
@@ -231,6 +242,7 @@
                     android:background="@drawable/background_lines"
                     android:padding="10dp"
                     android:text="CAN WAIT"
+                    android:elevation="10dp"
                     android:textColor="@android:color/white" />
             </LinearLayout>
 

@@ -62,7 +62,7 @@ public class ActivityRegisterComplaint extends Activity {
 
 
     private TextView category, locMessage, catDescription, imageHelptext;
-    private TextView urgent, canWait;
+    private TextView urgent, canWait, priority;
 //    private TextView titleText, descriptionText, locationText, imageText;
     private ImageView takePic, but_location, back, staticMap, imageView;
     private EditText title, description;
@@ -231,6 +231,7 @@ public class ActivityRegisterComplaint extends Activity {
 
         urgent = (TextView) findViewById(R.id.tvUrgent);
         canWait = (TextView) findViewById(R.id.tvCanWait);
+        priority = (TextView) findViewById(R.id.tvPriority);
 
         back = (ImageView) findViewById(R.id.ivBack);
 //        upload = (ImageView) findViewById(R.id.ivUploadImage);
@@ -314,6 +315,7 @@ public class ActivityRegisterComplaint extends Activity {
                 int pB = urgent.getPaddingBottom();
                 urgent.setBackgroundResource(R.drawable.background_lines);
                 canWait.setBackgroundResource(R.drawable.border);
+                priority.setText("Priority: Urgent");
                 urgent.setTextColor(getResources().getColor(R.color.white));
                 canWait.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                urgent.setPadding(pL, pT, pR, pB);
@@ -330,6 +332,7 @@ public class ActivityRegisterComplaint extends Activity {
                 int pB = urgent.getPaddingBottom();
                 canWait.setBackgroundResource(R.drawable.background_lines);
                 urgent.setBackgroundResource(R.drawable.border);
+                priority.setText("Priority: Can wait");
                 canWait.setTextColor(getResources().getColor(R.color.white));
                 urgent.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                 urgent.setPadding(pL, pT, pR, pB);
