@@ -43,7 +43,7 @@ public class FragmentFBLogin extends Fragment{
     public interface FBLoginInterface{
         void OnClickSignUp();
         void OnClickSkip();
-        void OnSuccessfulLogin();
+        void OnSuccessfulLogin(AccessToken accessToken);
         void OnCancelLogin();
         void OnLoginError();
     }
@@ -60,7 +60,7 @@ public class FragmentFBLogin extends Fragment{
             //On successful Login
             @Override
             public void onSuccess(LoginResult loginResult) {
-                fbLoginInterface.OnSuccessfulLogin();
+                fbLoginInterface.OnSuccessfulLogin(loginResult.getAccessToken());
             }
 
             //if user clicks back or closes the app

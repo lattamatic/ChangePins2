@@ -9,6 +9,9 @@ import com.facebook.FacebookSdk;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 
+import io.hasura.sdk.Hasura;
+import io.hasura.sdk.ProjectConfig;
+
 /**
  * This is a subclass of {@link Application} used to provide shared objects for this app, such as
  * the {@link Tracker}.
@@ -32,6 +35,14 @@ public class ChangePinsApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        //Facebook Initialization
         FacebookSdk.sdkInitialize(getApplicationContext());
+
+        //Hasura Initialization
+        ProjectConfig config = new ProjectConfig.Builder().setProjectName("batterer83").build();
+        Hasura.setProjectConfig(config)
+                .enableLogs() // not included by default
+                .initialise(this);
+
     }
 }
