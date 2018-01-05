@@ -1,7 +1,5 @@
 package sandeep.city.Fragment;
 
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.app.Fragment;
 import android.os.Bundle;
@@ -14,8 +12,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
 
 import sandeep.city.ChangePinsApplication;
 import sandeep.city.InterfaceOnClickCategory;
@@ -29,7 +25,6 @@ public class FragmentPublicSector extends Fragment {
     private String string;
     private Dialog d;
 	private TextView description;
-    private Tracker mTracker;
     private ChangePinsApplication application;
 	private InterfaceOnClickCategory myInterface;
 
@@ -38,7 +33,6 @@ public class FragmentPublicSector extends Fragment {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
         application = (ChangePinsApplication) getActivity().getApplication();
-        mTracker = application.getDefaultTracker();
 		myInterface = (InterfaceOnClickCategory) getActivity();
 	}
 
@@ -54,21 +48,11 @@ public class FragmentPublicSector extends Fragment {
 
 	//Calls the method in HomeActivity to which this fragment is attached
 	private void clickedCategory(String category, String description){
-		mTracker.send(new HitBuilders.EventBuilder()
-				.setCategory(getString(R.string.views))
-				.setAction(getString(R.string.click))
-				.setLabel(category)
-				.build());
 		myInterface.onClickCategory(category, description);
 	}
 
 
 	private void longClickedCategory(String category, String description){
-		mTracker.send(new HitBuilders.EventBuilder()
-				.setCategory(getString(R.string.views))
-				.setAction(getString(R.string.longclick))
-				.setLabel(category)
-				.build());
 		myInterface.onLongClickCategory(category,description);
 	}
 

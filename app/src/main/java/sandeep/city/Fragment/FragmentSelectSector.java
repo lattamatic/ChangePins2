@@ -7,8 +7,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 
-import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
+
 
 import sandeep.city.ChangePinsApplication;
 import sandeep.city.R;
@@ -18,7 +17,6 @@ public class FragmentSelectSector extends Fragment{
 
 	private ViewIconTitle privateSector;
 	private ViewIconTitle publicSector;
-    Tracker mTracker;
     ChangePinsApplication application;
 	SelectSectorInterface myInterface;
 
@@ -33,7 +31,6 @@ public class FragmentSelectSector extends Fragment{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
         application = (ChangePinsApplication) getActivity().getApplication();
-        mTracker = application.getDefaultTracker();
 		myInterface = (SelectSectorInterface) getActivity();
 	}
 
@@ -46,11 +43,6 @@ public class FragmentSelectSector extends Fragment{
 		privateSector.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				mTracker.send(new HitBuilders.EventBuilder()
-						.setCategory(getString(R.string.views))
-						.setAction(getString(R.string.click))
-						.setLabel(getString(R.string.private_sec))
-						.build());
 
 				myInterface.onClickPrivate();
 			}
@@ -58,11 +50,6 @@ public class FragmentSelectSector extends Fragment{
 		publicSector.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				mTracker.send(new HitBuilders.EventBuilder()
-						.setCategory(getString(R.string.views))
-						.setAction(getString(R.string.click))
-						.setLabel(getString(R.string.public_sec))
-						.build());
 				myInterface.onClickPublic();
 			}
 		});

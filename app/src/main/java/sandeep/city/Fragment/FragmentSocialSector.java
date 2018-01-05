@@ -14,8 +14,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
 
 import sandeep.city.ChangePinsApplication;
 import sandeep.city.InterfaceOnClickCategory;
@@ -33,7 +31,6 @@ public class FragmentSocialSector extends Fragment {
     TextView description;
     Dialog d;
 
-    Tracker mTracker;
     ChangePinsApplication application;
 
     InterfaceOnClickCategory myInterface;
@@ -46,7 +43,6 @@ public class FragmentSocialSector extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         application = (ChangePinsApplication) getActivity().getApplication();
-        mTracker = application.getDefaultTracker();
         myInterface = (InterfaceOnClickCategory) getActivity();
     }
 
@@ -178,20 +174,10 @@ public class FragmentSocialSector extends Fragment {
     }
 
     private void clickedCategory(String category, String description){
-        mTracker.send(new HitBuilders.EventBuilder()
-                .setCategory(getString(R.string.views))
-                .setAction(getString(R.string.click))
-                .setLabel(category)
-                .build());
         myInterface.onClickCategory(category, description);
     }
 
     private void longClickedCategory(String category, String desc){
-        mTracker.send(new HitBuilders.EventBuilder()
-                .setCategory(getString(R.string.views))
-                .setAction(getString(R.string.longclick))
-                .setLabel(category)
-                .build());
 
        myInterface.onLongClickCategory(category,desc);
     }

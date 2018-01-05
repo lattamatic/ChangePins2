@@ -78,7 +78,7 @@ public class StoryRecyclerViewAdapter extends RecyclerView.Adapter<StoryRecycler
 
         switch (position%4){
             case 0:
-                Glide.with(context).load("http://pulitzercenter.org/sites/pulitzercenter.org/files/styles/project_hero_768_x_480/public/nigerscene.jpg?itok=dBfu71Hp").
+                Glide.with(context).load("http://boundary.london/wp-content/uploads/2016/03/bound_rooms_768w_2.1-768x420.jpg").
                         into(holder.storyImage).getSize(new SizeReadyCallback() {
                     @Override
                     public void onSizeReady(int width, int height) {

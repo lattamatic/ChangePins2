@@ -287,14 +287,13 @@ public class ActivityRegisterComplaint extends Activity {
             @Override
             public void onClick(View v) {
                 PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
-                Context context = ActivityRegisterComplaint.this;
                 try {
-                    startActivityForResult(builder.build(context), LOCATION);
+                    startActivityForResult(builder.build(ActivityRegisterComplaint.this), LOCATION);
                 } catch (GooglePlayServicesRepairableException e) {
                     e.printStackTrace();
                 } catch (GooglePlayServicesNotAvailableException e) {
                     e.printStackTrace();
-                    Toast.makeText(context, "Google Play Services not available on this device",
+                    Toast.makeText(ActivityRegisterComplaint.this, "Google Play Services not available on this device",
                             Toast.LENGTH_SHORT).show();
                 }
             }

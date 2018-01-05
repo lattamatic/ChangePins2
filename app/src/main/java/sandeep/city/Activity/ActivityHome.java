@@ -1,15 +1,12 @@
 package sandeep.city.Activity;
 
-import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -26,20 +23,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.HttpMethod;
-import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
-import com.google.android.gms.common.GooglePlayServicesRepairableException;
-import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
@@ -59,26 +48,24 @@ import sandeep.city.Fragment.FragmentPublicSector;
 import sandeep.city.Fragment.FragmentSelectSector;
 import sandeep.city.Fragment.FragmentSocialSector;
 import sandeep.city.InterfaceOnClickCategory;
+import sandeep.city.POJO.UserLoginDetails;
 import sandeep.city.R;
 
 /**
  * Created by sandeep on 25/10/15.
  */
 public class ActivityHome extends AppCompatActivity implements FragmentSelectSector.SelectSectorInterface,
-        InterfaceOnClickCategory, FragmentMyReports.OnClickAddReport{
+        InterfaceOnClickCategory, FragmentMyReports.OnClickAddReport {
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle toggle;
     private ListView drawerList;
-    private String drawer_menu[], Preferences;
+    private String drawer_menu[];
     private ImageView report, buzz, profilePic;
-    private TextView title, profileName, categoryDescription;
+    private TextView title, profileName;
     private Toolbar toolbar;
-    private Tracker mTracker;
-    private ChangePinsApplication application;
-    private SharedPreferences prefs;
-    private SharedPreferences.Editor editor;
     private final int LOCATION = 1;
+    private UserLoginDetails userLoginDetails;
 
     private static final String homeScreen = "Home Screen",
             reports = "Reports",
@@ -92,200 +79,33 @@ public class ActivityHome extends AppCompatActivity implements FragmentSelectSec
 
     private static final int REPORTED_COMPLAINT = 100;
 
-    private GoogleApiClient client;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ac_home);
-        application = (ChangePinsApplication) getApplication();
-        mTracker = application.getDefaultTracker();
-        Preferences = getResources().getString(R.string.user_preferences);
-        prefs = getSharedPreferences(
-                Preferences, Context.MODE_PRIVATE);
-        editor = prefs.edit();
+
+        if (getIntent().getBooleanExtra(("login"), false)) {
+
+        } else {
+            userLoginDetails = new UserLoginDetails();
+            if (getIntent().getStringExtra("loginMethod") == "FB") {
+                getFBLoginUserDetails();
+            } else if (getIntent().getStringExtra("loginMethod") == "Google") {
+                getGoogleLoginUserDetails();
+            }
+        }
 
         initializeViews(); //instatiating the views
-        //ActionBar related
-        setSupportActionBar(toolbar);
-        final ActionBar ab = getSupportActionBar();
-        ab.setHomeAsUpIndicator(R.drawable.drawer_icon);
-        ab.setDisplayHomeAsUpEnabled(true);
-        title.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!getFragmentManager().findFragmentByTag(homeScreen).isVisible()) {
-                    popAFragment(homeScreen);
-                }
-            }
-        });
-        report.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mTracker.send(new HitBuilders.EventBuilder()
-                        .setCategory(getString(R.string.views))
-                        .setAction(getString(R.string.click))
-                        .setLabel(getString(R.string.report))
-                        .build());
-                popAFragment(selectSector);
-            }
-        });
-        buzz.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mTracker.send(new HitBuilders.EventBuilder()
-                        .setCategory(getString(R.string.views))
-                        .setAction(getString(R.string.click))
-                        .setLabel(getString(R.string.buzz))
-                        .build());
-                popAFragment(buz);
-            }
-        });
-
-        //Drawer related
-        toggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.app_name, R.string.app_name);
-        mDrawerLayout.setDrawerListener(toggle);
-        drawer_menu = getResources().getStringArray(
-                R.array.nav_drawer_list_menu);
-        drawerList.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, drawer_menu));
-        drawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                switch (position) {
-                    case 0:
-                        popAFragment(homeScreen);
-                        break;
-                    case 1:
-                        popAFragment(reports);
-                        break;
-                    case 2:
-                        popAFragment(places);
-                        break;
-                    case 3:
-                        popAFragment(about);
-                        break;
-                    case 4:
-                        popAFragment(help);
-                        break;
-                    case 5:
-                        Intent i = new Intent(ActivityHome.this, ActivityFBLogin.class);
-                        startActivity(i);
-                        finish();
-                        break;
-                }
-                mDrawerLayout.closeDrawers();
-            }
-        });
+        setUpActionBar();  //Set up Action bar and the icons
+        setOnClickListeners(); //Set on click listeners to all the clickables
+        setUpNavigationDrawer(); //Set up Navigation drawer
 
         //Adding fragment to activity
         popAFragment(privateSector);
         popAFragment(publicSector);
         popAFragment(homeScreen);
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
-
-        if (AccessToken.getCurrentAccessToken() != null) {
-            GraphRequest request = GraphRequest.newMeRequest(
-                    AccessToken.getCurrentAccessToken(),
-                    new GraphRequest.GraphJSONObjectCallback() {
-                        @Override
-                        public void onCompleted(
-                                JSONObject object,
-                                GraphResponse response) {
-                            // Application code
-                            try {
-                                profileName.setText(object.getString("name"));
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    });
-            Bundle parameters = new Bundle();
-            parameters.putString("fields", "id,name,link, email, location, birthday, gender");
-            request.setParameters(parameters);
-            request.executeAsync();
-
-            Bundle params = new Bundle();
-            params.putBoolean("redirect", false);
-            params.putInt("height", 100);
-            params.putInt("width", 100);
-            new GraphRequest(
-                    AccessToken.getCurrentAccessToken(),
-                    "/" + AccessToken.getCurrentAccessToken().getUserId() + "/picture",
-                    params,
-                    HttpMethod.GET,
-                    new GraphRequest.Callback() {
-                        public void onCompleted(GraphResponse response) {
-                                /* handle the result */
-                            if (response != null) {
-                                Log.d("response image", response.toString());
-                                try {
-                                    JSONObject data = response.getJSONObject().getJSONObject("data");
-                                    Log.d("data", data.toString());
-                                    if (data.has("url")) {
-                                        String profilePicUrl = data.getString("url");
-                                        Glide.with(ActivityHome.this).load(profilePicUrl).
-                                                into(profilePic);
-                                    }
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                            } else {
-                                Log.d("fb response image", "null");
-                            }
-                        }
-                    }
-            ).executeAsync();
-        }
-        else{
-            Toast.makeText(this,"Not logged into FB",Toast.LENGTH_SHORT).show();
-        }
     }
 
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client.connect();
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "Home Page", // TODO: Define a category for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app deep link URI is correct.
-                Uri.parse("android-app://sandeep.city/http/host/path")
-        );
-        AppIndex.AppIndexApi.start(client, viewAction);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "Home Page", // TODO: Define a category for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app deep link URI is correct.
-                Uri.parse("android-app://sandeep.city/http/host/path")
-        );
-        AppIndex.AppIndexApi.end(client, viewAction);
-        client.disconnect();
-    }
 
     //Closes if Navigation Drawer is in open state
     //If the current fragment is homescreen, closes the activity
@@ -314,8 +134,8 @@ public class ActivityHome extends AppCompatActivity implements FragmentSelectSec
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode==RESULT_OK){
-            switch (requestCode){
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
                 case REPORTED_COMPLAINT:
                     popAFragment(homeScreen);
                     break;
@@ -324,7 +144,6 @@ public class ActivityHome extends AppCompatActivity implements FragmentSelectSec
                     LatLng ll = place.getLatLng();
                     double lat = ll.latitude;
                     double lon = ll.longitude;
-
                     break;
             }
         }
@@ -360,7 +179,7 @@ public class ActivityHome extends AppCompatActivity implements FragmentSelectSec
 
     @Override
     public void onLongClickCategory(String category, String content) {
-        DialogCategoryDescription dcd = new DialogCategoryDescription(this, category,content);
+        DialogCategoryDescription dcd = new DialogCategoryDescription(this, category, content);
         dcd.show();
     }
 
@@ -371,10 +190,10 @@ public class ActivityHome extends AppCompatActivity implements FragmentSelectSec
     }
 
     //This method lays the fragment on click of something
-    private void popAFragment(String fragment){
+    private void popAFragment(String fragment) {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         Fragment fragment1 = null;
-        switch (fragment){
+        switch (fragment) {
             case homeScreen:
                 fragment1 = new FragmentHomeScreen();
                 break;
@@ -403,22 +222,185 @@ public class ActivityHome extends AppCompatActivity implements FragmentSelectSec
                 fragment1 = new FragmentPublicSector();
                 break;
         }
-        transaction.replace(R.id.fragment,fragment1,fragment);
+        transaction.replace(R.id.fragment, fragment1, fragment);
         transaction.addToBackStack(fragment);
         transaction.commitAllowingStateLoss();
     }
 
-
     //initializes UI elements
-    private void initializeViews(){
+    private void initializeViews() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerList = (ListView) findViewById(R.id.list_slidermenu);
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        title = (TextView) findViewById(R.id.tvTitle);
         report = (ImageView) findViewById(R.id.ivReport);
         buzz = (ImageView) findViewById(R.id.ivBuzz);
+
         profilePic = (ImageView) findViewById(R.id.ivProfilepic);
-        title = (TextView) findViewById(R.id.tvTitle);
         profileName = (TextView) findViewById(R.id.tvProfileName);
     }
 
+    //Updates UI with user details after login
+    private void setUserLoginDetails(UserLoginDetails userLoginDetails) {
+        profileName.setText(userLoginDetails.getName());
+        Glide.with(ActivityHome.this).load(userLoginDetails.getImage()).
+                into(profilePic);
+    }
+
+    //Sets up Actionbar
+    private void setUpActionBar() {
+        setSupportActionBar(toolbar);
+        final ActionBar ab = getSupportActionBar();
+        ab.setHomeAsUpIndicator(R.drawable.drawer_icon);
+        ab.setDisplayHomeAsUpEnabled(true);
+    }
+
+    //Sets On click listeners to the icons in the Homescreen
+    private void setOnClickListeners() {
+        title.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!getFragmentManager().findFragmentByTag(homeScreen).isVisible()) {
+                    popAFragment(homeScreen);
+                }
+            }
+        });
+        report.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popAFragment(selectSector);
+            }
+        });
+        buzz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popAFragment(buz);
+            }
+        });
+    }
+
+    //Sets up the Navigation drawer
+    private void setUpNavigationDrawer() {
+        toggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.app_name, R.string.app_name);
+        mDrawerLayout.setDrawerListener(toggle);
+        drawer_menu = getResources().getStringArray(
+                R.array.nav_drawer_list_menu);
+        drawerList.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, drawer_menu));
+        drawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                switch (position) {
+                    case 0:
+                        popAFragment(homeScreen);
+                        break;
+                    case 1:
+                        popAFragment(reports);
+                        break;
+                    case 2:
+                        popAFragment(places);
+                        break;
+                    case 3:
+                        popAFragment(about);
+                        break;
+                    case 4:
+                        popAFragment(help);
+                        break;
+                    case 5:
+                        Intent i = new Intent(ActivityHome.this, ActivityLogin.class);
+                        startActivity(i);
+                        finish();
+                        break;
+                }
+                mDrawerLayout.closeDrawers();
+            }
+        });
+    }
+
+    private void getFBLoginUserDetails() {
+        if (AccessToken.getCurrentAccessToken() != null) {
+            GraphRequest request = GraphRequest.newMeRequest(
+                    AccessToken.getCurrentAccessToken(),
+                    new GraphRequest.GraphJSONObjectCallback() {
+                        @Override
+                        public void onCompleted(
+                                JSONObject object,
+                                GraphResponse response) {
+                            // Application code
+                            try {
+                                userLoginDetails.setName(object.getString("name"));
+                            } catch (JSONException e) {
+                                userLoginDetails.setName("Not Found");
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+            Bundle parameters = new Bundle();
+            parameters.putString("fields", "id,name,link, email, location, birthday, gender");
+            request.setParameters(parameters);
+            request.executeAsync();
+
+            Bundle params = new Bundle();
+            params.putBoolean("redirect", false);
+            params.putInt("height", 100);
+            params.putInt("width", 100);
+            new GraphRequest(
+                    AccessToken.getCurrentAccessToken(),
+                    "/" + AccessToken.getCurrentAccessToken().getUserId() + "/picture",
+                    params,
+                    HttpMethod.GET,
+                    new GraphRequest.Callback() {
+                        public void onCompleted(GraphResponse response) {
+                                /* handle the result */
+                            if (response != null) {
+                                Log.d("response image", response.toString());
+                                try {
+                                    JSONObject data = response.getJSONObject().getJSONObject("data");
+                                    Log.d("data", data.toString());
+                                    if (data.has("url")) {
+                                        String profilePicUrl = data.getString("url");
+                                        userLoginDetails.setImage(profilePicUrl);
+                                    }
+                                } catch (Exception e) {
+                                    //TODO
+                                    //Add dummy profile pic URL here
+                                    userLoginDetails.setImage("http://100-pics.info/data/213/53159d34941c4.jpg");
+                                    e.printStackTrace();
+                                }
+                                setUserLoginDetails(userLoginDetails);
+                            } else {
+                                Log.d("fb response image", "null");
+                            }
+                        }
+                    }
+            ).executeAsync();
+        } else {
+            Toast.makeText(this, "Not logged into FB", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void getGoogleLoginUserDetails() {
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+        if (acct != null) {
+            String personName = acct.getDisplayName();
+            String personGivenName = acct.getGivenName();
+            String personFamilyName = acct.getFamilyName();
+            String personEmail = acct.getEmail();
+            String personId = acct.getId();
+            Uri personPhoto = acct.getPhotoUrl();
+
+            userLoginDetails.setName(personPhoto.toString());
+            userLoginDetails.setEmail(personEmail);
+            userLoginDetails.setImage(personPhoto.toString());
+        } else {
+            userLoginDetails.setName("Not Found");
+            userLoginDetails.setImage("http://100-pics.info/data/213/53159d34941c4.jpg");
+        }
+
+        setUserLoginDetails(userLoginDetails);
+
+
+    }
 }

@@ -7,25 +7,44 @@
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@android:color/white"
-        android:orientation="vertical">
+        android:background="@android:color/white">
 
 
-        <com.facebook.login.widget.LoginButton
-            android:id="@+id/login_button"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/llButtons"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:clickable="false"
-            android:src="@drawable/login_fb" />
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <com.facebook.login.widget.LoginButton
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:id="@+id/bFbLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:src="@drawable/login_fb" />
+
+
+            <com.google.android.gms.common.SignInButton
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:id="@+id/bGoogleLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/bFbLogin"
+                android:layout_centerHorizontal="true" />
+        </LinearLayout>
 
 
         <TextView
             android:id="@+id/tvSignup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/login_button"
+            android:layout_below="@+id/llButtons"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="72dp"
             android:background="@drawable/border"

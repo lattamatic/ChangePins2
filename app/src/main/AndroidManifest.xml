@@ -5,8 +5,8 @@
     android:versionName="1.1">
 
     <uses-sdk
-        android:minSdkVersion="14"
-        android:targetSdkVersion="21" />
+        android:minSdkVersion="16"
+        android:targetSdkVersion="24" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -25,15 +25,18 @@
         android:theme="@style/AppTheme.NoActionBar"
         android:title="ChangePins">
 
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyC3RqIGk2Xi0AOkPDnRWd1wiuckFjE5j74" />
+        <!--<meta-data-->
+            <!--android:name="com.google.android.geo.API_KEY"-->
+            <!--android:value="AIzaSyC3RqIGk2Xi0AOkPDnRWd1wiuckFjE5j74" />-->
+
+        <!--<meta-data-->
+            <!--android:name="com.google.android.gms.version"-->
+            <!--android:value="@integer/google_play_services_version" />-->
+        <!---->
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/app_id" />
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
+
 
 
         <activity
@@ -59,7 +62,7 @@
             android:theme="@style/Theme.AppCompat.Dialog"/>
 
         <activity
-            android:name=".Activity.ActivityFBLogin"
+            android:name=".Activity.ActivityLogin"
             android:icon="@drawable/icon"
             android:label="@string/app_name"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />

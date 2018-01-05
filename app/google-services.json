@@ -1,1 +1,87 @@
-{"project_info":{"project_id":"api-project-965920745771","project_number":"965920745771","name":"API Project"},"client":[{"client_info":{"mobilesdk_app_id":"1:965920745771:android:53e94fdb5a28213a","client_id":"android:sandeep.city","client_type":1,"android_client_info":{"package_name":"sandeep.city"}},"oauth_client":[],"api_key":[],"services":{"analytics_service":{"status":2,"analytics_property":{"tracking_id":"UA-69498913-1"}},"cloud_messaging_service":{"status":1,"apns_config":[]},"appinvite_service":{"status":1,"other_platform_oauth_client":[]},"google_signin_service":{"status":1},"ads_service":{"status":1}}}],"client_info":[],"ARTIFACT_VERSION":"1"}
+{
+  "project_info": {
+    "project_number": "301544851677",
+    "project_id": "changepins-163605"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:301544851677:android:53e94fdb5a28213a",
+        "android_client_info": {
+          "package_name": "sandeep.city"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "301544851677-gj4nh9qv5k6r9bnm78gnj1ap43a9smie.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "301544851677-52qacjtc599b7slchbc1ckk1cbmcradk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "sandeep.city",
+            "certificate_hash": "4bc9fde32e927cdd722466ccb0eb1df0239b440d"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFINYISlZjs_uhxcrwuItQXpG7TrawEQY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:301544851677:android:167c318f8abcf3d2",
+        "android_client_info": {
+          "package_name": "sandeep.city.Activity"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "301544851677-tpd0kvqksomla8vspgfniveg5902a4v2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "sandeep.city.Activity",
+            "certificate_hash": "4bc9fde32e927cdd722466ccb0eb1df0239b440d"
+          }
+        },
+        {
+          "client_id": "301544851677-gj4nh9qv5k6r9bnm78gnj1ap43a9smie.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFINYISlZjs_uhxcrwuItQXpG7TrawEQY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

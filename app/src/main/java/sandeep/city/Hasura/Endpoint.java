@@ -7,7 +7,7 @@ package sandeep.city.Hasura;
 public class Endpoint {
 
     public static final String AUTH_URL = "https://auth.batterer83.hasura-app.io";
-    public static final String DB_URL = "https://data.battarer83.hasura-app.io";
+    public static final String DB_URL = "https://data.batterer83.hasura-app.io";
     public static final String VERSION = "v1";
 
     public static final String LOGIN = "login";
